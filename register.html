@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrasi IRA - Internet Rakyat</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <!-- Google Fonts: Be Vietnam Pro & Figtree -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #d90429;
+      --primary-dark: #b80020;
+      --navy: #0b1a30;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --slate-800: #1e293b;
+      --font-main: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--slate-800);
+      background: radial-gradient(circle at 65% 35%, #ef0000 0%, #d80000 45%, #8d0000 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ================= NAVBAR ================= */
+    .nav-wrapper {
+      position: relative;
+      width: 100%;
+      padding: 20px 20px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+    }
+
+    .navbar-pill {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 999px;
+      padding: 8px 12px 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      width: 100%;
+      max-width: 920px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-text .top {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      color: var(--primary);
+    }
+
+    .brand-text .bottom {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--slate-800);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--slate-800);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn-login-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 8px 18px 8px 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(217, 4, 41, 0.35);
+      transition: transform 0.18s, background-color 0.18s;
+    }
+
+    .btn-login-pill:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .user-icon-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    /* ================= MAIN WRAPPER ================= */
+    main {
+      flex: 1;
+      padding: 30px 20px 70px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Subtle Radar Signal Waves */
+    .signal-arcs {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1200px;
+      height: 1200px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .arc {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+    }
+    .arc.a1 { width: 450px; height: 450px; }
+    .arc.a2 { width: 850px; height: 850px; }
+
+    /* Page Heading */
+    .regis-title {
+      color: #ffffff;
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Stepper Pill */
+    .stepper-pill {
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 8px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stepper-label {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--slate-800);
+    }
+
+    .stepper-dots {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #ffffff;
+      background: #e2e8f0;
+      transition: all 0.2s;
+    }
+
+    .step-dot.active {
+      background: var(--primary);
+      box-shadow: 0 2px 8px rgba(217, 4, 41, 0.35);
+    }
+
+    .step-dot.done {
+      background: #15803d;
+    }
+
+    .step-line {
+      width: 22px;
+      height: 2px;
+      background: #e2e8f0;
+    }
+
+    /* ================= REGISTRATION MAIN CARD ================= */
+    .regis-card {
+      width: 100%;
+      max-width: 960px;
+      background: #c8001d;
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      border: 6px solid rgba(255, 255, 255, 0.15);
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Left Side: Model & Speech Bubble */
+    .regis-left {
+      position: relative;
+      padding: 30px 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    /* Speech Bubble */
+    .speech-bubble {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 14px 18px;
+      max-width: 280px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      top: 36px;
+      right: 20px;
+      z-index: 5;
+    }
+
+    .speech-bubble p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--slate-800);
+      font-weight: 500;
+    }
+
+    .speech-bubble p strong {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 24px;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid #ffffff;
+    }
+
+    .girl-visual {
+      width: 100%;
+      max-width: 320px;
+      margin-top: 80px;
+      z-index: 2;
+    }
+
+    .girl-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
+    }
+
+    /* Right Side: White Inner Card */
+    .regis-right {
+      background: #ffffff;
+      border-radius: 24px;
+      margin: 12px;
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 22px;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 6px;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      background: #f9fafb;
+      font-size: 14.5px;
+      font-family: inherit;
+      color: var(--slate-800);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .field-input:focus {
+      border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .error-msg {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-msg.visible {
+      display: block;
+    }
+
+    /* Input with Action Button (Voucher & OTP) */
+    .input-action-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-action-inline {
+      flex-shrink: 0;
+      padding: 0 20px;
+      height: 48px;
+      border-radius: 10px;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-action-inline:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-action-inline.secondary {
+      background: #708b9f;
+    }
+
+    .btn-action-inline.secondary:hover {
+      background: #486581;
+    }
+
+    /* 6 OTP Boxes */
+    .otp-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .otp-box {
+      width: 44px;
+      height: 48px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      background: #f9fafb;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .otp-box:focus {
+      border-color: var(--primary);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.15);
+    }
+
+    .otp-dash {
+      font-size: 18px;
+      font-weight: 800;
+      color: #94a3b8;
+    }
+
+    .otp-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-top: 6px;
+    }
+
+    .otp-status.verified {
+      color: #15803d;
+    }
+
+    .btn-submit-regis {
+      width: 100%;
+      height: 50px;
+      margin-top: 18px;
+      border-radius: 10px;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(217, 4, 41, 0.35);
+      transition: all 0.2s;
+    }
+
+    .btn-submit-regis:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .login-helper {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--slate-600);
+    }
+
+    .login-helper a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .login-helper a:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal Success / Coverage Result */
+    .success-alert {
+      display: none;
+      padding: 16px;
+      border-radius: 12px;
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      color: #15803d;
+      margin-top: 14px;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      background: #ffffff;
+      padding: 40px 5% 24px;
+      font-size: 13px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.1fr 1fr 1fr;
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .footer-col p {
+      color: var(--slate-600);
+      line-height: 1.6;
+    }
+
+    .store-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .store-badges img {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--slate-100);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--slate-600);
+      font-size: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .regis-card {
+        grid-template-columns: 1fr;
+      }
+      .regis-left {
+        display: none;
+      }
+      .regis-right {
+        margin: 0;
+        border-radius: 22px;
+        padding: 24px 20px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .nav-links {
+        display: none;
+      }
+      .otp-box {
+        width: 36px;
+        height: 44px;
+        font-size: 16px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= FLOATING NAVBAR ================= -->
+  <header class="nav-wrapper">
+    <div class="navbar-pill">
+      <a href="index.html" class="brand" aria-label="Internet Rakyat Beranda">
+        <svg viewBox="0 0 64 64" width="36" height="36">
+          <circle cx="32" cy="32" r="32" fill="#d90429"/>
+          <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+        </svg>
+        <div class="brand-text">
+          <span class="top">internet</span>
+          <span class="bottom">rakyat</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html#keunggulan">Keunggulan</a>
+        <a href="index.html#apps">Apps</a>
+        <a href="index.html#faq">FAQ</a>
+      </nav>
+
+      <a href="login.html" class="btn-login-pill" title="Sudah punya akun? Login di sini">
+        <span>Login</span>
+        <div class="user-icon-badge">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= MAIN REGISTRATION ================= -->
+  <main>
+    <div class="signal-arcs" aria-hidden="true">
+      <div class="arc a1"></div>
+      <div class="arc a2"></div>
+    </div>
+
+    <h1 class="regis-title">Registrasi IRA</h1>
+
+    <!-- Stepper Indicator -->
+    <div class="stepper-pill">
+      <span class="stepper-label" id="stepLabel">Tahap 1 dari 3</span>
+      <div class="stepper-dots">
+        <div class="step-dot active" id="dot1" title="Data Pribadi">1</div>
+        <div class="step-line" id="line1"></div>
+        <div class="step-dot" id="dot2" title="Cek Lokasi">2</div>
+        <div class="step-line" id="line2"></div>
+        <div class="step-dot" id="dot3" title="Pilih Paket">3</div>
+      </div>
+    </div>
+
+    <!-- Main Card Container -->
+    <div class="regis-card">
+
+      <!-- Kolom Kiri: Visual Model & Speech Bubble -->
+      <div class="regis-left">
+        <div class="speech-bubble">
+          <p>
+            <strong>Isi data dulu ya</strong>, supaya kami bisa <strong>cek dan proses pemasangan Internet Rakyat</strong> di rumahmu.
+          </p>
+        </div>
+        <div class="girl-visual">
+          <img src="assets/images/girl_model.png" alt="Petugas Layanan Internet Rakyat">
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Form Pendaftaran -->
+      <div class="regis-right">
+        <div id="stepContent1">
+          <h2 class="form-title">Silakan Isi Data Pribadi Kamu</h2>
+
+          <form id="regisForm" onsubmit="handleNextStep(event)">
+            <!-- Nama Lengkap -->
+            <div class="form-field">
+              <label class="field-label" for="regNama">Nama Lengkap*</label>
+              <input type="text" id="regNama" class="field-input" placeholder="Nama Lengkap" required value="Ikhda">
+              <span class="error-msg" id="errNama">Nama Lengkap wajib diisi.</span>
+            </div>
+
+            <!-- Email (Opsional) -->
+            <div class="form-field">
+              <label class="field-label" for="regEmail">Email (Opsional)</label>
+              <input type="email" id="regEmail" class="field-input" placeholder="user@mail.com" value="ikhda@internetrakyat.id">
+            </div>
+
+            <!-- Kode Voucher (Opsional) -->
+            <div class="form-field">
+              <label class="field-label" for="regVoucher">Kode Voucher (Opsional)</label>
+              <div class="input-action-row">
+                <input type="text" id="regVoucher" class="field-input" placeholder="Masukkan Kode Voucher" value="IRAPROMO50">
+                <button type="button" class="btn-action-inline" onclick="applyVoucher()">Pakai</button>
+              </div>
+              <span id="voucherMsg" style="font-size:12px;color:#15803d;display:none;margin-top:4px;font-weight:600">✓ Voucher hemat Rp 50.000 berhasil digunakan!</span>
+            </div>
+
+            <!-- Nomor Handphone* -->
+            <div class="form-field">
+              <label class="field-label" for="regPhone">Nomor Handphone*</label>
+              <div class="input-action-row">
+                <input type="tel" id="regPhone" class="field-input" placeholder="contoh: 08123456789" required value="08123456789">
+                <button type="button" class="btn-action-inline secondary" id="btnSendOtp" onclick="sendOtp()">Kirim OTP</button>
+              </div>
+              <span class="error-msg" id="errPhone">Nomor Ponsel wajib diisi.</span>
+            </div>
+
+            <!-- Masukkan OTP -->
+            <div class="form-field">
+              <label class="field-label">Masukkan OTP yang dikirim via Whatsapp atau SMS*</label>
+              <div class="otp-wrapper">
+                <input type="text" class="otp-box" maxlength="1" value="1" id="otp1" oninput="moveOtp(this, 'otp2')">
+                <input type="text" class="otp-box" maxlength="1" value="2" id="otp2" oninput="moveOtp(this, 'otp3')">
+                <input type="text" class="otp-box" maxlength="1" value="3" id="otp3" oninput="moveOtp(this, 'otp4')">
+                <span class="otp-dash">-</span>
+                <input type="text" class="otp-box" maxlength="1" value="4" id="otp4" oninput="moveOtp(this, 'otp5')">
+                <input type="text" class="otp-box" maxlength="1" value="5" id="otp5" oninput="moveOtp(this, 'otp6')">
+                <input type="text" class="otp-box" maxlength="1" value="6" id="otp6" oninput="checkOtpFull()">
+              </div>
+              <div class="otp-status verified" id="otpStatus">
+                <span>✓ OTP Berhasil Terverifikasi</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit-regis" id="btnNext">
+              Selanjutnya
+            </button>
+
+            <p class="login-helper">
+              Sudah punya akun pelanggan? <a href="login.html">Login disini</a>
+            </p>
+
+            <div class="success-alert" id="successBox">
+              🎉 <strong>Registrasi Berhasil Diproses!</strong><br>
+              Data pemasangan Anda sedang diverifikasi teknisi. Anda langsung dialihkan ke Area Pelanggan...
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Address</h4>
+        <p><strong>PT. Telemedia Komunikasi Pratama</strong></p>
+        <p>Jalan Tiang Bendera V No.20 Roa Malaka, Tambora, Jakarta Barat</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Business Contact</h4>
+        <p>📞 +6281110689111</p>
+        <p>✉️ cs@internetrakyat.id</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Download Aplikasi IRA</h4>
+        <div class="store-badges">
+          <img src="assets/images/google_play.png" alt="Google Play">
+          <img src="assets/images/app_store.png" alt="App Store">
+        </div>
+      </div>
+
+      <div class="footer-col" style="display:flex;align-items:flex-end;justify-content:flex-end">
+        <div style="display:flex;align-items:center;gap:10px">
+          <svg viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="32" r="32" fill="#d90429"/>
+            <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+          </svg>
+          <div class="brand-text">
+            <span class="top">internet</span>
+            <span class="bottom">rakyat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>Copyright &copy; 2026 PT. Telemedia Komunikasi Pratama. All rights reserved.</p>
+      <span style="color:#94a3b8">UI/UX Course Project: Form Registrasi Alur Pemasangan Baru</span>
+    </div>
+  </footer>
+
+  <script>
+    function applyVoucher() {
+      const code = document.getElementById('regVoucher').value.trim();
+      const msg = document.getElementById('voucherMsg');
+      if (code) {
+        msg.style.display = 'block';
+        msg.innerText = `✓ Voucher "${code}" aktif! Hemat Rp 50.000 untuk tagihan awal.`;
+      }
+    }
+
+    function sendOtp() {
+      const phone = document.getElementById('regPhone').value.trim();
+      const btn = document.getElementById('btnSendOtp');
+      if (!phone) {
+        document.getElementById('errPhone').classList.add('visible');
+        return;
+      }
+      document.getElementById('errPhone').classList.remove('visible');
+      btn.disabled = true;
+      btn.innerText = 'Mengirim...';
+
+      setTimeout(() => {
+        btn.innerText = 'Terkirim ✓';
+        document.getElementById('otp1').value = '1';
+        document.getElementById('otp2').value = '2';
+        document.getElementById('otp3').value = '3';
+        document.getElementById('otp4').value = '4';
+        document.getElementById('otp5').value = '5';
+        document.getElementById('otp6').value = '6';
+
+        const status = document.getElementById('otpStatus');
+        status.className = 'otp-status verified';
+        status.innerHTML = '<span>✓ OTP Berhasil Diverifikasi (Kode Demo: 123456)</span>';
+      }, 600);
+    }
+
+    function moveOtp(current, nextId) {
+      if (current.value.length >= 1 && nextId) {
+        document.getElementById(nextId).focus();
+      }
+      checkOtpFull();
+    }
+
+    function checkOtpFull() {
+      let full = '';
+      for (let i = 1; i <= 6; i++) {
+        full += document.getElementById('otp' + i).value;
+      }
+      const status = document.getElementById('otpStatus');
+      if (full.length === 6) {
+        status.className = 'otp-status verified';
+        status.innerHTML = '<span>✓ OTP Berhasil Terverifikasi</span>';
+      } else {
+        status.className = 'otp-status';
+        status.innerHTML = '<span>❗ OTP belum terverifikasi</span>';
+      }
+    }
+
+    function handleNextStep(e) {
+      e.preventDefault();
+      const btnNext = document.getElementById('btnNext');
+      btnNext.disabled = true;
+      btnNext.innerText = 'Menyimpan & Menyiapkan Akun...';
+
+      const success = document.getElementById('successBox');
+      success.style.display = 'block';
+
+      // Update stepper indicator to step 2 & 3
+      document.getElementById('stepLabel').innerText = 'Tahap 2 dari 3 (Lokasi Terverifikasi)';
+      document.getElementById('dot1').className = 'step-dot done';
+      document.getElementById('dot2').className = 'step-dot active';
+      document.getElementById('line1').style.background = '#15803d';
+
+      setTimeout(() => {
+        document.getElementById('stepLabel').innerText = 'Tahap 3 dari 3 (Akun Siap Digunakan)';
+        document.getElementById('dot2').className = 'step-dot done';
+        document.getElementById('dot3').className = 'step-dot done';
+        document.getElementById('line2').style.background = '#15803d';
+
+        setTimeout(() => {
+          // Direct to dashboard
+          window.location.href = 'dashboard.html';
+        }, 1000);
+      }, 1200);
+    }
+  </script>
+</body>
+</html>

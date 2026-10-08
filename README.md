@@ -11,6 +11,7 @@ c:\internet rakyat\
 │
 ├── index.html                  # Landing Page resmi (Promo Vidio, modem IRA, tombol Login)
 ├── login.html                  # Portal Login IRA (Form nomor HP & footer PT Telemedia)
+├── register.html               # Form Registrasi IRA (3-step onboarding & verifikasi OTP)
 ├── dashboard.html              # Area Pelanggan (Dashboard solusi tugas UI/UX: Diagnostik & WiFi)
 ├── README.md                   # Dokumentasi proyek & analisis UI/UX lengkap
 ├── favicon.svg                 # Root browser favicon
