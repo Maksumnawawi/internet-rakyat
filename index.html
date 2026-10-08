@@ -3,457 +3,884 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Internet Rakyat - Area Pelanggan</title>
+  <title>Internet Rakyat - Dapatkan Internet Cepat Sepuasnya di Rumah</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-  <link rel="alternate icon" href="favicon.svg" type="image/svg+xml">
 
   <!-- Google Fonts: Be Vietnam Pro & Figtree (Official Internet Rakyat Typography) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    :root {
+      --primary: #d90429;
+      --primary-dark: #b80020;
+      --navy: #0b1a30;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --font-main: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--slate-800);
+      background-color: #ffffff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ================= NAVBAR ================= */
+    .nav-wrapper {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .navbar-pill {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 999px;
+      padding: 8px 12px 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      width: 100%;
+      max-width: 920px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-text .top {
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      color: var(--primary);
+    }
+
+    .brand-text .bottom {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--slate-800);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: var(--slate-800);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn-login-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 8px 18px 8px 22px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(217, 4, 41, 0.35);
+      transition: transform 0.18s, background-color 0.18s, box-shadow 0.18s;
+    }
+
+    .btn-login-pill:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(217, 4, 41, 0.45);
+    }
+
+    .user-icon-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    /* ================= HERO SECTION ================= */
+    .hero-section {
+      position: relative;
+      background-color: #d90429;
+      background-image: url('assets/images/bg_hero.webp');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      min-height: 640px;
+      padding: 130px 5% 70px;
+      color: #ffffff;
+      overflow: hidden;
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Left Column */
+    .region-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 22px;
+    }
+
+    .region-badge .dot-live {
+      width: 9px;
+      height: 9px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .hero-title {
+      font-size: 42px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: -0.6px;
+      margin-bottom: 24px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .pill-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(140, 0, 20, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(6px);
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .vidio-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      color: #1e293b;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 900;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      margin-bottom: 18px;
+    }
+
+    .vidio-badge img {
+      height: 22px;
+      width: auto;
+    }
+
+    .price-block {
+      margin-top: 10px;
+      margin-bottom: 28px;
+    }
+
+    .price-block .sub-label {
+      font-size: 16px;
+      font-weight: 600;
+      opacity: 0.95;
+    }
+
+    .price-block .main-price {
+      font-size: 50px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .price-block .main-price span {
+      font-size: 26px;
+      font-weight: 700;
+      opacity: 0.9;
+    }
+
+    .price-block .promo-info {
+      font-size: 16px;
+      font-weight: 700;
+      opacity: 0.95;
+      margin-top: 4px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn-cta-primary {
+      background: #ffffff;
+      color: var(--primary);
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: all 0.2s;
+    }
+
+    .btn-cta-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      background: #fff8f8;
+    }
+
+    .btn-cta-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.6);
+      color: #ffffff;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+
+    .btn-cta-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Right Column (Visual Showcase) */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .tv-showcase {
+      position: relative;
+      width: 100%;
+      max-width: 490px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      border: 6px solid #1e293b;
+      background: #0f172a;
+    }
+
+    .tv-header {
+      background: #0b1324;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tv-header img {
+      height: 18px;
+    }
+
+    .tv-posters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 8px;
+      background: #020617;
+    }
+
+    .tv-poster-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 2/3;
+      background: #1e293b;
+    }
+
+    .tv-poster-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .tv-poster-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Modem IRA Overlay */
+    .modem-device {
+      position: absolute;
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.5));
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+
+    .modem-device:hover {
+      transform: translateX(-50%) translateY(-6px);
+    }
+
+    .modem-device img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ================= BENEFIT SECTION ================= */
+    .section-benefits {
+      padding: 80px 5% 70px;
+      background: #ffffff;
+      text-align: center;
+    }
+
+    .section-head {
+      max-width: 680px;
+      margin: 0 auto 50px;
+    }
+
+    .section-head h2 {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .section-head p {
+      color: var(--slate-600);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .benefit-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: 16px;
+      padding: 30px 24px;
+      text-align: left;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .benefit-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(217, 4, 41, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: var(--primary);
+    }
+
+    .benefit-card h3 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .benefit-card p {
+      font-size: 14.5px;
+      color: var(--slate-600);
+      line-height: 1.6;
+    }
+
+    /* ================= PORTAL HIGHLIGHT BANNER ================= */
+    .section-portal {
+      padding: 0 5% 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portal-banner {
+      background: linear-gradient(135deg, #0b1a30 0%, #1e293b 100%);
+      border-radius: 24px;
+      padding: 48px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+      box-shadow: 0 16px 40px rgba(11, 26, 48, 0.18);
+    }
+
+    .portal-info h2 {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      letter-spacing: -0.4px;
+    }
+
+    .portal-info p {
+      font-size: 15.5px;
+      color: #cbd5e1;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    .portal-action {
+      flex-shrink: 0;
+    }
+
+    .btn-portal-entry {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 16px 32px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(217, 4, 41, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-portal-entry:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(217, 4, 41, 0.5);
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--slate-100);
+      padding: 50px 5% 30px;
+      font-size: 13.5px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.1fr 1fr 1fr;
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-col h4 {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .footer-col p {
+      color: var(--slate-600);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .store-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .store-badges img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-100);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: var(--slate-600);
+      font-size: 12.5px;
+    }
+
+    /* ================= FLOATING CS BUTTON ================= */
+    .floating-cs {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .floating-cs:hover {
+      transform: scale(1.08);
+    }
+
+    .floating-cs img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-actions, .feature-pills {
+        justify-content: center;
+      }
+      .portal-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar-pill {
+        padding: 6px 10px 6px 16px;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero-title {
+        font-size: 32px;
+      }
+      .price-block .main-price {
+        font-size: 38px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .modem-device {
+        width: 200px;
+        bottom: -20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ==================== HEADER ==================== -->
-  <header>
-    <a class="brand" href="#top" aria-label="Internet Rakyat Beranda">
-      <svg viewBox="0 0 64 64" width="40" height="40">
-        <circle cx="32" cy="32" r="32" fill="#d90429"/>
-        <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-        <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-        <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-        <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-      </svg>
-      <div style="line-height:1.15;display:flex;flex-direction:column">
-        <span style="font-size:17px;font-weight:900;letter-spacing:-.3px;color:#d90429">internet</span>
-        <span style="font-size:14px;font-weight:800;letter-spacing:1px;color:#1e293b;text-transform:uppercase">rakyat</span>
-      </div>
-    </a>
-    <button class="menu-toggle" id="menuBtn" aria-label="Menu Navigasi">☰</button>
-    <nav id="nav">
-      <a href="#top">Beranda</a>
-      <a href="#apps">Bantuan</a>
-      <a href="#paket-terakhir">Perpanjang Paket</a>
-      <button class="btn-area" id="accountBtn" type="button">Area Pelanggan ▾</button>
-    </nav>
+  <!-- ================= FLOATING NAVBAR ================= -->
+  <header class="nav-wrapper">
+    <div class="navbar-pill">
+      <a href="index.html" class="brand" aria-label="Internet Rakyat Beranda">
+        <svg viewBox="0 0 64 64" width="36" height="36">
+          <circle cx="32" cy="32" r="32" fill="#d90429"/>
+          <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+          <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+        </svg>
+        <div class="brand-text">
+          <span class="top">internet</span>
+          <span class="bottom">rakyat</span>
+        </div>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#keunggulan">Keunggulan</a>
+        <a href="#apps">Apps</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <!-- Tombol Login Resmi menuju halaman Login IRA -->
+      <a href="login.html" class="btn-login-pill" title="Masuk ke Area Pelanggan">
+        <span>Login</span>
+        <div class="user-icon-badge">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </div>
+      </a>
+    </div>
   </header>
 
-  <!-- ==================== HERO BANNER ==================== -->
-  <section class="hero">
-    <div class="shard s1"></div>
-    <div class="shard s2"></div>
-    <div class="shard s3"></div>
-    <h1>Area Pelanggan</h1>
+  <!-- ================= HERO SECTION ================= -->
+  <section class="hero-section">
+    <div class="hero-container">
+
+      <!-- Kolom Kiri: Penawaran & Konten -->
+      <div class="hero-content">
+        <div class="region-badge">
+          <span class="dot-live"></span>
+          <span>Sudah aktif di Jawa, Maluku &amp; Papua</span>
+        </div>
+
+        <h1 class="hero-title">
+          Dapatkan Internet Cepat Sepuasnya di Rumah Gratis Nonton Bola &amp; Drama Favorit
+        </h1>
+
+        <div class="feature-pills">
+          <div class="pill-item">
+            <span>♾</span>
+            <span>Quota Unlimited</span>
+          </div>
+          <div class="pill-item">
+            <span>📶</span>
+            <span>Gratis Sewa Modem</span>
+          </div>
+        </div>
+
+        <div class="vidio-badge">
+          <span>Gratis</span>
+          <img src="assets/images/icon_vidio.svg" alt="Vidio" title="Vidio Premier">
+        </div>
+
+        <div class="price-block">
+          <div class="sub-label">Hanya</div>
+          <div class="main-price">Rp 50.000 <span>/bulan</span></div>
+          <div class="promo-info">untuk 2 bulan pertama • Up to 100Mbps</div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="login.html" class="btn-cta-primary">
+            Masuk Area Pelanggan ›
+          </a>
+          <a href="dashboard.html" class="btn-cta-secondary" title="Langsung uji coba prototype tugas UI/UX">
+            ⚡ Quick Demo Dashboard
+          </a>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Visual Perangkat & TV Vidio Asli -->
+      <div class="hero-visual">
+        <div class="tv-showcase">
+          <div class="tv-header">
+            <img src="assets/images/icon_vidio.svg" alt="Vidio Logo">
+            <span style="font-size:12px;color:#94a3b8;font-weight:600">ORIGINAL SERIES &amp; SPORTS</span>
+          </div>
+          <div class="tv-posters">
+            <div class="tv-poster-item">
+              <img src="assets/images/vidio_1.webp" alt="Vidio Tayangan Sepakbola">
+            </div>
+            <div class="tv-poster-item">
+              <img src="assets/images/vidio_2.webp" alt="Vidio Benda Keramat">
+            </div>
+            <div class="tv-poster-item">
+              <img src="assets/images/vidio_3.webp" alt="Vidio Love is a Story">
+            </div>
+          </div>
+        </div>
+
+        <!-- Modem IRA Asli di depan TV -->
+        <div class="modem-device">
+          <img src="assets/images/modem_ira.png" alt="Modem Router ONT Internet Rakyat Asli">
+        </div>
+      </div>
+
+    </div>
   </section>
 
-  <!-- ==================== MAIN CONTENT ==================== -->
-  <main class="wrap" id="top">
+  <!-- ================= KEUNGGULAN SECTION ================= -->
+  <section class="section-benefits" id="keunggulan">
+    <div class="section-head">
+      <h2>Kenapa Pilih Internet Rakyat?</h2>
+      <p>Koneksi internet rumah berkualitas tinggi yang dirancang terjangkau, stabil, dan mudah dikelola sendiri oleh seluruh masyarakat.</p>
+    </div>
 
-    <!-- Profil & Notifikasi -->
-    <div class="profile">
-      <div class="avatar">I</div>
-      <div class="who">
-        <h2>Ikhda</h2>
-        <p>ID: DV765</p>
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <h3>100% Fiber Optik Murni</h3>
+        <p>Kecepatan simetris unduh dan unggah tanpa drop saat hujan, ideal untuk streaming resolusi 4K dan meeting online.</p>
       </div>
-      <div class="notification-wrap">
-        <button class="bell" id="notificationBtn" type="button" aria-label="Notifikasi, 58 pemberitahuan" aria-expanded="false" aria-controls="notificationPanel" title="Buka notifikasi">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22zm7-6v-5a7 7 0 0 0-5-6.7V4a2 2 0 0 0-4 0v.3A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/></svg>
-          <b aria-hidden="true">58</b>
-        </button>
-        <section class="notification-panel" id="notificationPanel" aria-labelledby="notificationTitle" hidden>
-          <h3 id="notificationTitle">Notifikasi Pelanggan</h3>
-          <p>Paket internet aktif. Sisa masa aktif 27 hari.</p>
-          <p>Paket IRA 100 Mbps berakhir pada 01 November 2026.</p>
-        </section>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Benar-benar Tanpa Batas FUP</h3>
+        <p>Bebas kuota sepuasnya tanpa ada penurunan kecepatan di pertengahan bulan. Nikmati internet tanpa was-was kuota habis.</p>
+      </div>
+
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+            <line x1="6" y1="6" x2="6.01" y2="6"/>
+            <line x1="6" y1="18" x2="6.01" y2="18"/>
+          </svg>
+        </div>
+        <h3>Portal Pelanggan Mandiri</h3>
+        <p>Cek kondisi jaringan langsung dan atur kata sandi WiFi rumah Anda secara instan dari ponsel tanpa perlu repot panggil teknisi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BANNER PORTAL PELANGGAN ================= -->
+  <section class="section-portal" id="apps">
+    <div class="portal-banner">
+      <div class="portal-info">
+        <h2>Sudah Berlangganan Internet Rakyat?</h2>
+        <p>Kelola modem rumah Anda, cek status latency jaringan langsung, ubah nama WiFi, dan salin kata sandi hanya dalam sekali klik di Area Pelanggan.</p>
+      </div>
+      <div class="portal-action">
+        <a href="login.html" class="btn-portal-entry">
+          <span>Masuk ke Area Pelanggan</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="faq">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Address</h4>
+        <p><strong>PT. Telemedia Komunikasi Pratama</strong></p>
+        <p>Jalan Tiang Bendera V No.20 Roa Malaka, Tambora, Jakarta Barat</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Business Contact</h4>
+        <p>📞 +6281110689111</p>
+        <p>✉️ cs@internetrakyat.id</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Download Aplikasi IRA</h4>
+        <div class="store-badges">
+          <img src="assets/images/google_play.png" alt="Google Play">
+          <img src="assets/images/app_store.png" alt="App Store">
+        </div>
+      </div>
+
+      <div class="footer-col" style="display:flex;align-items:flex-end;justify-content:flex-end">
+        <div style="display:flex;align-items:center;gap:10px">
+          <svg viewBox="0 0 64 64" width="46" height="46">
+            <circle cx="32" cy="32" r="32" fill="#d90429"/>
+            <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+          </svg>
+          <div class="brand-text">
+            <span class="top">internet</span>
+            <span class="bottom">rakyat</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Tab Navigasi -->
-    <div class="tabs" role="tablist" aria-label="Informasi pelanggan">
-      <button class="tab active" id="tab-paket" role="tab" aria-selected="true" aria-controls="paket" tabindex="0" data-tab="paket">Informasi Paket dan Riwayat</button>
-      <button class="tab" id="tab-pribadi" role="tab" aria-selected="false" aria-controls="pribadi" tabindex="-1" data-tab="pribadi">Data Pribadi</button>
-      <button class="tab" id="tab-perangkat" role="tab" aria-selected="false" aria-controls="perangkat" tabindex="-1" data-tab="perangkat">Informasi Perangkat</button>
+    <div class="footer-bottom">
+      <p>Copyright &copy; 2026 PT. Telemedia Komunikasi Pratama. All rights reserved.</p>
+      <span style="font-size:12px;color:#94a3b8">UI/UX Course Project: Redesign Portal &amp; Area Pelanggan</span>
     </div>
+  </footer>
 
-    <!-- PANEL 1: INFORMASI PAKET & RIWAYAT -->
-    <section class="panel active" id="paket" role="tabpanel" aria-labelledby="tab-paket" tabindex="0">
+  <!-- ================= FLOATING CS MASCOT BUTTON ================= -->
+  <div class="floating-cs" title="Hubungi CS 24/7 Internet Rakyat" onclick="window.open('https://wa.me/', '_blank')">
+    <img src="assets/images/cs_button.png" alt="Customer Service IRA">
+  </div>
 
-      <!-- FITUR 1 (AFTER): LIVE STATUS KONEKSI & INDIKATOR GANGGUAN -->
-      <div class="net-status-card" id="networkStatusBar">
-        <div class="net-status-main">
-          <span class="pulse-dot" id="netPulseDot" aria-hidden="true"></span>
-          <div>
-            <div class="net-status-title">
-              <span id="netStatusTitle">Status Jaringan: Normal &amp; Terhubung</span>
-              <span class="badge-safe" id="netBadgeSafe">🟢 Online</span>
-            </div>
-            <p class="net-status-desc" id="netStatusDesc">Modem ONT fiber aktif. Wilayah Anda bebas dari gangguan massal atau pemeliharaan.</p>
-          </div>
-        </div>
-        <div class="net-metrics">
-          <div class="net-metric-item">
-            <span>Latensi / Ping</span>
-            <strong id="pingVal">14 ms</strong>
-          </div>
-          <div class="net-metric-item">
-            <span>Kecepatan Unduh</span>
-            <strong id="speedVal">98.5 Mbps</strong>
-          </div>
-          <button class="btn-check-net" id="btnCheckNet" type="button" aria-label="Tes ulang status koneksi internet">
-            <span id="checkText">Cek Jaringan</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="grid">
-        <!-- Kolom Kiri -->
-        <div class="stack">
-          <!-- Kartu Paket Aktif -->
-          <div class="card stats">
-            <h3>Paket yang terakhir dibeli</h3>
-            <div class="pkg-row">
-              <div class="pkg-icon" title="Paket Aktif">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#e60000" stroke-width="2.6" stroke-linecap="round">
-                  <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
-                  <line x1="12" y1="2" x2="12" y2="12"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Paket IRA Up To 100 Mbps</strong>
-                <a href="#paket-terakhir">Perpanjang Paket ›</a>
-              </div>
-            </div>
-
-            <div style="margin:12px 0 6px;padding:10px 14px;border-radius:10px;background:var(--green-soft);color:#15803d;font-size:13px;line-height:1.5">
-              🎉 <strong>Selamat Paket IRA Up To 100 Mbps baru kamu sudah aktif!</strong><br>
-              Nikmati Kuota Unlimited dan koneksi stabil selama <strong>27 Hari</strong> ke depan.
-            </div>
-
-            <div class="stat-grid">
-              <div class="stat">
-                <div class="ico">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 2h14v5l-4 5 4 5v5H5v-5l4-5-4-5V2z" fill="rgba(230,0,0,0.12)"/>
-                    <path d="M5 2h14M5 22h14"/>
-                  </svg>
-                </div>
-                <small>Sisa Hari</small>
-                <span class="status-badge"><i aria-hidden="true">✓</i>27 Hari</span>
-              </div>
-              <div class="stat">
-                <div class="ico">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" fill="rgba(230,0,0,0.2)"/>
-                    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" fill="rgba(230,0,0,0.12)"/>
-                    <path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5"/>
-                    <path d="M15 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5"/>
-                  </svg>
-                </div>
-                <small>Kecepatan Paket</small>
-                <span>100Mbps</span>
-              </div>
-              <div class="stat">
-                <div class="ico">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="3" ry="3" fill="rgba(230,0,0,0.08)"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
-                    <circle cx="12" cy="15.5" r="2.2" fill="#e60000" stroke="none"/>
-                  </svg>
-                </div>
-                <small>Tanggal Berakhir Paket</small>
-                <span>01 November 2026</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- FITUR 2 (AFTER): QUICK WIFI MANAGER -->
-          <div class="card wifi-card" id="wifiCard">
-            <div class="card-head-flex">
-              <div>
-                <h3>Kelola WiFi Rumah</h3>
-                <p style="color:var(--muted);font-size:13px;margin-top:2px">Atur akses WiFi tanpa perlu login IP router 192.168.1.1</p>
-              </div>
-              <span class="badge-tag">Router AX-100</span>
-            </div>
-
-            <div class="wifi-box">
-              <div class="wifi-item">
-                <div>
-                  <label>Nama WiFi (SSID)</label>
-                  <div class="wifi-val" id="wifiSsidDisplay">InternetRakyat_5G</div>
-                </div>
-                <button class="btn-sm-action" id="btnEditSsid" type="button" title="Ubah Nama WiFi">Ubah Nama</button>
-              </div>
-
-              <div class="wifi-item" style="border-top:1px dashed #e2e8f0;padding-top:10px">
-                <div>
-                  <label>Kata Sandi WiFi</label>
-                  <div class="wifi-val masked" id="wifiPassDisplay">••••••••</div>
-                </div>
-                <div class="wifi-actions-row">
-                  <button class="btn-sm-action" id="btnTogglePass" type="button" title="Tampilkan kata sandi"><span id="passToggleText">Lihat</span></button>
-                  <button class="btn-sm-action" id="btnCopyPass" type="button" title="Salin ke clipboard">Salin</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="wifi-btns-grid">
-              <button class="btn-wifi-primary" id="btnChangePassModal" type="button">Ganti Password</button>
-              <button class="btn-wifi-secondary" id="btnRestartRouterModal" type="button">Restart Modem</button>
-            </div>
-          </div>
-
-          <!-- Promo Banner -->
-          <div class="promo">
-            <div>
-              <h4>Promo Seru<br>Bulan Ini!</h4>
-              <p>Nonton hiburan favorit tanpa buffering.</p>
-              <button class="btn-w" id="promoBtn" type="button">Lihat Promo</button>
-            </div>
-            <div class="emo" style="font-size:initial;display:flex;align-items:center;justify-content:center;opacity:0.85">
-              <svg viewBox="0 0 64 64" width="84" height="84" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="6" y="16" width="52" height="40" rx="4" fill="rgba(255,255,255,0.08)"/>
-                <polygon points="26,28 44,36 26,44" fill="#ffffff"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Customer Service -->
-          <div class="cs" id="apps">
-            <div class="ico" style="font-size:initial;display:flex;align-items:center">
-              <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#d90429" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 18v-6a9 9 0 1 1 18 0v6"/>
-                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-              </svg>
-            </div>
-            <div>
-              <h4>Pusat Bantuan &amp; Customer Care<br>Internet Rakyat 24/7</h4>
-              <div class="store">
-                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer">💬 WhatsApp CS</a>
-                <a href="tel:1500888">📞 Call Center 1500-IRA</a>
-              </div>
-            </div>
-            <div class="agent" style="font-size:initial;display:flex;align-items:center;opacity:0.85">
-              <svg viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#d90429" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="32" cy="22" r="12" fill="rgba(217,4,41,0.08)"/>
-                <path d="M14 52c0-10 8-16 18-16s18 6 18 16"/>
-                <path d="M42 22a10 10 0 0 0-20 0"/>
-                <path d="M32 34v5"/>
-                <circle cx="36" cy="39" r="2.5" fill="#d90429"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Kolom Kanan -->
-        <div class="right">
-          <h3 class="title">Paket Terakhir Dibeli</h3>
-
-          <div class="offer">
-            <div class="girl">
-              <img src="assets/images/girl_model.png" alt="Model Internet Rakyat">
-            </div>
-            <div class="offer-card" id="paket-terakhir" tabindex="-1">
-              <div class="head">Paket IRA Up To 100 Mbps</div>
-              <div class="body">
-                <div>
-                  <small>Internet sampai dengan</small>
-                  <div class="speed">100 <span>Mbps</span></div>
-                </div>
-                <div>
-                  <small>Harga</small>
-                  <div><span class="old">Rp 100.000</span> <span class="free">Gratis</span></div>
-                </div>
-              </div>
-            </div>
-            <button class="buy" id="buyAgainBtn" type="button">BELI<br>LAGI</button>
-          </div>
-
-          <!-- Banner Pembayaran -->
-          <div class="pay-banner">
-            <div>
-              <h4>Bayar Internet<br>Ga Pake Telat!</h4>
-              <button id="paymentGuideBtn" type="button">Lihat panduan cara bayar</button>
-            </div>
-            <div class="banner-art">
-              <img src="assets/images/banner_edc.png" alt="Panduan Pembayaran Internet Rakyat">
-            </div>
-          </div>
-
-          <!-- Riwayat Pembelian -->
-          <div class="hist-head">
-            <h3>Riwayat Pembelian Paket</h3>
-            <button class="filter-btn" id="filterBtn" type="button" aria-expanded="false" aria-controls="filterBox">⚙ Filter Tanggal</button>
-          </div>
-
-          <div class="filter-box" id="filterBox">
-            <div>
-              <label for="from">Dari tanggal</label>
-              <input type="date" id="from">
-            </div>
-            <div>
-              <label for="to">Sampai tanggal</label>
-              <input type="date" id="to">
-            </div>
-            <button class="btn-apply" id="apply" type="button">Terapkan</button>
-            <button class="btn-reset" id="reset" type="button">Reset</button>
-          </div>
-          <p id="filterMessage" class="filter-message" aria-live="polite"></p>
-
-          <div id="history">
-            <div class="hist-item" data-date="2026-10-01">
-              <svg class="logo" viewBox="0 0 64 64" width="44" height="44">
-                <circle cx="32" cy="32" r="32" fill="#d90429"/>
-                <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-              </svg>
-              <div class="info">
-                <div class="ok"><i>✓</i> Paket berhasil dibayar</div>
-                <h4>Paket IRA Up To 100 Mbps</h4>
-                <small>Dibayar pada 01 Oktober 2026, pukul 12:23:59 WIB</small>
-              </div>
-              <div class="right-col">
-                <div class="price"><span class="old">Rp 100.000</span> <span class="free">Gratis</span></div>
-                <button class="btn-inv" type="button">Lihat Invoice</button>
-              </div>
-            </div>
-
-            <div class="hist-item" data-date="2026-09-01">
-              <svg class="logo" viewBox="0 0 64 64" width="44" height="44">
-                <circle cx="32" cy="32" r="32" fill="#d90429"/>
-                <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-              </svg>
-              <div class="info">
-                <div class="ok"><i>✓</i> Paket berhasil dibayar</div>
-                <h4>Paket IRA Up To 100 Mbps</h4>
-                <small>Dibayar pada 01 September 2026, pukul 12:23:59 WIB</small>
-              </div>
-              <div class="right-col">
-                <div class="price">Rp 100.000</div>
-                <button class="btn-inv" type="button">Lihat Invoice</button>
-              </div>
-            </div>
-
-            <div class="empty" id="empty">Tidak ada riwayat pada rentang tanggal ini.</div>
-          </div>
-
-          <nav class="pager" aria-label="Halaman riwayat pembelian">
-            <span aria-current="page">1</span>
-          </nav>
-        </div>
-      </div>
-    </section>
-
-    <!-- PANEL 2: DATA PRIBADI -->
-    <section class="panel" id="pribadi" role="tabpanel" aria-labelledby="tab-pribadi" tabindex="0">
-      <div class="card">
-        <h3>Data Pribadi</h3>
-        <div class="form">
-          <div class="field"><label>Nama Lengkap</label><div>Ikhda</div></div>
-          <div class="field"><label>ID Pelanggan</label><div>DV765</div></div>
-          <div class="field"><label>Nomor WhatsApp</label><div>08xx-xxxx-xxxx</div></div>
-          <div class="field"><label>Email</label><div>ikhda@internetrakyat.id</div></div>
-          <div class="field" style="grid-column:1/-1"><label>Alamat Pemasangan</label><div>Jl. Contoh No. 1, Area Layanan Internet Rakyat</div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PANEL 3: INFORMASI PERANGKAT -->
-    <section class="panel" id="perangkat" role="tabpanel" aria-labelledby="tab-perangkat" tabindex="0">
-      <div class="card">
-        <div class="card-head-flex">
-          <h3>Informasi &amp; Status Perangkat</h3>
-          <button class="btn-sm-action" id="btnPerangkatRestart" type="button">Restart Router</button>
-        </div>
-        <div class="devices">
-          <div class="dev"><i class="dot" id="devRouterDot"></i><div><b>Router IRA AX-100</b><br><small style="color:var(--muted)">SN: IRA-AX-000123 • IP: 192.168.1.1</small></div><span id="devRouterStatus">Online</span></div>
-          <div class="dev"><i class="dot" id="devOntDot"></i><div><b>ONT Fiber</b><br><small style="color:var(--muted)">SN: IRA-ONT-004567 • Daya Optik: -19.4 dBm (Bagus)</small></div><span id="devOntStatus">Online</span></div>
-          <div class="dev"><i class="dot off"></i><div><b>Extender WiFi</b><br><small style="color:var(--muted)">SN: IRA-EXT-000789</small></div><span>Offline</span></div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ==================== MODALS & DIALOGS ==================== -->
-  <dialog id="infoDialog" aria-labelledby="dialogTitle">
-    <div class="dialog-content">
-      <h2 id="dialogTitle"></h2>
-      <div id="dialogBody"></div>
-      <div class="dialog-actions"><form method="dialog"><button type="submit">Tutup</button></form></div>
-    </div>
-  </dialog>
-
-  <!-- Modal: Ubah SSID -->
-  <dialog id="ssidDialog" aria-labelledby="ssidDialogTitle">
-    <form class="dialog-content" id="ssidForm" method="dialog">
-      <h2 id="ssidDialogTitle">Ubah Nama WiFi (SSID)</h2>
-      <p style="margin-bottom:14px;color:var(--muted);font-size:14px">Nama ini akan terlihat oleh semua perangkat yang mencari sinyal WiFi Anda.</p>
-      <div class="dialog-field">
-        <label for="ssidInput">Nama WiFi Baru</label>
-        <input type="text" id="ssidInput" required minlength="3" maxlength="32" value="InternetRakyat_5G">
-      </div>
-      <div class="dialog-actions-row">
-        <button type="button" class="btn-cancel" id="btnCancelSsid">Batal</button>
-        <button type="submit" class="btn-submit">Simpan Nama Baru</button>
-      </div>
-    </form>
-  </dialog>
-
-  <!-- Modal: Ganti Password WiFi -->
-  <dialog id="passDialog" aria-labelledby="passDialogTitle">
-    <form class="dialog-content" id="passForm" method="dialog">
-      <h2 id="passDialogTitle">Ganti Kata Sandi WiFi</h2>
-      <p style="margin-bottom:14px;color:var(--muted);font-size:14px">Gunakan minimal 8 karakter dengan kombinasi huruf dan angka.</p>
-      <div class="dialog-field">
-        <label for="passInput">Kata Sandi Baru</label>
-        <input type="password" id="passInput" required minlength="8" placeholder="Minimal 8 karakter">
-      </div>
-      <div class="dialog-field" style="margin-top:12px">
-        <label for="passConfirmInput">Konfirmasi Kata Sandi Baru</label>
-        <input type="password" id="passConfirmInput" required minlength="8" placeholder="Ketik ulang kata sandi baru">
-      </div>
-      <p id="passError" style="color:var(--red);font-size:13px;margin-top:8px;display:none"></p>
-      <div class="dialog-actions-row">
-        <button type="button" class="btn-cancel" id="btnCancelPass">Batal</button>
-        <button type="submit" class="btn-submit">Simpan Kata Sandi</button>
-      </div>
-    </form>
-  </dialog>
-
-  <!-- Modal: Konfirmasi Restart Modem -->
-  <dialog id="restartDialog" aria-labelledby="restartDialogTitle">
-    <div class="dialog-content">
-      <h2 id="restartDialogTitle">Konfirmasi Restart Modem</h2>
-      <p style="margin-bottom:16px;color:#374151;font-size:15px;line-height:1.6">
-        Apakah Anda yakin ingin memulai ulang (reboot) modem ONT &amp; router?
-        <br><br>
-        <strong style="color:var(--red-dark)">⚠️ Catatan:</strong> Koneksi internet Anda akan terputus sementara selama kurang lebih 10–15 detik hingga modem kembali stabil.
-      </p>
-      <div class="dialog-actions-row">
-        <button type="button" class="btn-cancel" id="btnCancelRestart">Batal</button>
-        <button type="button" class="btn-submit btn-danger" id="btnConfirmRestart">Ya, Restart Sekarang</button>
-      </div>
-    </div>
-  </dialog>
-
-  <!-- Toast Notification Container -->
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <!-- Main Application Script -->
-  <script src="assets/js/app.js"></script>
 </body>
 </html>

@@ -9,8 +9,10 @@ Proyek ini merupakan tugas mata kuliah **Desain Antarmuka Pengguna (User Interfa
 ```
 c:\internet rakyat\
 │
-├── index.html                  # Halaman utama (Semantic HTML5, bersih & modular)
-├── README.md                   # Dokumentasi proyek & analisis UI/UX
+├── index.html                  # Landing Page resmi (Promo Vidio, modem IRA, tombol Login)
+├── login.html                  # Portal Login IRA (Form nomor HP & footer PT Telemedia)
+├── dashboard.html              # Area Pelanggan (Dashboard solusi tugas UI/UX: Diagnostik & WiFi)
+├── README.md                   # Dokumentasi proyek & analisis UI/UX lengkap
 ├── favicon.svg                 # Root browser favicon
 │
 └── assets/
@@ -18,10 +20,16 @@ c:\internet rakyat\
     │   └── style.css           # Seluruh stylesheet terstruktur (Font: Be Vietnam Pro)
     │
     ├── js/
-    │   └── app.js              # Logika interaktif (Tabs, network check, wifi manager, dialogs)
+    │   └── app.js              # Logika interaktif dashboard (Tabs, network check, wifi manager)
     │
     └── images/
-        ├── favicon.svg         # Favicon resmi Internet Rakyat
+        ├── bg_hero.webp        # Background resmi landing page Internet Rakyat
+        ├── modem_ira.png       # Modem ONT Fiber resmi Internet Rakyat
+        ├── icon_vidio.svg      # Logo resmi Vidio
+        ├── vidio_1.webp        # Poster Vidio Eredivisie
+        ├── vidio_2.webp        # Poster Vidio Benda Keramat
+        ├── vidio_3.webp        # Poster Vidio Love is a Story
+        ├── cs_button.png       # Maskot CS Customer Care 24/7
         ├── girl_model.png      # Foto model pelanggan resmi (resolusi HD & utuh)
         └── banner_edc.png      # Ilustrasi mesin EDC panduan pembayaran
 ```

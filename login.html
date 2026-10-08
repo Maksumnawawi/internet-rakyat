@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login IRA - Internet Rakyat</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <!-- Google Fonts: Be Vietnam Pro & Figtree -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #e60000;
+      --primary-hover: #cc0000;
+      --navy: #0b1a30;
+      --btn-slate: #7a92a7;
+      --btn-slate-active: #486581;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-400: #94a3b8;
+      --slate-600: #475569;
+      --slate-800: #1e293b;
+      --font-main: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--slate-800);
+      background-color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ================= HEADER ================= */
+    header {
+      width: 100%;
+      height: 76px;
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--slate-100);
+      background: #ffffff;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-text .top {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      color: var(--primary);
+    }
+
+    .brand-text .bottom {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--slate-800);
+      text-transform: uppercase;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .header-nav a.nav-link {
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+
+    .header-nav a.nav-link:hover {
+      color: var(--primary);
+    }
+
+    .btn-daftar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 8px 26px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 0.2s, transform 0.15s;
+    }
+
+    .btn-daftar:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* ================= MAIN CONTENT ================= */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px 80px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+    }
+
+    .login-box h1 {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      margin-bottom: 34px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--slate-800);
+      margin-bottom: 8px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 52px;
+      padding: 0 16px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      background-color: #f9fafb;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--slate-800);
+      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: #3b82f6;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .form-input::placeholder {
+      color: var(--slate-400);
+    }
+
+    /* Demo Helper Badge */
+    .demo-hint {
+      margin-top: 8px;
+      font-size: 12.5px;
+      color: var(--slate-600);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-fill-demo {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 2px 4px;
+    }
+
+    .btn-lanjutkan {
+      width: 100%;
+      height: 52px;
+      border-radius: 10px;
+      border: none;
+      background: var(--btn-slate);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-lanjutkan.ready {
+      background: var(--btn-slate-active);
+      box-shadow: 0 4px 12px rgba(72, 101, 129, 0.25);
+    }
+
+    .btn-lanjutkan:hover {
+      background: #334e68;
+    }
+
+    .btn-lanjutkan:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .register-text {
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--slate-800);
+    }
+
+    .register-text a {
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .register-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      width: 100%;
+      border-top: 1px solid var(--slate-100);
+      background: #ffffff;
+      padding: 50px 5% 30px;
+      font-size: 13.5px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.1fr 1fr 1fr;
+      gap: 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-col h4 {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .footer-col p {
+      color: var(--slate-600);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 14px;
+      margin-top: 6px;
+      margin-bottom: 18px;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: var(--slate-800);
+      transition: color 0.2s, transform 0.2s;
+    }
+
+    .social-link:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .store-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .store-badges img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .store-badges img:hover {
+      opacity: 0.85;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--slate-100);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      color: var(--slate-600);
+      font-size: 12.5px;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 6px;
+    }
+
+    .footer-bottom-links a {
+      color: var(--slate-600);
+      text-decoration: none;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Spinner Animation */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 900px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <a href="index.html" class="brand" title="Kembali ke Beranda">
+      <svg viewBox="0 0 64 64" width="38" height="38">
+        <circle cx="32" cy="32" r="32" fill="#d90429"/>
+        <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+      </svg>
+      <div class="brand-text">
+        <span class="top">internet</span>
+        <span class="bottom">rakyat</span>
+      </div>
+    </a>
+
+    <nav class="header-nav">
+      <a href="index.html" class="nav-link">IRA</a>
+      <a href="index.html#apps" class="nav-link">Apps</a>
+      <a href="#" class="btn-daftar" onclick="alert('Pendaftaran akun baru saat ini dibuka via Aplikasi IRA atau CS WhatsApp.'); return false;">Daftar</a>
+    </nav>
+  </header>
+
+  <!-- ================= LOGIN FORM ================= -->
+  <main>
+    <div class="login-box">
+      <h1>Login IRA</h1>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="phoneInput">Nomor Handphone*</label>
+          <div class="input-wrapper">
+            <input 
+              type="tel" 
+              id="phoneInput" 
+              class="form-input" 
+              placeholder="contoh: 08123456789" 
+              required
+              autocomplete="tel"
+              pattern="[0-9+ -]{9,16}"
+              value="08123456789"
+            >
+          </div>
+          <div class="demo-hint">
+            <span>Gunakan no. HP terdaftar pelanggan</span>
+            <button type="button" class="btn-fill-demo" onclick="fillDemoPhone()">Isi Akun Demo</button>
+          </div>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="btn-lanjutkan ready">
+          <span id="btnText">Lanjutkan</span>
+        </button>
+
+        <p class="register-text">
+          Belum punya akun? <a href="#" onclick="alert('Silakan hubungi WhatsApp CS atau unduh aplikasi IRA untuk pendaftaran jaringan baru.'); return false;">Daftar disini</a>
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Address</h4>
+        <p><strong>PT. Telemedia Komunikasi Pratama</strong></p>
+        <p>Jalan Tiang Bendera V No.20 Roa Malaka, Tambora, Jakarta Barat</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Business Contact</h4>
+        <p>📞 +6281110689111</p>
+        <p>✉️ cs@internetrakyat.id</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Social Media</h4>
+        <div class="social-icons">
+          <!-- Instagram -->
+          <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <!-- YouTube -->
+          <a href="#" class="social-link" aria-label="YouTube" title="YouTube">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" class="social-link" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.761-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a href="#" class="social-link" aria-label="TikTok" title="TikTok">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M12.525.02c1.31 0 2.6.132 3.83.405v4.54a6.66 6.66 0 0 1-3.83-1.22v9.33a6.97 6.97 0 1 1-6.97-6.97c.54 0 1.06.064 1.56.185v4.44a2.68 2.68 0 1 0 1.12 2.345V.02h4.29z"/>
+            </svg>
+          </a>
+        </div>
+
+        <h4>Download Aplikasi IRA</h4>
+        <div class="store-badges">
+          <img src="assets/images/google_play.png" alt="Get it on Google Play">
+          <img src="assets/images/app_store.png" alt="Download on the App Store">
+        </div>
+      </div>
+
+      <div class="footer-col" style="display:flex;align-items:flex-end;justify-content:flex-end">
+        <div style="display:flex;align-items:center;gap:10px;opacity:0.9">
+          <svg viewBox="0 0 64 64" width="46" height="46">
+            <circle cx="32" cy="32" r="32" fill="#d90429"/>
+            <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+          </svg>
+          <div class="brand-text">
+            <span class="top">internet</span>
+            <span class="bottom">rakyat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-bottom-links">
+          <a href="#">Terms &amp; Conditions</a>
+          <span>|</span>
+          <a href="#">Privacy Policy</a>
+          <span>|</span>
+          <a href="#">Refund Policy</a>
+        </div>
+        <p>Copyright &copy; 2026 PT. Telemedia Komunikasi Pratama</p>
+      </div>
+      <div>
+        <span style="font-size:12px;color:#94a3b8">UI/UX Redesign Prototype • Project Tugas Kuliah</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const phoneInput = document.getElementById('phoneInput');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const btnText = document.getElementById('btnText');
+
+    function fillDemoPhone() {
+      phoneInput.value = '08123456789';
+      phoneInput.focus();
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const val = phoneInput.value.trim();
+      if (!val) return;
+
+      // Visual feedback loading
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = '<span class="spinner"></span> <span>Memverifikasi Akun...</span>';
+
+      setTimeout(() => {
+        btnSubmit.innerHTML = '<span>✓ Berhasil! Masuk ke Area Pelanggan...</span>';
+        btnSubmit.style.background = '#15803d';
+
+        setTimeout(() => {
+          // Redirect to Area Pelanggan dashboard
+          window.location.href = 'dashboard.html';
+        }, 600);
+      }, 800);
+    }
+  </script>
+</body>
+</html>
