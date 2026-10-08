@@ -45,7 +45,7 @@
       overflow-x: hidden;
     }
 
-    /* ================= NAVBAR ================= */
+    /* ================= FLOATING NAVBAR ================= */
     .nav-wrapper {
       position: absolute;
       top: 20px;
@@ -58,7 +58,7 @@
     }
 
     .navbar-pill {
-      background: rgba(255, 255, 255, 0.96);
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-radius: 999px;
@@ -69,8 +69,8 @@
       gap: 32px;
       width: 100%;
       max-width: 920px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.8);
     }
 
     .brand {
@@ -151,18 +151,53 @@
       color: var(--primary);
     }
 
-    /* ================= HERO SECTION ================= */
+    /* ================= HERO SECTION (CLEAN GRADIENT & RADAR ARCS) ================= */
     .hero-section {
       position: relative;
-      background-color: #d90429;
-      background-image: url('assets/images/bg_hero.webp');
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
+      background: radial-gradient(circle at 65% 45%, #ef0000 0%, #d80000 45%, #8d0000 100%);
       min-height: 640px;
-      padding: 130px 5% 70px;
+      padding: 130px 5% 75px;
       color: #ffffff;
       overflow: hidden;
+    }
+
+    /* Subtle Radar Signal Waves (Clean vector arcs, NO AI / NO text clash) */
+    .signal-arcs {
+      position: absolute;
+      top: 45%;
+      right: 20%;
+      transform: translate(50%, -50%);
+      width: 1000px;
+      height: 1000px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .arc {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .arc.a1 { width: 360px; height: 360px; }
+    .arc.a2 { width: 620px; height: 620px; }
+    .arc.a3 { width: 920px; height: 920px; }
+
+    /* Faint decorative arc across top */
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      width: 1400px;
+      height: 1400px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      top: -600px;
+      right: -300px;
+      pointer-events: none;
+      z-index: 1;
     }
 
     .hero-container {
@@ -181,15 +216,15 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.22);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       padding: 6px 16px;
       border-radius: 999px;
       font-size: 13.5px;
       font-weight: 600;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .region-badge .dot-live {
@@ -202,11 +237,11 @@
     }
 
     .hero-title {
-      font-size: 42px;
+      font-size: 40px;
       line-height: 1.2;
       font-weight: 900;
       letter-spacing: -0.6px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     }
 
@@ -214,15 +249,15 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .pill-item {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(140, 0, 20, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(140, 0, 20, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       backdrop-filter: blur(6px);
       padding: 7px 16px;
       border-radius: 999px;
@@ -236,11 +271,11 @@
       gap: 10px;
       background: #ffffff;
       color: #1e293b;
-      padding: 8px 18px;
+      padding: 8px 20px;
       border-radius: 999px;
       font-size: 18px;
       font-weight: 900;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
       margin-bottom: 18px;
     }
 
@@ -261,7 +296,7 @@
     }
 
     .price-block .main-price {
-      font-size: 50px;
+      font-size: 52px;
       font-weight: 900;
       line-height: 1.1;
       letter-spacing: -1px;
@@ -295,13 +330,13 @@
       font-size: 16px;
       font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
       transition: all 0.2s;
     }
 
     .btn-cta-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
       background: #fff8f8;
     }
 
@@ -323,88 +358,86 @@
       transform: translateY(-2px);
     }
 
-    /* Right Column (Visual Showcase) */
+    /* ================= RIGHT COLUMN: TV SHOWCASE & MODEM ASLI ================= */
     .hero-visual {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 400px;
+      padding-bottom: 30px;
     }
 
-    .tv-showcase {
-      position: relative;
+    .tv-frame {
       width: 100%;
-      max-width: 490px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-      border: 6px solid #1e293b;
+      max-width: 480px;
       background: #0f172a;
+      border-radius: 20px;
+      border: 5px solid #1e293b;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+      position: relative;
     }
 
-    .tv-header {
-      background: #0b1324;
+    .tv-bar {
+      background: #090e1a;
       padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .tv-header img {
-      height: 18px;
+    .tv-bar img {
+      height: 20px;
     }
 
-    .tv-posters {
+    .tv-bar span {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+    }
+
+    .tv-screen {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 6px;
-      padding: 8px;
+      padding: 8px 8px 24px;
       background: #020617;
     }
 
-    .tv-poster-item {
+    .tv-poster {
       position: relative;
-      border-radius: 8px;
+      border-radius: 6px;
       overflow: hidden;
-      aspect-ratio: 2/3;
+      aspect-ratio: 9/14;
       background: #1e293b;
     }
 
-    .tv-poster-item img {
+    .tv-poster img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.3s;
     }
 
-    .tv-poster-item:hover img {
-      transform: scale(1.05);
-    }
-
-    /* Modem IRA Overlay */
-    .modem-device {
+    /* Perangkat Modem IRA Asli di depan TV */
+    .modem-wrapper {
       position: absolute;
-      bottom: -32px;
+      bottom: -15px;
       left: 50%;
       transform: translateX(-50%);
-      width: 250px;
-      filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.5));
+      width: 260px;
       z-index: 10;
-      transition: transform 0.3s ease;
+      pointer-events: none;
     }
 
-    .modem-device:hover {
-      transform: translateX(-50%) translateY(-6px);
-    }
-
-    .modem-device img {
+    .modem-wrapper img {
       width: 100%;
       height: auto;
       display: block;
+      filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55));
     }
 
     /* ================= BENEFIT SECTION ================= */
@@ -593,7 +626,7 @@
       font-size: 12.5px;
     }
 
-    /* ================= FLOATING CS BUTTON ================= */
+    /* ================= FLOATING CS MASCOT BUTTON ================= */
     .floating-cs {
       position: fixed;
       bottom: 24px;
@@ -633,6 +666,9 @@
       .footer-grid {
         grid-template-columns: 1fr 1fr;
       }
+      .modem-wrapper {
+        width: 220px;
+      }
     }
 
     @media (max-width: 640px) {
@@ -643,7 +679,7 @@
         display: none;
       }
       .hero-title {
-        font-size: 32px;
+        font-size: 30px;
       }
       .price-block .main-price {
         font-size: 38px;
@@ -651,9 +687,9 @@
       .footer-grid {
         grid-template-columns: 1fr;
       }
-      .modem-device {
-        width: 200px;
-        bottom: -20px;
+      .modem-wrapper {
+        width: 190px;
+        bottom: -10px;
       }
     }
   </style>
@@ -697,9 +733,16 @@
 
   <!-- ================= HERO SECTION ================= -->
   <section class="hero-section">
+    <!-- Subtle Radar Signal Arcs (Vector Circles, NO clashing text background) -->
+    <div class="signal-arcs" aria-hidden="true">
+      <div class="arc a1"></div>
+      <div class="arc a2"></div>
+      <div class="arc a3"></div>
+    </div>
+
     <div class="hero-container">
 
-      <!-- Kolom Kiri: Penawaran & Konten -->
+      <!-- Kolom Kiri: Penawaran & Konten Bersih -->
       <div class="hero-content">
         <div class="region-badge">
           <span class="dot-live"></span>
@@ -742,29 +785,29 @@
         </div>
       </div>
 
-      <!-- Kolom Kanan: Visual Perangkat & TV Vidio Asli -->
+      <!-- Kolom Kanan: Visual TV Showcase & Modem IRA -->
       <div class="hero-visual">
-        <div class="tv-showcase">
-          <div class="tv-header">
+        <div class="tv-frame">
+          <div class="tv-bar">
             <img src="assets/images/icon_vidio.svg" alt="Vidio Logo">
-            <span style="font-size:12px;color:#94a3b8;font-weight:600">ORIGINAL SERIES &amp; SPORTS</span>
+            <span>ORIGINAL SERIES &amp; SPORTS</span>
           </div>
-          <div class="tv-posters">
-            <div class="tv-poster-item">
-              <img src="assets/images/vidio_1.webp" alt="Vidio Tayangan Sepakbola">
+          <div class="tv-screen">
+            <div class="tv-poster" title="Tayangan Eredivisie">
+              <img src="assets/images/poster_eredivisie.png" alt="Eredivisie Football">
             </div>
-            <div class="tv-poster-item">
-              <img src="assets/images/vidio_2.webp" alt="Vidio Benda Keramat">
+            <div class="tv-poster" title="Serial Benda Keramat">
+              <img src="assets/images/poster_benda_keramat.png" alt="Benda Keramat">
             </div>
-            <div class="tv-poster-item">
-              <img src="assets/images/vidio_3.webp" alt="Vidio Love is a Story">
+            <div class="tv-poster" title="Serial Love is A Story">
+              <img src="assets/images/poster_love_story.png" alt="Love is A Story">
             </div>
           </div>
         </div>
 
         <!-- Modem IRA Asli di depan TV -->
-        <div class="modem-device">
-          <img src="assets/images/modem_ira.png" alt="Modem Router ONT Internet Rakyat Asli">
+        <div class="modem-wrapper">
+          <img src="assets/images/modem_ira.png" alt="Modem Router ONT Internet Rakyat">
         </div>
       </div>
 
