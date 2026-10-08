@@ -251,11 +251,12 @@
     /* ================= REGISTRATION MAIN CARD ================= */
     .regis-card {
       width: 100%;
-      max-width: 960px;
-      background: #c8001d;
-      border-radius: 28px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-      border: 6px solid rgba(255, 255, 255, 0.15);
+      max-width: 1040px;
+      height: 520px;
+      background: #a80f0f;
+      border-radius: 36px;
+      box-shadow: 0 20px 60px rgba(164, 18, 18, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.6);
       display: grid;
       grid-template-columns: 1fr 1.15fr;
       overflow: hidden;
@@ -266,33 +267,46 @@
     /* Left Side: Model & Speech Bubble */
     .regis-left {
       position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
+      height: 100%;
       overflow: hidden;
-      min-height: 480px;
-      padding: 0;
     }
 
-    /* Speech Bubble */
+    .girl-visual {
+      position: absolute;
+      bottom: -15px;
+      left: -10px;
+      width: 440px;
+      line-height: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .girl-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(4px 0 16px rgba(0, 0, 0, 0.45));
+    }
+
+    /* Speech Bubble (Exact single bubble near her shoulder) */
     .speech-bubble {
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 14px 18px;
-      max-width: 250px;
+      max-width: 240px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
       position: absolute;
-      top: 36px;
-      right: 16px;
+      left: 245px;
+      bottom: 160px;
       z-index: 10;
     }
 
     .speech-bubble p {
-      font-size: 13px;
-      line-height: 1.5;
+      font-size: 13.5px;
+      line-height: 1.45;
       color: #1e293b;
       margin: 0;
+      font-weight: 500;
     }
 
     .speech-bubble strong {
@@ -300,10 +314,11 @@
       font-weight: 800;
     }
 
+    /* Tail pointing left towards the girl */
     .speech-bubble::before {
       content: '';
       position: absolute;
-      bottom: 20px;
+      bottom: 22px;
       left: -8px;
       width: 0;
       height: 0;
@@ -312,41 +327,46 @@
       border-right: 8px solid #ffffff;
     }
 
-    .girl-visual {
-      width: 100%;
-      max-width: 360px;
+    /* Right Side: White Inner Card with scrolling */
+    .regis-right-wrap {
+      height: 100%;
+      padding: 20px 24px 20px 8px;
       display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: flex-end;
-      z-index: 2;
-      margin: 0;
-      line-height: 0;
+      overflow: hidden;
     }
 
-    .girl-visual img {
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.45));
-      transform: translateY(6px);
-    }
-
-    .girl-visual img {
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
-    }
-
-    /* Right Side: White Inner Card */
     .regis-right {
       background: #ffffff;
-      border-radius: 24px;
-      margin: 12px;
-      padding: 32px 36px;
+      border-radius: 28px;
+      width: 100%;
+      height: 480px;
+      max-height: 480px;
+      padding: 28px 24px 30px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      overflow-y: auto;
+    }
+
+    /* Custom Webkit Scrollbar (Identical to Web Asli) */
+    .regis-right::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    .regis-right::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 999px;
+    }
+
+    .regis-right::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 999px;
+    }
+
+    .regis-right::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
     }
 
     .form-title {
@@ -583,16 +603,31 @@
     }
 
     /* Responsive */
-    @media (max-width: 860px) {
+    @media (max-width: 900px) {
       .regis-card {
         grid-template-columns: 1fr;
+        height: auto;
+        max-width: 580px;
       }
       .regis-left {
-        display: none;
+        height: 290px;
+      }
+      .girl-visual {
+        width: 320px;
+        left: 50%;
+        transform: translateX(-65%);
+      }
+      .speech-bubble {
+        left: auto;
+        right: 18px;
+        bottom: 80px;
+        max-width: 200px;
+      }
+      .regis-right-wrap {
+        padding: 0 16px 20px;
       }
       .regis-right {
-        margin: 0;
-        border-radius: 22px;
+        height: 440px;
         padding: 24px 20px;
       }
       .footer-grid {
@@ -692,10 +727,11 @@
         </div>
       </div>
 
-      <!-- Kolom Kanan: Form Pendaftaran -->
-      <div class="regis-right">
-        <div id="stepContent1">
-          <h2 class="form-title">Silakan Isi Data Pribadi Kamu</h2>
+      <!-- Kolom Kanan: Form Pendaftaran (Scrollable) -->
+      <div class="regis-right-wrap">
+        <div class="regis-right">
+          <div id="stepContent1">
+            <h2 class="form-title">Silakan Isi Data Pribadi Kamu</h2>
 
           <form id="regisForm" onsubmit="handleNextStep(event)">
             <!-- Nama Lengkap -->
@@ -763,6 +799,7 @@
           </form>
         </div>
       </div>
+    </div>
 
     </div>
   </main>
