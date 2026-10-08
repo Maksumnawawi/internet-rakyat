@@ -193,59 +193,86 @@
       z-index: 2;
     }
 
-    /* Stepper Pill */
-    .stepper-pill {
+    /* Stepper Tab (Connected directly to top edge of the card) */
+    .stepper-tab-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      max-width: 1040px;
+      position: relative;
+      z-index: 10;
+      margin-bottom: -2px;
+    }
+
+    .stepper-tab {
       background: #ffffff;
-      border-radius: 999px;
-      padding: 8px 24px;
+      border-radius: 26px 26px 0 0;
+      border: 2.5px solid #a80f0f;
+      border-bottom: none;
+      padding: 7px 24px;
       display: inline-flex;
       align-items: center;
       gap: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-      margin-bottom: 30px;
-      position: relative;
-      z-index: 2;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.12);
     }
 
     .stepper-label {
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 800;
-      color: var(--slate-800);
+      color: #0b1a30;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .stepper-label span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
     }
 
     .stepper-dots {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .step-dot {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      font-weight: 800;
+      background: #9ca3af;
       color: #ffffff;
-      background: #e2e8f0;
-      transition: all 0.2s;
+      transition: all 0.25s ease;
+      cursor: pointer;
     }
 
     .step-dot.active {
-      background: var(--primary);
-      box-shadow: 0 2px 8px rgba(217, 4, 41, 0.35);
+      background: #b61515;
+      box-shadow: 0 2px 8px rgba(182, 21, 21, 0.4);
     }
 
     .step-dot.done {
       background: #15803d;
     }
 
+    .step-dot.muted-active {
+      background: #b61515;
+      opacity: 0.5;
+    }
+
     .step-line {
-      width: 22px;
+      width: 28px;
       height: 2px;
       background: #e2e8f0;
+      transition: background 0.3s ease;
+    }
+
+    .step-line.active {
+      background: #b61515;
     }
 
     /* ================= REGISTRATION MAIN CARD ================= */
@@ -264,7 +291,7 @@
       z-index: 2;
     }
 
-    /* Left Side: Model & Speech Bubble */
+    /* Left Side: Model & Official Speech Bubble (In image) */
     .regis-left {
       position: relative;
       height: 100%;
@@ -273,9 +300,9 @@
 
     .girl-visual {
       position: absolute;
-      bottom: -15px;
-      left: -10px;
-      width: 440px;
+      bottom: -10px;
+      left: -15px;
+      width: 490px;
       line-height: 0;
       z-index: 2;
       pointer-events: none;
@@ -285,46 +312,7 @@
       width: 100%;
       height: auto;
       display: block;
-      filter: drop-shadow(4px 0 16px rgba(0, 0, 0, 0.45));
-    }
-
-    /* Speech Bubble (Exact single bubble near her shoulder) */
-    .speech-bubble {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 14px 18px;
-      max-width: 240px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-      position: absolute;
-      left: 245px;
-      bottom: 160px;
-      z-index: 10;
-    }
-
-    .speech-bubble p {
-      font-size: 13.5px;
-      line-height: 1.45;
-      color: #1e293b;
-      margin: 0;
-      font-weight: 500;
-    }
-
-    .speech-bubble strong {
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    /* Tail pointing left towards the girl */
-    .speech-bubble::before {
-      content: '';
-      position: absolute;
-      bottom: 22px;
-      left: -8px;
-      width: 0;
-      height: 0;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-      border-right: 8px solid #ffffff;
+      filter: drop-shadow(4px 0 18px rgba(0, 0, 0, 0.45));
     }
 
     /* Right Side: White Inner Card with scrolling */
@@ -700,28 +688,47 @@
 
     <h1 class="regis-title">Registrasi IRA</h1>
 
-    <!-- Stepper Indicator -->
-    <div class="stepper-pill">
-      <span class="stepper-label" id="stepLabel">Tahap 1 dari 3</span>
-      <div class="stepper-dots">
-        <div class="step-dot active" id="dot1" title="Data Pribadi">1</div>
-        <div class="step-line" id="line1"></div>
-        <div class="step-dot" id="dot2" title="Cek Lokasi">2</div>
-        <div class="step-line" id="line2"></div>
-        <div class="step-dot" id="dot3" title="Pilih Paket">3</div>
+    <!-- Stepper Tab (Directly connected to the top edge of the card) -->
+    <div class="stepper-tab-wrapper">
+      <div class="stepper-tab">
+        <div class="stepper-label" id="stepLabel">
+          Tahap <strong id="stepNum">1</strong> <span>dari 3</span>
+        </div>
+        <div class="stepper-dots">
+          <!-- Step 1: List lines icon -->
+          <div class="step-dot active" id="dot1" title="Formulir Data">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/>
+              <line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+          </div>
+          <div class="step-line" id="line1"></div>
+          <!-- Step 2: Location pin icon -->
+          <div class="step-dot muted-active" id="dot2" title="Peta Lokasi">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+          <div class="step-line" id="line2"></div>
+          <!-- Step 3: Checklist icon -->
+          <div class="step-dot" id="dot3" title="Ringkasan & Kirim">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Main Card Container -->
     <div class="regis-card">
 
-      <!-- Kolom Kiri: Visual Model & Speech Bubble -->
+      <!-- Kolom Kiri: Visual Model (Balon Percakapan Asli Sudah Menyatu di Gambar HD) -->
       <div class="regis-left">
-        <div class="speech-bubble">
-          <p>
-            <strong>Isi data dulu ya</strong>, supaya kami bisa <strong>cek dan proses pemasangan Internet Rakyat</strong> di rumahmu.
-          </p>
-        </div>
         <div class="girl-visual">
           <img id="modelImg" src="assets/images/person_reg_1_hd.png" alt="Petugas Layanan Internet Rakyat">
         </div>
@@ -918,17 +925,18 @@
       success.style.display = 'block';
 
       // Update stepper indicator to step 2 & 3
-      document.getElementById('stepLabel').innerText = 'Tahap 2 dari 3 (Lokasi Terverifikasi)';
+      document.getElementById('stepNum').innerText = '2';
       document.getElementById('dot1').className = 'step-dot done';
       document.getElementById('dot2').className = 'step-dot active';
-      document.getElementById('line1').style.background = '#15803d';
+      document.getElementById('dot2').style.opacity = '1';
+      document.getElementById('line1').classList.add('active');
       document.getElementById('modelImg').src = 'assets/images/person_reg_2_hd.png';
 
       setTimeout(() => {
-        document.getElementById('stepLabel').innerText = 'Tahap 3 dari 3 (Akun Siap Digunakan)';
+        document.getElementById('stepNum').innerText = '3';
         document.getElementById('dot2').className = 'step-dot done';
-        document.getElementById('dot3').className = 'step-dot done';
-        document.getElementById('line2').style.background = '#15803d';
+        document.getElementById('dot3').className = 'step-dot active';
+        document.getElementById('line2').classList.add('active');
         document.getElementById('modelImg').src = 'assets/images/person_reg_3_hd.png';
 
         setTimeout(() => {
