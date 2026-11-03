@@ -43,18 +43,20 @@
       background-color: #ffffff;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      font-size: 14px;
+      line-height: 1.55;
     }
 
     /* ================= FLOATING NAVBAR ================= */
     .nav-wrapper {
       position: absolute;
-      top: 20px;
+      top: 16px;
       left: 0;
       right: 0;
       z-index: 100;
       display: flex;
       justify-content: center;
-      padding: 0 20px;
+      padding: 0 16px;
     }
 
     .navbar-pill {
@@ -62,56 +64,66 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-radius: 999px;
-      padding: 8px 12px 8px 24px;
+      padding: 6px 10px 6px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 32px;
+      gap: 24px;
       width: 100%;
-      max-width: 920px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.8);
+      max-width: 960px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.85);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       text-decoration: none;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--primary);
+      padding: 5px 12px 5px 8px;
+      border-radius: 999px;
+      color: #ffffff;
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
-      line-height: 1.15;
+      line-height: 1.1;
     }
 
     .brand-text .top {
-      font-size: 16px;
+      font-size: 13.5px;
       font-weight: 900;
       letter-spacing: -0.3px;
-      color: var(--primary);
+      color: #ffffff;
     }
 
     .brand-text .bottom {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.8px;
-      color: var(--slate-800);
+      color: rgba(255, 255, 255, 0.92);
       text-transform: uppercase;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 22px;
     }
 
     .nav-links a {
       color: var(--slate-800);
       text-decoration: none;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 13.5px;
+      font-weight: 600;
       transition: color 0.2s;
     }
 
@@ -119,56 +131,65 @@
       color: var(--primary);
     }
 
-    .btn-login-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--primary);
-      color: #ffffff;
-      padding: 8px 18px 8px 22px;
-      border-radius: 999px;
-      font-size: 15px;
-      font-weight: 800;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(217, 4, 41, 0.35);
-      transition: transform 0.18s, background-color 0.18s, box-shadow 0.18s;
-    }
-
-    .btn-login-pill:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(217, 4, 41, 0.45);
-    }
-
-    .user-icon-badge {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #ffffff;
+    .nav-right-actions {
       display: flex;
       align-items: center;
-      justify-content: center;
-      color: var(--primary);
+      gap: 10px;
     }
 
-    /* ================= HERO SECTION (CLEAN GRADIENT & RADAR ARCS) ================= */
+    .btn-login-link {
+      color: var(--slate-800);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    .btn-login-link:hover {
+      color: var(--primary);
+      background: rgba(217, 4, 41, 0.06);
+    }
+
+    .btn-wa-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #00a859;
+      color: #ffffff;
+      padding: 7px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 168, 89, 0.3);
+      transition: transform 0.18s, background-color 0.18s;
+    }
+
+    .btn-wa-pill:hover {
+      background: #008f4c;
+      transform: translateY(-1px);
+    }
+
+    /* ================= HERO SECTION ================= */
     .hero-section {
       position: relative;
       background: radial-gradient(circle at 65% 45%, #ef0000 0%, #d80000 45%, #8d0000 100%);
-      min-height: 640px;
-      padding: 130px 5% 75px;
+      min-height: 590px;
+      padding: 110px 5% 55px;
       color: #ffffff;
       overflow: hidden;
     }
 
-    /* Subtle Radar Signal Waves (Clean vector arcs, NO AI / NO text clash) */
+    /* Subtle Radar Signal Waves */
     .signal-arcs {
       position: absolute;
       top: 45%;
       right: 20%;
       transform: translate(50%, -50%);
-      width: 1000px;
-      height: 1000px;
+      width: 900px;
+      height: 900px;
       pointer-events: none;
       z-index: 1;
     }
@@ -182,161 +203,181 @@
       border: 1.5px solid rgba(255, 255, 255, 0.08);
     }
 
-    .arc.a1 { width: 360px; height: 360px; }
-    .arc.a2 { width: 620px; height: 620px; }
-    .arc.a3 { width: 920px; height: 920px; }
-
-    /* Faint decorative arc across top */
-    .hero-section::before {
-      content: '';
-      position: absolute;
-      width: 1400px;
-      height: 1400px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      top: -600px;
-      right: -300px;
-      pointer-events: none;
-      z-index: 1;
-    }
+    .arc.a1 { width: 320px; height: 320px; }
+    .arc.a2 { width: 560px; height: 560px; }
+    .arc.a3 { width: 820px; height: 820px; }
 
     .hero-container {
-      max-width: 1200px;
+      max-width: 1180px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1.15fr 0.95fr;
-      gap: 40px;
+      gap: 36px;
       align-items: center;
       position: relative;
       z-index: 2;
     }
 
-    /* Left Column */
+    /* Left Column - Scaled Down & Balanced */
     .region-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.22);
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 6px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 13px;
       border-radius: 999px;
-      font-size: 13.5px;
+      font-size: 12px;
       font-weight: 600;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .region-badge .dot-live {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       background: #22c55e;
       border-radius: 50%;
       display: inline-block;
-      box-shadow: 0 0 10px #22c55e;
+      box-shadow: 0 0 8px #22c55e;
     }
 
     .hero-title {
-      font-size: 40px;
-      line-height: 1.2;
+      font-size: clamp(23px, 2.7vw, 29px);
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-subtitle-alert {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffe4e6;
+      margin-bottom: 14px;
+    }
+
+    .price-block {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .price-block .sub-label {
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .price-block .main-price {
+      font-size: 34px;
       font-weight: 900;
-      letter-spacing: -0.6px;
-      margin-bottom: 22px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .price-block .price-period {
+      font-size: 16px;
+      font-weight: 700;
+      opacity: 0.92;
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      opacity: 0.95;
+      margin-bottom: 16px;
+      max-width: 520px;
     }
 
     .feature-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 22px;
+      gap: 8px;
+      margin-bottom: 20px;
     }
 
     .pill-item {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(140, 0, 20, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      gap: 6px;
+      background: rgba(140, 0, 20, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.28);
       backdrop-filter: blur(6px);
-      padding: 7px 16px;
+      padding: 5px 13px;
       border-radius: 999px;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 700;
     }
 
-    .vidio-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+    .pill-white {
       background: #ffffff;
       color: #1e293b;
-      padding: 8px 20px;
-      border-radius: 999px;
-      font-size: 18px;
-      font-weight: 900;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-      margin-bottom: 18px;
+      border: none;
+      font-weight: 800;
     }
 
-    .vidio-badge img {
-      height: 22px;
+    .pill-white img {
+      height: 14px;
       width: auto;
     }
 
-    .price-block {
-      margin-top: 10px;
-      margin-bottom: 28px;
+    /* Stats Row (1.9 juta & 2x24 jam Garansi) */
+    .hero-stats-row {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 22px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
     }
 
-    .price-block .sub-label {
-      font-size: 16px;
-      font-weight: 600;
-      opacity: 0.95;
+    .stat-metric {
+      display: flex;
+      flex-direction: column;
     }
 
-    .price-block .main-price {
-      font-size: 52px;
+    .stat-metric .num {
+      font-size: 21px;
       font-weight: 900;
       line-height: 1.1;
-      letter-spacing: -1px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .price-block .main-price span {
-      font-size: 26px;
-      font-weight: 700;
-      opacity: 0.9;
-    }
-
-    .price-block .promo-info {
-      font-size: 16px;
-      font-weight: 700;
-      opacity: 0.95;
-      margin-top: 4px;
+    .stat-metric .lbl {
+      font-size: 11.5px;
+      opacity: 0.88;
+      font-weight: 500;
+      margin-top: 2px;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 12px;
       align-items: center;
     }
 
     .btn-cta-primary {
       background: #ffffff;
       color: var(--primary);
-      padding: 14px 28px;
+      padding: 10px 22px;
       border-radius: 999px;
-      font-size: 16px;
+      font-size: 13.5px;
       font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
       transition: all 0.2s;
     }
 
     .btn-cta-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
       background: #fff8f8;
     }
 
@@ -344,9 +385,9 @@
       background: rgba(255, 255, 255, 0.15);
       border: 1.5px solid rgba(255, 255, 255, 0.6);
       color: #ffffff;
-      padding: 13px 26px;
+      padding: 9px 20px;
       border-radius: 999px;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
       text-decoration: none;
       backdrop-filter: blur(8px);
@@ -358,192 +399,519 @@
       transform: translateY(-2px);
     }
 
-    /* ================= RIGHT COLUMN: TV SHOWCASE & MODEM ASLI ================= */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-bottom: 30px;
-    }
-
-    .tv-frame {
-      width: 100%;
-      max-width: 480px;
-      background: #0f172a;
-      border-radius: 20px;
-      border: 5px solid #1e293b;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .tv-bar {
-      background: #090e1a;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .tv-bar img {
-      height: 20px;
-    }
-
-    .tv-bar span {
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: #94a3b8;
-    }
-
-    .tv-screen {
+    
+    /* ================= AUTHENTIC HERO LOCATION CHECK CARD ================= */
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-      padding: 8px 8px 24px;
-      background: #020617;
-    }
-
-    .tv-poster {
+      grid-template-columns: 1.15fr 0.95fr;
+      gap: 36px;
+      align-items: flex-start;
       position: relative;
-      border-radius: 6px;
-      overflow: hidden;
-      aspect-ratio: 9/14;
-      background: #1e293b;
+      z-index: 2;
     }
 
-    .tv-poster img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .hero-sub-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 12px;
     }
 
-    /* Perangkat Modem IRA Asli di depan TV */
-    .modem-wrapper {
-      position: absolute;
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 260px;
-      z-index: 10;
-      pointer-events: none;
+    .modem-badge-hero {
+      width: 82px;
+      height: auto;
+      flex-shrink: 0;
     }
 
-    .modem-wrapper img {
+    .modem-badge-hero img {
       width: 100%;
       height: auto;
       display: block;
-      filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55));
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+    }
+
+    .hero-check-card {
+      background: #ffffff;
+      border-radius: 26px;
+      padding: 26px 28px;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22);
+      color: #1e293b;
+      position: relative;
+    }
+
+    .check-card-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .check-card-subtitle {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
+
+    .ira-form-field {
+      margin-bottom: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ira-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .ira-label.ira-section-heading {
+      font-size: 13px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 4px;
+      margin-bottom: 2px;
+    }
+
+    .ira-input, .ira-select, .ira-textarea {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #1e293b;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      box-sizing: border-box;
+    }
+
+    .ira-input:focus, .ira-select:focus, .ira-textarea:focus {
+      border-color: #d90429;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.12);
+    }
+
+    .ira-input-search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .ira-input-search-wrapper .search-ico {
+      position: absolute;
+      left: 12px;
+      pointer-events: none;
+    }
+
+    .ira-input-search {
+      padding-left: 36px;
+    }
+
+    .ira-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .ira-textarea {
+      resize: vertical;
+      min-height: 54px;
+    }
+
+    .ira-hint-muted {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+
+    .btn-hero-submit {
+      width: 100%;
+      background: #d90429;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 14.5px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 14px;
+      box-shadow: 0 6px 18px rgba(217, 4, 41, 0.35);
+      transition: transform 0.16s, background-color 0.16s, box-shadow 0.16s;
+    }
+
+    .btn-hero-submit:hover {
+      background: #b80020;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(217, 4, 41, 0.42);
+    }
+
+    .ira-wa-link-wrap {
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .ira-wa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #15803d;
+      text-decoration: none;
+      transition: color 0.16s, transform 0.16s;
+    }
+
+    .ira-wa-link:hover {
+      color: #0f612c;
+      transform: translateX(2px);
+    }
+
+    /* ================= SECTION PERANGKAT (SEBERAPA BUTUH INTERNET) ================= */
+    .section-device-calc {
+      background: radial-gradient(circle at 50% 50%, #d90429 0%, #b80020 60%, #820015 100%);
+      color: #ffffff;
+      padding: 56px 5%;
+      text-align: center;
+      position: relative;
+    }
+
+    .device-calc-container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .calc-title {
+      font-size: clamp(22px, 2.5vw, 28px);
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin-bottom: 6px;
+    }
+
+    .calc-subtitle {
+      font-size: 15px;
+      opacity: 0.92;
+      margin-bottom: 26px;
+    }
+
+    .device-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+      backdrop-filter: blur(8px);
+    }
+
+    .chip-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .chip-btn.active {
+      background: #ffffff;
+      color: #d90429;
+      border-color: #ffffff;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+      font-weight: 800;
+    }
+
+    .plan-recommend-card {
+      background: #ffffff;
+      color: #1e293b;
+      border-radius: 22px;
+      padding: 26px 32px;
+      max-width: 620px;
+      margin: 0 auto;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+      text-align: left;
+      position: relative;
+    }
+
+    .rec-badge {
+      display: inline-block;
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    .rec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .rec-plan-name {
+      font-size: 21px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .rec-plan-price {
+      font-size: 22px;
+      font-weight: 900;
+      color: #d90429;
+    }
+
+    .rec-plan-price span {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .rec-plan-desc {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .rec-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      margin-bottom: 20px;
+      padding-top: 12px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .btn-rec-cta {
+      display: block;
+      text-align: center;
+      background: #d90429;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(217, 4, 41, 0.32);
+      transition: all 0.18s;
+    }
+
+    .btn-rec-cta:hover {
+      background: #b80020;
+      transform: translateY(-2px);
+    }
+
+    /* ================= FLOATING CS MASCOT BUTTON ================= */
+    .floating-mascot-cs {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 58px;
+      height: 58px;
+      z-index: 999;
+      border-radius: 50%;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .floating-mascot-cs:hover {
+      transform: scale(1.12);
+    }
+
+    .floating-mascot-cs img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .rec-features {
+        grid-template-columns: 1fr;
+      }
+    }
+/* ================= 3-COLUMN WHITE FEATURE STRIP (AUTHENTIC LIVE WEB) ================= */
+    .section-feature-strip {
+      background: #ffffff;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 26px 5%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    }
+
+    .feature-strip-container {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      align-items: center;
+    }
+
+    .feature-strip-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .strip-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #fff1f2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .strip-text h4 {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    .strip-text p {
+      font-size: 12.5px;
+      color: var(--slate-600);
+      line-height: 1.5;
     }
 
     /* ================= BENEFIT SECTION ================= */
     .section-benefits {
-      padding: 80px 5% 70px;
+      padding: 55px 5% 50px;
       background: #ffffff;
       text-align: center;
     }
 
     .section-head {
-      max-width: 680px;
-      margin: 0 auto 50px;
+      max-width: 620px;
+      margin: 0 auto 36px;
     }
 
     .section-head h2 {
-      font-size: 32px;
-      font-weight: 900;
+      font-size: 22px;
+      font-weight: 800;
       color: var(--navy);
-      letter-spacing: -0.5px;
-      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
     }
 
     .section-head p {
       color: var(--slate-600);
-      font-size: 16px;
-      line-height: 1.6;
+      font-size: 13.5px;
+      line-height: 1.55;
     }
 
     .benefit-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      max-width: 1100px;
+      gap: 20px;
+      max-width: 1080px;
       margin: 0 auto;
     }
 
     .benefit-card {
       background: var(--slate-50);
       border: 1px solid var(--slate-200);
-      border-radius: 16px;
-      padding: 30px 24px;
+      border-radius: 14px;
+      padding: 24px 20px;
       text-align: left;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .benefit-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     }
 
     .benefit-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
       background: rgba(217, 4, 41, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       color: var(--primary);
     }
 
     .benefit-card h3 {
-      font-size: 19px;
+      font-size: 15.5px;
       font-weight: 800;
       color: var(--navy);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .benefit-card p {
-      font-size: 14.5px;
+      font-size: 13px;
       color: var(--slate-600);
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
     /* ================= PORTAL HIGHLIGHT BANNER ================= */
     .section-portal {
-      padding: 0 5% 80px;
-      max-width: 1200px;
+      padding: 0 5% 60px;
+      max-width: 1140px;
       margin: 0 auto;
     }
 
     .portal-banner {
       background: linear-gradient(135deg, #0b1a30 0%, #1e293b 100%);
-      border-radius: 24px;
-      padding: 48px;
+      border-radius: 20px;
+      padding: 36px 40px;
       color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 36px;
-      box-shadow: 0 16px 40px rgba(11, 26, 48, 0.18);
+      gap: 28px;
+      box-shadow: 0 12px 32px rgba(11, 26, 48, 0.16);
     }
 
     .portal-info h2 {
-      font-size: 28px;
-      font-weight: 900;
-      margin-bottom: 12px;
-      letter-spacing: -0.4px;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
     }
 
     .portal-info p {
-      font-size: 15.5px;
+      font-size: 13px;
       color: #cbd5e1;
-      line-height: 1.6;
-      max-width: 600px;
+      line-height: 1.55;
+      max-width: 560px;
     }
 
     .portal-action {
@@ -553,84 +921,84 @@
     .btn-portal-entry {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       background: var(--primary);
       color: #ffffff;
-      padding: 16px 32px;
+      padding: 12px 26px;
       border-radius: 999px;
-      font-size: 16px;
+      font-size: 13.5px;
       font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 8px 24px rgba(217, 4, 41, 0.4);
+      box-shadow: 0 6px 18px rgba(217, 4, 41, 0.38);
       transition: all 0.2s;
     }
 
     .btn-portal-entry:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(217, 4, 41, 0.5);
+      box-shadow: 0 10px 24px rgba(217, 4, 41, 0.48);
     }
 
     /* ================= FOOTER ================= */
     footer {
       background: #ffffff;
       border-top: 1px solid var(--slate-100);
-      padding: 50px 5% 30px;
-      font-size: 13.5px;
+      padding: 40px 5% 24px;
+      font-size: 13px;
     }
 
     .footer-grid {
       display: grid;
       grid-template-columns: 1.3fr 1.1fr 1fr 1fr;
-      gap: 36px;
-      max-width: 1200px;
+      gap: 30px;
+      max-width: 1140px;
       margin: 0 auto;
     }
 
     .footer-col h4 {
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 800;
       color: var(--navy);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .footer-col p {
       color: var(--slate-600);
-      line-height: 1.6;
-      margin-bottom: 6px;
+      line-height: 1.55;
+      margin-bottom: 5px;
     }
 
     .store-badges {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
 
     .store-badges img {
-      height: 36px;
+      height: 32px;
       width: auto;
       object-fit: contain;
     }
 
     .footer-bottom {
-      max-width: 1200px;
-      margin: 40px auto 0;
-      padding-top: 24px;
+      max-width: 1140px;
+      margin: 32px auto 0;
+      padding-top: 20px;
       border-top: 1px solid var(--slate-100);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       color: var(--slate-600);
-      font-size: 12.5px;
+      font-size: 12px;
     }
 
-    /* ================= FLOATING CS MASCOT BUTTON ================= */
+    /* ================= FLOATING CS BUTTON ================= */
     .floating-cs {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 20px;
+      right: 20px;
       z-index: 999;
       display: flex;
       align-items: center;
@@ -644,10 +1012,10 @@
     }
 
     .floating-cs img {
-      width: 58px;
-      height: 58px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
     }
 
     /* Responsive */
@@ -656,8 +1024,12 @@
         grid-template-columns: 1fr;
         text-align: center;
       }
-      .hero-actions, .feature-pills {
+      .price-block, .feature-pills, .hero-stats-row, .hero-actions {
         justify-content: center;
+      }
+      .feature-strip-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
       .portal-banner {
         flex-direction: column;
@@ -667,29 +1039,25 @@
         grid-template-columns: 1fr 1fr;
       }
       .modem-wrapper {
-        width: 220px;
+        width: 190px;
       }
     }
 
     @media (max-width: 640px) {
       .navbar-pill {
-        padding: 6px 10px 6px 16px;
+        padding: 5px 8px 5px 12px;
       }
       .nav-links {
         display: none;
       }
       .hero-title {
-        font-size: 30px;
+        font-size: 22px;
       }
       .price-block .main-price {
-        font-size: 38px;
+        font-size: 28px;
       }
       .footer-grid {
         grid-template-columns: 1fr;
-      }
-      .modem-wrapper {
-        width: 190px;
-        bottom: -10px;
       }
     }
   </style>
@@ -700,122 +1068,320 @@
   <header class="nav-wrapper">
     <div class="navbar-pill">
       <a href="index.html" class="brand" aria-label="Internet Rakyat Beranda">
-        <svg viewBox="0 0 64 64" width="36" height="36">
-          <circle cx="32" cy="32" r="32" fill="#d90429"/>
-          <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-        </svg>
-        <div class="brand-text">
-          <span class="top">internet</span>
-          <span class="bottom">rakyat</span>
+        <div class="brand-badge">
+          <svg viewBox="0 0 64 64" width="24" height="24">
+            <circle cx="32" cy="32" r="32" fill="#ffffff"/>
+            <path d="M15 25a24 24 0 0 1 34 0" stroke="#d90429" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M21 32a16 16 0 0 1 22 0" stroke="#d90429" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M27 39a8 8 0 0 1 10 0" stroke="#d90429" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <circle cx="32" cy="47" r="3.5" fill="#d90429"/>
+          </svg>
+          <div class="brand-text">
+            <span class="top">internet</span>
+            <span class="bottom">rakyat</span>
+          </div>
         </div>
       </a>
 
       <nav class="nav-links">
-        <a href="#keunggulan">Keunggulan</a>
-        <a href="#apps">Apps</a>
-        <a href="#faq">FAQ</a>
+        <a href="#paket">Paket</a>
+        <a href="register.html">Alur Pendaftaran</a>
+        <a href="#keunggulan">Janji Pasti</a>
+        <a href="#bantuan">Bantuan</a>
       </nav>
 
-      <!-- Tombol Login Resmi menuju halaman Login IRA -->
-      <a href="login.html" class="btn-login-pill" title="Masuk ke Area Pelanggan">
-        <span>Login</span>
-        <div class="user-icon-badge">
+      <div class="nav-right-actions">
+        <!-- Tombol Masuk resmi menuju Login IRA -->
+        <a href="login.html" class="btn-login-link" title="Masuk ke Area Pelanggan">
+          Masuk
+        </a>
+
+        <!-- Tombol WhatsApp Resmi -->
+        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="btn-wa-pill" title="Tanya Customer Service">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
           </svg>
-        </div>
-      </a>
+          <span>Tanya Lewat Whatsapp</span>
+        </a>
+      </div>
     </div>
   </header>
 
   <!-- ================= HERO SECTION ================= -->
-  <section class="hero-section">
-    <!-- Subtle Radar Signal Arcs (Vector Circles, NO clashing text background) -->
+  <section class="hero-section" id="paket">
+    <!-- Subtle Radar Signal Arcs -->
     <div class="signal-arcs" aria-hidden="true">
       <div class="arc a1"></div>
       <div class="arc a2"></div>
       <div class="arc a3"></div>
     </div>
 
-    <div class="hero-container">
+        <div class="hero-container">
 
-      <!-- Kolom Kiri: Penawaran & Konten Bersih -->
+      <!-- Kolom Kiri: Teks Resmi & Info Paket -->
       <div class="hero-content">
         <div class="region-badge">
           <span class="dot-live"></span>
-          <span>Sudah aktif di Jawa, Maluku &amp; Papua</span>
+          <span>Aktif di Jawa, Maluku &amp; Papua</span>
         </div>
 
         <h1 class="hero-title">
-          Dapatkan Internet Cepat Sepuasnya di Rumah Gratis Nonton Bola &amp; Drama Favorit
+          Internet Rumah Anti Ribet<br>Bikin Betah Internetan!
         </h1>
 
-        <div class="feature-pills">
-          <div class="pill-item">
-            <span>♾</span>
-            <span>Quota Unlimited</span>
+        <div class="hero-sub-row">
+          <div class="hero-subtitle-alert" style="margin-bottom:0">
+            Daftar Sebelum Terlambat
           </div>
-          <div class="pill-item">
-            <span>📶</span>
-            <span>Gratis Sewa Modem</span>
+          <div class="modem-badge-hero" title="Modem Wi-Fi 6 5G FWA">
+            <img src="assets/images/modem_ira.png" alt="Modem Internet Rakyat">
           </div>
-        </div>
-
-        <div class="vidio-badge">
-          <span>Gratis</span>
-          <img src="assets/images/icon_vidio.svg" alt="Vidio" title="Vidio Premier">
         </div>
 
         <div class="price-block">
-          <div class="sub-label">Hanya</div>
-          <div class="main-price">Rp 50.000 <span>/bulan</span></div>
-          <div class="promo-info">untuk 2 bulan pertama • Up to 100Mbps</div>
+          <span class="sub-label">Cuma</span>
+          <span class="main-price">Rp 100.000</span>
+          <span class="price-period">sebulan</span>
+        </div>
+
+        <p class="hero-desc">
+          Kecepatan hingga 100 Mbps, tanpa batasan kuota bulanan yang didukung oleh modem generasi Wi-Fi 6 dengan teknologi 5G FWA (tanpa kabel) pertama di dunia.
+        </p>
+
+        <!-- Feature Pills Resmi -->
+        <div class="feature-pills">
+          <div class="pill-item">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Tanpa batasan kuota</span>
+          </div>
+          <div class="pill-item">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Gratis sewa modem</span>
+          </div>
+          <div class="pill-item pill-white">
+            <span>Gratis Bulan Kedua</span>
+          </div>
+          <div class="pill-item pill-white">
+            <span>Gratis</span>
+            <img src="assets/images/icon_vidio.svg" alt="Vidio" title="Vidio Premier">
+          </div>
+        </div>
+
+        <!-- Metric Stats Row dengan Clock Icon untuk Garansi -->
+        <div class="hero-stats-row">
+          <div class="stat-metric">
+            <div class="num">1.9 juta</div>
+            <div class="lbl">Register &amp; Pelanggan Aktif</div>
+          </div>
+          <div class="stat-metric">
+            <div class="num">
+              <!-- Analog Clock Icon -->
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>2x24 jam</span>
+            </div>
+            <div class="lbl">Garansi pemasangan</div>
+          </div>
         </div>
 
         <div class="hero-actions">
           <a href="register.html" class="btn-cta-primary" title="Registrasi Pemasangan Baru">
-            Daftar Pasang Baru ›
+            Daftar Pasang Baru &rsaquo;
           </a>
           <a href="login.html" class="btn-cta-secondary" title="Login ke Akun Area Pelanggan">
             Area Pelanggan
           </a>
-          <a href="dashboard.html" style="color:rgba(255,255,255,0.85);font-size:13.5px;font-weight:600;text-decoration:underline;margin-left:6px" title="Shortcut demo langsung">
-            ⚡ Quick Dashboard
-          </a>
         </div>
       </div>
 
-      <!-- Kolom Kanan: Visual TV Showcase & Modem IRA -->
-      <div class="hero-visual">
-        <div class="tv-frame">
-          <div class="tv-bar">
-            <img src="assets/images/icon_vidio.svg" alt="Vidio Logo">
-            <span>ORIGINAL SERIES &amp; SPORTS</span>
-          </div>
-          <div class="tv-screen">
-            <div class="tv-poster" title="Tayangan Eredivisie">
-              <img src="assets/images/poster_eredivisie.png" alt="Eredivisie Football">
-            </div>
-            <div class="tv-poster" title="Serial Benda Keramat">
-              <img src="assets/images/poster_benda_keramat.png" alt="Benda Keramat">
-            </div>
-            <div class="tv-poster" title="Serial Love is A Story">
-              <img src="assets/images/poster_love_story.png" alt="Love is A Story">
-            </div>
-          </div>
-        </div>
+      <!-- Kolom Kanan: Card Cek Lokasi Persis Web Asli (internetrakyat.id) -->
+      <div class="hero-check-card" id="formCekLokasi">
+        <h3 class="check-card-title">Cek lokasi kamu di sini</h3>
+        <p class="check-card-subtitle">
+          Pastikan alamatmu sesuai ya. Biar kami cek ketersediaan Internet Rakyat di daerahmu.
+        </p>
 
-        <!-- Modem IRA Asli di depan TV -->
-        <div class="modem-wrapper">
-          <img src="assets/images/modem_ira.png" alt="Modem Router ONT Internet Rakyat">
+        <form id="heroLocationForm" onsubmit="handleHeroLocationSubmit(event)">
+          <div class="ira-form-field">
+            <label class="ira-label">Nama *</label>
+            <input type="text" id="heroNama" class="ira-input" placeholder="Masukkan nama kamu" required>
+          </div>
+
+          <div class="ira-form-field">
+            <label class="ira-label">Masukkan Alamat Anda saat ini *</label>
+            <div class="ira-input-search-wrapper">
+              <svg class="search-ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" id="heroAlamatSearch" class="ira-input ira-input-search" placeholder="Cari alamat pemasangan" required>
+            </div>
+          </div>
+
+          <div class="ira-form-field">
+            <label class="ira-label ira-section-heading">Detail Lokasi</label>
+            <div class="ira-grid-2">
+              <select id="heroProvinsi" class="ira-select" required>
+                <option value="" disabled selected>Pilih Provinsi</option>
+                <option value="DKI Jakarta">DKI Jakarta</option>
+                <option value="Jawa Barat">Jawa Barat</option>
+                <option value="Jawa Tengah">Jawa Tengah</option>
+                <option value="Jawa Timur">Jawa Timur</option>
+                <option value="Banten">Banten</option>
+                <option value="DI Yogyakarta">DI Yogyakarta</option>
+                <option value="Maluku">Maluku</option>
+                <option value="Papua">Papua</option>
+              </select>
+              <select id="heroKota" class="ira-select" required>
+                <option value="" disabled selected>Pilih Kota / Kabupaten</option>
+                <option value="Jakarta Pusat">Jakarta Pusat</option>
+                <option value="Jakarta Barat">Jakarta Barat</option>
+                <option value="Jakarta Selatan">Jakarta Selatan</option>
+                <option value="Jakarta Timur">Jakarta Timur</option>
+                <option value="Jakarta Utara">Jakarta Utara</option>
+                <option value="Bandung">Bandung</option>
+                <option value="Surabaya">Surabaya</option>
+                <option value="Semarang">Semarang</option>
+                <option value="Tangerang">Tangerang</option>
+                <option value="Bekasi">Bekasi</option>
+              </select>
+            </div>
+
+            <div class="ira-grid-2" style="margin-top: 8px;">
+              <select id="heroKecamatan" class="ira-select" required>
+                <option value="" disabled selected>Pilih Kecamatan</option>
+                <option value="Gambir">Gambir</option>
+                <option value="Tambora">Tambora</option>
+                <option value="Menteng">Menteng</option>
+                <option value="Coblong">Coblong</option>
+                <option value="Wonokromo">Wonokromo</option>
+              </select>
+              <select id="heroKelurahan" class="ira-select" required>
+                <option value="" disabled selected>Pilih Kelurahan / Desa</option>
+                <option value="Kebon Sirih">Kebon Sirih</option>
+                <option value="Pekojan">Pekojan</option>
+                <option value="Dago">Dago</option>
+                <option value="Darmo">Darmo</option>
+              </select>
+            </div>
+
+            <div class="ira-grid-2" style="margin-top: 8px;">
+              <input type="text" id="heroRT" class="ira-input" placeholder="RT (opsional) - Contoh: 001">
+              <input type="text" id="heroRW" class="ira-input" placeholder="RW (opsional) - Contoh: 002">
+            </div>
+          </div>
+
+          <div class="ira-form-field">
+            <label class="ira-label">Tulis Detail Alamat *</label>
+            <textarea id="heroDetailAlamat" class="ira-textarea" rows="2" placeholder="Nomor rumah, blok, RT/RW, patokan, warna pagar, lantai, dan keterangan lain..." required></textarea>
+            <span class="ira-hint-muted">Detail alamat tidak mengubah titik peta atau pilihan wilayah.</span>
+          </div>
+
+          <div class="ira-form-field">
+            <input type="text" id="heroReferral" class="ira-input" placeholder="Kode Referral (opsional)">
+          </div>
+
+          <div class="ira-form-field">
+            <input type="text" id="heroVoucher" class="ira-input" placeholder="Kode Voucher (opsional)">
+          </div>
+
+          <button type="submit" id="btnHeroSubmit" class="btn-hero-submit">Submit</button>
+
+          <div class="ira-wa-link-wrap">
+            <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20ingin%20cek%20jangkauan" target="_blank" rel="noopener noreferrer" class="ira-wa-link">
+              <span>Atau langsung tanya lewat WhatsApp</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+              </svg>
+            </a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 3-COLUMN FEATURE STRIP (AUTHENTIC LIVE WEB + CLOCK ICON GARANSI) ================= -->
+  <section class="section-feature-strip">
+    <div class="feature-strip-container">
+
+      <!-- Kolom 1: Paket Box Icon -->
+      <div class="feature-strip-item">
+        <div class="strip-icon" title="Paket Murah Sepuasnya">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#d90429" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <div class="strip-text">
+          <h4>Rp100.000/bulan internetan sepuasnya</h4>
+          <p>Kecepatan hingga 100 Mbps tanpa batasan kuota bulanan</p>
+        </div>
+      </div>
+
+      <!-- Kolom 2: WhatsApp Chat Icon -->
+      <div class="feature-strip-item">
+        <div class="strip-icon" title="Alur Cepat">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#d90429" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="strip-text">
+          <h4>4 langkah tanpa ribet</h4>
+          <p>Kirim titik alamat rumah, cek jangkauan, bayar biaya langganan, aktivasi perangkat nyala.</p>
+        </div>
+      </div>
+
+      <!-- Kolom 3: CLOCK ICON GARANSI (Icon jam analog sesuai permintaan dosen & user) -->
+      <div class="feature-strip-item">
+        <div class="strip-icon" title="Garansi 2x24 Jam Nyala">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#d90429" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div class="strip-text">
+          <h4>Garansi 2x24 jam nyala setelah pembayaran</h4>
+          <p>CS 24/7 yang siap bantu kamu buat semua informasi Internet Rakyat</p>
         </div>
       </div>
 
     </div>
   </section>
+  <!-- ================= SECTION HITUNG PERANGKAT (AUTHENTIC LIVE WEB - SEBERAPA BUTUH INTERNET) ================= -->
+  <section class="section-device-calc">
+    <div class="device-calc-container">
+      <h2 class="calc-title">Seberapa butuh internet buat kamu?</h2>
+      <p class="calc-subtitle">Di rumah ada berapa perangkat yang perlu tersambung internet?</p>
+
+      <div class="device-chips-row">
+        <button type="button" class="chip-btn" onclick="selectDevicePlan(this, '1-3', 'Paket Starter 50 Mbps', 'Rp 100.000', 'Cocok untuk 1-2 smartphone & smart TV nonton santai.')">1 - 3 Perangkat</button>
+        <button type="button" class="chip-btn active" onclick="selectDevicePlan(this, '4-6', 'Paket Juara 100 Mbps', 'Rp 100.000', 'Paling pas untuk gadget keluarga, WFH lancar & streaming bareng.')">4 - 6 Perangkat</button>
+        <button type="button" class="chip-btn" onclick="selectDevicePlan(this, '7-10', 'Paket Pro 100 Mbps', 'Rp 100.000', 'Koneksi ultra stabil untuk gaming, zoom meeting & multi device aktif.')">7 - 10 Perangkat</button>
+        <button type="button" class="chip-btn" onclick="selectDevicePlan(this, '>10', 'Paket Ultra 100 Mbps Plus', 'Rp 100.000', 'Ideal untuk ruko, kos-kosan, atau rumah bertingkat dengan banyak gadget.')">&gt; 10 Perangkat</button>
+      </div>
+
+      <div class="plan-recommend-card" id="planRecommendCard">
+        <div class="rec-badge">REKOMENDASI TERBAIK</div>
+        <div class="rec-header">
+          <div class="rec-plan-name" id="recPlanName">Paket Juara 100 Mbps</div>
+          <div class="rec-plan-price" id="recPlanPrice">Rp 100.000 <span>/bulan</span></div>
+        </div>
+        <p class="rec-plan-desc" id="recPlanDesc">Paling pas untuk gadget keluarga, WFH lancar &amp; streaming bareng tanpa buffer.</p>
+        <div class="rec-features">
+          <span>✓ Modem Wi-Fi 6 Gratis</span>
+          <span>✓ Tanpa FUP / Batasan Kuota</span>
+          <span>✓ Gratis Tayangan Vidio Premier</span>
+          <span>✓ Garansi 2x24 Jam Nyala</span>
+        </div>
+        <a href="#formCekLokasi" class="btn-rec-cta" onclick="document.getElementById('heroNama').focus()">Daftar Paket Ini Sekarang &rsaquo;</a>
+      </div>
+    </div>
+  </section>
+
 
   <!-- ================= KEUNGGULAN SECTION ================= -->
   <section class="section-benefits" id="keunggulan">
@@ -827,17 +1393,18 @@
     <div class="benefit-grid">
       <div class="benefit-card">
         <div class="benefit-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
           </svg>
         </div>
         <h3>100% Fiber Optik Murni</h3>
-        <p>Kecepatan simetris unduh dan unggah tanpa drop saat hujan, ideal untuk streaming resolusi 4K dan meeting online.</p>
+        <p>Kecepatan simetris unduh dan unggah tanpa drop saat cuaca buruk, ideal untuk streaming resolusi 4K dan meeting online.</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <!-- Clock Icon for No FUP / 24-7 -->
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
             <circle cx="12" cy="12" r="10"/>
             <polyline points="12 6 12 12 16 14"/>
           </svg>
@@ -848,7 +1415,7 @@
 
       <div class="benefit-card">
         <div class="benefit-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
             <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
             <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
             <line x1="6" y1="6" x2="6.01" y2="6"/>
@@ -862,7 +1429,7 @@
   </section>
 
   <!-- ================= BANNER PORTAL PELANGGAN ================= -->
-  <section class="section-portal" id="apps">
+  <section class="section-portal" id="bantuan">
     <div class="portal-banner">
       <div class="portal-info">
         <h2>Sudah Berlangganan Internet Rakyat?</h2>
@@ -901,8 +1468,8 @@
       </div>
 
       <div class="footer-col" style="display:flex;align-items:flex-end;justify-content:flex-end">
-        <div style="display:flex;align-items:center;gap:10px">
-          <svg viewBox="0 0 64 64" width="46" height="46">
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg viewBox="0 0 64 64" width="38" height="38">
             <circle cx="32" cy="32" r="32" fill="#d90429"/>
             <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
             <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
@@ -910,8 +1477,8 @@
             <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
           </svg>
           <div class="brand-text">
-            <span class="top">internet</span>
-            <span class="bottom">rakyat</span>
+            <span class="top" style="color:var(--primary); font-size:14px">internet</span>
+            <span class="bottom" style="color:var(--slate-800); font-size:11px">rakyat</span>
           </div>
         </div>
       </div>
@@ -919,7 +1486,7 @@
 
     <div class="footer-bottom">
       <p>Copyright &copy; 2026 PT. Telemedia Komunikasi Pratama. All rights reserved.</p>
-      <span style="font-size:12px;color:#94a3b8">UI/UX Course Project: Redesign Portal &amp; Area Pelanggan</span>
+      <span style="font-size:11.5px;color:#94a3b8">UI/UX Course Project: Redesign Portal &amp; Area Pelanggan</span>
     </div>
   </footer>
 
@@ -928,6 +1495,50 @@
     <img src="assets/images/cs_button.png" alt="Customer Service IRA">
   </div>
 
+
+  <!-- Floating Mascot Customer Service Button (Official CS Icon) -->
+  <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat" target="_blank" rel="noopener noreferrer" class="floating-mascot-cs" title="Tanya Layanan Customer Service">
+    <img src="assets/images/cs_button.png" alt="Mascot IRA CS">
+  </a>
+
+
+  <script>
+    function handleHeroLocationSubmit(e) {
+      e.preventDefault();
+      const nama = document.getElementById('heroNama').value.trim();
+      const alamat = document.getElementById('heroAlamatSearch').value.trim();
+      const provinsi = document.getElementById('heroProvinsi').value;
+      const kota = document.getElementById('heroKota').value;
+      const detail = document.getElementById('heroDetailAlamat').value.trim();
+      const voucher = document.getElementById('heroVoucher').value.trim();
+
+      const lead = {
+        nama: nama,
+        alamat: alamat,
+        provinsi: provinsi,
+        kota: kota,
+        detail: detail,
+        voucher: voucher
+      };
+      localStorage.setItem('ira_lead', JSON.stringify(lead));
+
+      const btn = document.getElementById('btnHeroSubmit');
+      btn.innerText = '✓ Lokasi Tercover! Menyiapkan Registrasi...';
+      btn.style.background = '#15803d';
+
+      setTimeout(() => {
+        window.location.href = 'register.html';
+      }, 700);
+    }
+
+    function selectDevicePlan(btn, count, planName, price, desc) {
+      document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('recPlanName').innerText = planName;
+      document.getElementById('recPlanPrice').innerHTML = price + ' <span>/bulan</span>';
+      document.getElementById('recPlanDesc').innerText = desc;
+    }
+  </script>
+
 </body>
-</html>
 </html>

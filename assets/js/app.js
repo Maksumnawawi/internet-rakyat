@@ -520,5 +520,38 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 3500);
     });
   }
+
+  // ==========================================
+  // SYNC ACTIVE USER PROFILE FROM LOCALSTORAGE
+  // ==========================================
+  try {
+    var savedUser = JSON.parse(localStorage.getItem('ira_active_user') || 'null');
+    if (savedUser) {
+      if (savedUser.nama) {
+        var nameEl = document.getElementById('userNameDisplay');
+        var avatarEl = document.getElementById('userAvatar');
+        var detailNamaEl = document.getElementById('detailNama');
+        if (nameEl) nameEl.textContent = savedUser.nama;
+        if (avatarEl) avatarEl.textContent = savedUser.nama.charAt(0).toUpperCase();
+        if (detailNamaEl) detailNamaEl.textContent = savedUser.nama;
+      }
+      if (savedUser.idPelanggan) {
+        var idEl = document.getElementById('userIdDisplay');
+        var detailIdEl = document.getElementById('detailId');
+        if (idEl) idEl.textContent = 'ID: ' + savedUser.idPelanggan;
+        if (detailIdEl) detailIdEl.textContent = savedUser.idPelanggan;
+      }
+      if (savedUser.phone) {
+        var phoneEl = document.getElementById('detailPhone');
+        if (phoneEl) phoneEl.textContent = savedUser.phone;
+      }
+      if (savedUser.email) {
+        var emailEl = document.getElementById('detailEmail');
+        if (emailEl) emailEl.textContent = savedUser.email;
+      }
+    }
+  } catch (err) {
+    console.warn('Profile sync error:', err);
+  }
 });
 

@@ -1,3 +1,8 @@
 .vscode/
 *.log
-
+Makalah_*
+generate_makalah.py
+*.bak
+scratch/
+assets/images/live_*
+assets/images/preview_*

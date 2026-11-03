@@ -429,16 +429,11 @@
               required
               autocomplete="tel"
               pattern="[0-9+ -]{9,16}"
-              value="08123456789"
             >
-          </div>
-          <div class="demo-hint">
-            <span>Gunakan no. HP terdaftar pelanggan</span>
-            <button type="button" class="btn-fill-demo" onclick="fillDemoPhone()">Isi Akun Demo</button>
           </div>
         </div>
 
-        <button type="submit" id="btnSubmit" class="btn-lanjutkan ready">
+        <button type="submit" id="btnSubmit" class="btn-lanjutkan">
           <span id="btnText">Lanjutkan</span>
         </button>
 
@@ -539,10 +534,14 @@
     const btnSubmit = document.getElementById('btnSubmit');
     const btnText = document.getElementById('btnText');
 
-    function fillDemoPhone() {
-      phoneInput.value = '08123456789';
-      phoneInput.focus();
-    }
+    phoneInput.addEventListener('input', () => {
+      const val = phoneInput.value.trim();
+      if (val.length >= 9) {
+        btnSubmit.classList.add('ready');
+      } else {
+        btnSubmit.classList.remove('ready');
+      }
+    });
 
     function handleLogin(e) {
       e.preventDefault();
@@ -554,14 +553,26 @@
       btnSubmit.innerHTML = '<span class="spinner"></span> <span>Memverifikasi Akun...</span>';
 
       setTimeout(() => {
+        let savedUser = JSON.parse(localStorage.getItem('ira_active_user') || 'null');
+        if (!savedUser) {
+          savedUser = {
+            nama: 'Pelanggan Baru',
+            phone: val,
+            idPelanggan: 'DV' + Math.floor(100 + Math.random() * 900)
+          };
+          localStorage.setItem('ira_active_user', JSON.stringify(savedUser));
+        } else if (savedUser.phone !== val) {
+          savedUser.phone = val;
+          localStorage.setItem('ira_active_user', JSON.stringify(savedUser));
+        }
+
         btnSubmit.innerHTML = '<span>✓ Berhasil! Masuk ke Area Pelanggan...</span>';
         btnSubmit.style.background = '#15803d';
 
         setTimeout(() => {
-          // Redirect to Area Pelanggan dashboard
           window.location.href = 'dashboard.html';
         }, 600);
-      }, 800);
+      }, 700);
     }
   </script>
 </body>

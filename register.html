@@ -300,9 +300,9 @@
 
     .girl-visual {
       position: absolute;
-      bottom: -10px;
-      left: -15px;
-      width: 490px;
+      bottom: 0;
+      left: 0;
+      width: 400px;
       line-height: 0;
       z-index: 2;
       pointer-events: none;
@@ -312,7 +312,9 @@
       width: 100%;
       height: auto;
       display: block;
-      filter: drop-shadow(4px 0 18px rgba(0, 0, 0, 0.45));
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.22));
     }
 
     /* Right Side: White Inner Card with scrolling */
@@ -598,21 +600,43 @@
         max-width: 580px;
       }
       .regis-left {
-        height: 290px;
+        height: 160px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: visible;
+        position: relative;
+        margin-bottom: -18px;
+        z-index: 2;
       }
       .girl-visual {
-        width: 320px;
-        left: 50%;
-        transform: translateX(-65%);
+        position: relative;
+        width: 165px;
+        line-height: 0;
+        left: auto;
+        bottom: 0;
+        transform: none;
+        margin: 0 auto;
+        z-index: 2;
+      }
+      .girl-visual img {
+        width: 100%;
+        height: auto;
+        display: block;
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.18));
       }
       .speech-bubble {
         left: auto;
         right: 18px;
-        bottom: 80px;
-        max-width: 200px;
+        bottom: 40px;
+        max-width: 180px;
       }
       .regis-right-wrap {
         padding: 0 16px 20px;
+        position: relative;
+        z-index: 2;
       }
       .regis-right {
         height: 440px;
@@ -744,21 +768,21 @@
             <!-- Nama Lengkap -->
             <div class="form-field">
               <label class="field-label" for="regNama">Nama Lengkap*</label>
-              <input type="text" id="regNama" class="field-input" placeholder="Nama Lengkap" required value="Ikhda">
+              <input type="text" id="regNama" class="field-input" placeholder="Masukkan nama lengkap" required>
               <span class="error-msg" id="errNama">Nama Lengkap wajib diisi.</span>
             </div>
 
             <!-- Email (Opsional) -->
             <div class="form-field">
               <label class="field-label" for="regEmail">Email (Opsional)</label>
-              <input type="email" id="regEmail" class="field-input" placeholder="user@mail.com" value="ikhda@internetrakyat.id">
+              <input type="email" id="regEmail" class="field-input" placeholder="contoh: nama@email.com">
             </div>
 
             <!-- Kode Voucher (Opsional) -->
             <div class="form-field">
               <label class="field-label" for="regVoucher">Kode Voucher (Opsional)</label>
               <div class="input-action-row">
-                <input type="text" id="regVoucher" class="field-input" placeholder="Masukkan Kode Voucher" value="IRAPROMO50">
+                <input type="text" id="regVoucher" class="field-input" placeholder="Masukkan Kode Voucher jika ada">
                 <button type="button" class="btn-action-inline" onclick="applyVoucher()">Pakai</button>
               </div>
               <span id="voucherMsg" style="font-size:12px;color:#15803d;display:none;margin-top:4px;font-weight:600">✓ Voucher hemat Rp 50.000 berhasil digunakan!</span>
@@ -768,7 +792,7 @@
             <div class="form-field">
               <label class="field-label" for="regPhone">Nomor Handphone*</label>
               <div class="input-action-row">
-                <input type="tel" id="regPhone" class="field-input" placeholder="contoh: 08123456789" required value="08123456789">
+                <input type="tel" id="regPhone" class="field-input" placeholder="contoh: 08123456789" required autocomplete="tel">
                 <button type="button" class="btn-action-inline secondary" id="btnSendOtp" onclick="sendOtp()">Kirim OTP</button>
               </div>
               <span class="error-msg" id="errPhone">Nomor Ponsel wajib diisi.</span>
@@ -778,15 +802,15 @@
             <div class="form-field">
               <label class="field-label">Masukkan OTP yang dikirim via Whatsapp atau SMS*</label>
               <div class="otp-wrapper">
-                <input type="text" class="otp-box" maxlength="1" value="1" id="otp1" oninput="moveOtp(this, 'otp2')">
-                <input type="text" class="otp-box" maxlength="1" value="2" id="otp2" oninput="moveOtp(this, 'otp3')">
-                <input type="text" class="otp-box" maxlength="1" value="3" id="otp3" oninput="moveOtp(this, 'otp4')">
+                <input type="text" class="otp-box" maxlength="1" id="otp1" oninput="moveOtp(this, 'otp2')">
+                <input type="text" class="otp-box" maxlength="1" id="otp2" oninput="moveOtp(this, 'otp3')">
+                <input type="text" class="otp-box" maxlength="1" id="otp3" oninput="moveOtp(this, 'otp4')">
                 <span class="otp-dash">-</span>
-                <input type="text" class="otp-box" maxlength="1" value="4" id="otp4" oninput="moveOtp(this, 'otp5')">
-                <input type="text" class="otp-box" maxlength="1" value="5" id="otp5" oninput="moveOtp(this, 'otp6')">
-                <input type="text" class="otp-box" maxlength="1" value="6" id="otp6" oninput="checkOtpFull()">
+                <input type="text" class="otp-box" maxlength="1" id="otp4" oninput="moveOtp(this, 'otp5')">
+                <input type="text" class="otp-box" maxlength="1" id="otp5" oninput="moveOtp(this, 'otp6')">
+                <input type="text" class="otp-box" maxlength="1" id="otp6" oninput="checkOtpFull()">
               </div>
-              <div class="otp-status verified" id="otpStatus">
+              <div class="otp-status" id="otpStatus" style="display:none">
                 <span>✓ OTP Berhasil Terverifikasi</span>
               </div>
             </div>
@@ -863,7 +887,7 @@
       const msg = document.getElementById('voucherMsg');
       if (code) {
         msg.style.display = 'block';
-        msg.innerText = `✓ Voucher "${code}" aktif! Hemat Rp 50.000 untuk tagihan awal.`;
+        msg.innerText = `✓ Voucher "${code}" aktif! Diskon tagihan awal berhasil diterapkan.`;
       }
     }
 
@@ -880,6 +904,7 @@
 
       setTimeout(() => {
         btn.innerText = 'Terkirim ✓';
+        // Auto-fill OTP for test convenience after clicking Kirim OTP
         document.getElementById('otp1').value = '1';
         document.getElementById('otp2').value = '2';
         document.getElementById('otp3').value = '3';
@@ -888,9 +913,10 @@
         document.getElementById('otp6').value = '6';
 
         const status = document.getElementById('otpStatus');
+        status.style.display = 'flex';
         status.className = 'otp-status verified';
-        status.innerHTML = '<span>✓ OTP Berhasil Diverifikasi (Kode Demo: 123456)</span>';
-      }, 600);
+        status.innerHTML = '<span>✓ Kode OTP (123456) Berhasil Diverifikasi</span>';
+      }, 500);
     }
 
     function moveOtp(current, nextId) {
@@ -907,16 +933,33 @@
       }
       const status = document.getElementById('otpStatus');
       if (full.length === 6) {
+        status.style.display = 'flex';
         status.className = 'otp-status verified';
         status.innerHTML = '<span>✓ OTP Berhasil Terverifikasi</span>';
-      } else {
+      } else if (full.length > 0) {
+        status.style.display = 'flex';
         status.className = 'otp-status';
-        status.innerHTML = '<span>❗ OTP belum terverifikasi</span>';
+        status.innerHTML = '<span>❗ Masukkan 6 digit kode OTP</span>';
+      } else {
+        status.style.display = 'none';
       }
     }
 
     function handleNextStep(e) {
       e.preventDefault();
+      const nama = document.getElementById('regNama').value.trim() || 'Pelanggan Baru';
+      const email = document.getElementById('regEmail').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+
+      // Store in localStorage
+      const userData = {
+        nama: nama,
+        email: email || 'user@internetrakyat.id',
+        phone: phone || '08123456789',
+        idPelanggan: 'DV' + Math.floor(100 + Math.random() * 900)
+      };
+      localStorage.setItem('ira_active_user', JSON.stringify(userData));
+
       const btnNext = document.getElementById('btnNext');
       btnNext.disabled = true;
       btnNext.innerText = 'Menyimpan & Menyiapkan Akun...';
@@ -942,8 +985,8 @@
         setTimeout(() => {
           // Direct to dashboard
           window.location.href = 'dashboard.html';
-        }, 1000);
-      }, 1200);
+        }, 800);
+      }, 1000);
     }
   </script>
 </body>
