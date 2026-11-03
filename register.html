@@ -37,7 +37,7 @@
       font-family: var(--font-main);
       color: var(--slate-800);
       background: radial-gradient(circle at 65% 35%, #ef0000 0%, #d80000 45%, #8d0000 100%);
-      min-height: 100vh;
+      min-height: 100vh; min-height: 100dvh; overflow-y: auto; -webkit-overflow-scrolling: touch;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
@@ -798,6 +798,40 @@
     .wa-push-close:hover {
       color: #334155;
       background: #f1f5f9;
+    }
+
+
+    /* Mobile Virtual Keyboard Stability & Clearance Fixes */
+    @media (max-width: 900px) {
+      .nav-wrapper {
+        padding: 14px 16px 0;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 50;
+      }
+      .regis-title {
+        font-size: 26px;
+        margin-bottom: 10px;
+        margin-top: 6px;
+      }
+      .stepper-tab-wrapper {
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 20;
+      }
+      .regis-left {
+        /* Adequate clearance so model head & speech bubble never get cut off */
+        margin-top: 4px;
+        margin-bottom: -32px;
+      }
+      .field-input, .otp-box {
+        /* Prevents iOS / Android automatic viewport zoom on input focus */
+        font-size: 16px !important;
+      }
+      .regis-right {
+        /* Flexible scrolling container when virtual keyboard pops up */
+        overflow-y: visible !important;
+      }
     }
 
 </style>

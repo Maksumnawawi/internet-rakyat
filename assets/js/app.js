@@ -63,27 +63,38 @@ document.addEventListener('DOMContentLoaded', function () {
   // ==========================================
   var notificationBtn = document.getElementById('notificationBtn');
   var notificationPanel = document.getElementById('notificationPanel');
+  var notificationBackdrop = document.getElementById('notificationBackdrop');
+
+  function openNotifications() {
+    if (!notificationPanel) return;
+    notificationPanel.hidden = false;
+    notificationPanel.classList.add('active');
+    if (notificationBackdrop) notificationBackdrop.classList.add('active');
+    if (notificationBtn) {
+      notificationBtn.setAttribute('aria-expanded', 'true');
+      notificationBtn.classList.add('is-active');
+    }
+  }
 
   function closeNotifications() {
     if (!notificationPanel) return;
     notificationPanel.hidden = true;
+    notificationPanel.classList.remove('active');
+    if (notificationBackdrop) notificationBackdrop.classList.remove('active');
     if (notificationBtn) {
       notificationBtn.setAttribute('aria-expanded', 'false');
       notificationBtn.classList.remove('is-active');
     }
   }
+  window.closeNotifications = closeNotifications;
 
   if (notificationBtn && notificationPanel) {
-    notificationBtn.addEventListener('click', function () {
-      var open = notificationPanel.hidden;
-      notificationPanel.hidden = !open;
-      notificationBtn.setAttribute('aria-expanded', String(open));
-      notificationBtn.classList.toggle('is-active', open);
-    });
-
-    document.addEventListener('click', function (event) {
-      if (!event.target.closest('.notification-wrap')) {
+    notificationBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (notificationPanel.classList.contains('active')) {
         closeNotifications();
+      } else {
+        openNotifications();
       }
     });
 

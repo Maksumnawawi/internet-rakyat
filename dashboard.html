@@ -57,125 +57,69 @@
   <!-- ==================== MAIN CONTENT ==================== -->
   <main class="wrap" id="top">
 
-    <!-- Profil & Notifikasi -->
-    <div class="profile">
-      <div class="avatar" id="userAvatar">I</div>
-      <div class="who">
-        <h2 id="userNameDisplay">Ikhda</h2>
-        <p id="userIdDisplay">ID: DV765</p>
+    <!-- Profil & Notifikasi (Card Putih Mandiri Anti-Overlap) -->
+    <div class="profile-card">
+      <div class="profile-main">
+        <div class="avatar" id="userAvatar">M</div>
+        <div class="who">
+          <h2 id="userNameDisplay">Masum Nawawi</h2>
+          <div class="user-meta">
+            <span class="user-id" id="userIdDisplay">ID: DV765</span>
+            <span class="user-badge-status">
+              <span class="dot-online"></span> Pelanggan Aktif
+            </span>
+          </div>
+        </div>
       </div>
       <div class="notification-wrap">
-        <button class="bell" id="notificationBtn" type="button" aria-label="Notifikasi, 58 pemberitahuan" aria-expanded="false" aria-controls="notificationPanel" title="Buka notifikasi">
+        <button class="bell" id="notificationBtn" type="button" aria-label="Notifikasi, 58 pemberitahuan" aria-expanded="false" title="Buka notifikasi">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22zm7-6v-5a7 7 0 0 0-5-6.7V4a2 2 0 0 0-4 0v.3A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/></svg>
-          <b aria-hidden="true">58</b>
+          <span class="bell-badge" id="bellBadge" aria-hidden="true">58</span>
         </button>
-        <section class="notification-panel" id="notificationPanel" aria-labelledby="notificationTitle" hidden>
+      </div>
+    </div>
+
+    <!-- Backdrop Blur Overlay untuk Modal Notifikasi -->
+    <div id="notificationBackdrop" class="modal-backdrop" onclick="closeNotifications()"></div>
+
+    <!-- Modal Notifikasi Pelanggan (Backdrop & Close Button) -->
+    <section class="notification-panel" id="notificationPanel" aria-labelledby="notificationTitle" hidden>
+      <div class="modal-header">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="modal-ico-wrap">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#d90429">
+              <path d="M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22zm7-6v-5a7 7 0 0 0-5-6.7V4a2 2 0 0 0-4 0v.3A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2z"/>
+            </svg>
+          </div>
           <h3 id="notificationTitle">Notifikasi Pelanggan</h3>
-          <p>Paket internet aktif. Sisa masa aktif 27 hari.</p>
-          <p>Paket IRA 100 Mbps berakhir pada 01 November 2026.</p>
-        </section>
+        </div>
+        <button type="button" class="btn-modal-close" onclick="closeNotifications()" aria-label="Tutup notifikasi">✕</button>
       </div>
-    </div>
-
-    <!-- Tab Navigasi -->
-    <div class="tabs" role="tablist" aria-label="Informasi pelanggan">
-      <button class="tab active" id="tab-paket" role="tab" aria-selected="true" aria-controls="paket" tabindex="0" data-tab="paket">Informasi Paket dan Riwayat</button>
-      <button class="tab" id="tab-pribadi" role="tab" aria-selected="false" aria-controls="pribadi" tabindex="-1" data-tab="pribadi">Data Pribadi</button>
-      <button class="tab" id="tab-perangkat" role="tab" aria-selected="false" aria-controls="perangkat" tabindex="-1" data-tab="perangkat">Informasi Perangkat</button>
-    </div>
-
-    <!-- PANEL 1: INFORMASI PAKET & RIWAYAT -->
-    <section class="panel active" id="paket" role="tabpanel" aria-labelledby="tab-paket" tabindex="0">
-
-      <!-- FITUR 1 (AFTER): LIVE STATUS KONEKSI & INDIKATOR GANGGUAN -->
-      <div class="net-status-card" id="networkStatusBar">
-        <div class="net-status-main">
-          <span class="pulse-dot" id="netPulseDot" aria-hidden="true"></span>
+      <div class="modal-body">
+        <div class="notif-row unread">
+          <span class="notif-bullet"></span>
           <div>
-            <div class="net-status-title">
-              <span id="netStatusTitle">Status Jaringan: Normal &amp; Terhubung</span>
-              <span class="badge-safe" id="netBadgeSafe">🟢 Online</span>
-            </div>
-            <p class="net-status-desc" id="netStatusDesc">Modem ONT fiber aktif. Wilayah Anda bebas dari gangguan massal atau pemeliharaan.</p>
+            <strong>Paket Internet Aktif</strong>
+            <p>Sisa masa aktif paket IRA Up To 100 Mbps kamu adalah 27 hari lagi.</p>
+            <small>Hari ini, 10:30 WIB</small>
           </div>
         </div>
-        <div class="net-metrics">
-          <div class="net-metric-item">
-            <span>Latensi / Ping</span>
-            <strong id="pingVal">14 ms</strong>
+        <div class="notif-row">
+          <div>
+            <strong>Pembayaran Terverifikasi</strong>
+            <p>Pembayaran langganan Rp 100.000 via QRIS berhasil.</p>
+            <small>01 Nov 2026, 09:15 WIB</small>
           </div>
-          <div class="net-metric-item">
-            <span>Kecepatan Unduh</span>
-            <strong id="speedVal">98.5 Mbps</strong>
+        </div>
+        <div class="notif-row">
+          <div>
+            <strong>Status Jaringan Prima</strong>
+            <p>Koneksi modem ONT Anda berjalan lancar (latency 3ms).</p>
+            <small>28 Okt 2026, 14:00 WIB</small>
           </div>
-          <button class="btn-check-net" id="btnCheckNet" type="button" aria-label="Tes ulang status koneksi internet">
-            <span id="checkText">Cek Jaringan</span>
-          </button>
         </div>
       </div>
-
-      <div class="grid">
-        <!-- Kolom Kiri -->
-        <div class="stack">
-          <!-- Kartu Paket Aktif -->
-          <div class="card stats">
-            <h3>Paket yang terakhir dibeli</h3>
-            <div class="pkg-row">
-              <div class="pkg-icon" title="Paket Aktif">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#e60000" stroke-width="2.6" stroke-linecap="round">
-                  <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
-                  <line x1="12" y1="2" x2="12" y2="12"/>
-                </svg>
-              </div>
-              <div>
-                <strong>Paket IRA Up To 100 Mbps</strong>
-                <a href="#paket-terakhir">Perpanjang Paket ›</a>
-              </div>
-            </div>
-
-            <div style="margin:12px 0 6px;padding:10px 14px;border-radius:10px;background:var(--green-soft);color:#15803d;font-size:13px;line-height:1.5">
-              🎉 <strong>Selamat Paket IRA Up To 100 Mbps baru kamu sudah aktif!</strong><br>
-              Nikmati Kuota Unlimited dan koneksi stabil selama <strong>27 Hari</strong> ke depan.
-            </div>
-
-            <div class="stat-grid">
-              <div class="stat">
-                <div class="ico">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 2h14v5l-4 5 4 5v5H5v-5l4-5-4-5V2z" fill="rgba(230,0,0,0.12)"/>
-                    <path d="M5 2h14M5 22h14"/>
-                  </svg>
-                </div>
-                <small>Sisa Hari</small>
-                <span class="status-badge"><i aria-hidden="true">✓</i>27 Hari</span>
-              </div>
-              <div class="stat">
-                <div class="ico">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" fill="rgba(230,0,0,0.2)"/>
-                    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" fill="rgba(230,0,0,0.12)"/>
-                    <path d="M9 12H4s.55-3.03 2-4.5c1.62-1.63 5-2.5 5-2.5"/>
-                    <path d="M15 15v5s3.03-.55 4.5-2c1.63-1.62 2.5-5 2.5-5"/>
-                  </svg>
-                </div>
-                <small>Kecepatan Paket</small>
-                <span>100Mbps</span>
-              </div>
-              <div class="stat">
-                <div class="ico">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#e60000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="3" ry="3" fill="rgba(230,0,0,0.08)"/>
-                    <line x1="16" y1="2" x2="16" y2="6"/>
-                    <line x1="8" y1="2" x2="8" y2="6"/>
-                    <line x1="3" y1="10" x2="21" y2="10"/>
-                    <circle cx="12" cy="15.5" r="2.2" fill="#e60000" stroke="none"/>
-                  </svg>
-                </div>
-                <small>Tanggal Berakhir Paket</small>
-                <span>01 November 2026</span>
-              </div>
-            </div>
-          </div>
+    </section>
 
           <!-- FITUR 2 (AFTER): QUICK WIFI MANAGER -->
           <div class="card wifi-card" id="wifiCard">
@@ -258,19 +202,7 @@
 
         <!-- Kolom Kanan -->
         <div class="right">
-          <h3 class="title">Paket Terakhir Dibeli</h3>
-
-          <div class="offer">
-            <div class="girl">
-              <img src="assets/images/girl_model.png" alt="Model Internet Rakyat">
-            </div>
-            <div class="offer-card" id="paket-terakhir" tabindex="-1">
-              <div class="head">Paket IRA Up To 100 Mbps</div>
-              <div class="body">
-                <div>
-                  <small>Internet sampai dengan</small>
-                  <div class="speed">100 <span>Mbps</span></div>
-                </div>
+          
                 <div>
                   <small>Harga</small>
                   <div><span class="old">Rp 100.000</span> <span class="free">Gratis</span></div>
