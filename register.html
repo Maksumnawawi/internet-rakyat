@@ -592,55 +592,74 @@
       font-size: 12px;
     }
 
-    /* Responsive */
+        /* Responsive */
     @media (max-width: 900px) {
+      .stepper-tab-wrapper {
+        margin-bottom: 14px;
+        position: relative;
+        z-index: 20;
+      }
+      .stepper-tab {
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        padding: 8px 22px;
+      }
       .regis-card {
         grid-template-columns: 1fr;
         height: auto;
-        max-width: 580px;
+        max-width: 480px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        overflow: visible;
+        margin: 0 auto;
       }
       .regis-left {
-        height: 215px;
+        height: auto;
         display: flex;
         align-items: flex-end;
         justify-content: center;
         overflow: visible;
         position: relative;
-        margin-bottom: -16px;
-        z-index: 2;
+        margin-bottom: -36px;
+        z-index: 1;
       }
       .girl-visual {
         position: relative;
-        width: clamp(230px, 68vw, 260px);
+        width: 290px;
         line-height: 0;
         left: auto;
         bottom: 0;
-        transform: none;
+        transform: translateX(18px);
         margin: 0 auto;
-        z-index: 2;
+        z-index: 1;
+        pointer-events: none;
       }
       .girl-visual img {
         width: 100%;
         height: auto;
         display: block;
-        -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 82%, rgba(0,0,0,0) 100%);
-        mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 82%, rgba(0,0,0,0) 100%);
-        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.18));
-      }
-      .speech-bubble {
-        left: auto;
-        right: 18px;
-        bottom: 40px;
-        max-width: 180px;
+        -webkit-mask-image: none;
+        mask-image: none;
+        filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.25));
       }
       .regis-right-wrap {
-        padding: 0 16px 20px;
+        padding: 0 10px 30px;
         position: relative;
-        z-index: 2;
+        z-index: 10;
+        height: auto;
+        overflow: visible;
       }
       .regis-right {
-        height: 440px;
-        padding: 24px 20px;
+        background: #ffffff;
+        border-radius: 28px;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        padding: 28px 22px 34px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+        overflow: visible;
       }
       .footer-grid {
         grid-template-columns: 1fr 1fr;
