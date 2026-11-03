@@ -1937,3 +1937,282 @@ dialog::backdrop {
     display: none;
   }
 }
+
+
+
+/* ==========================================================================
+   DRAWER NAVIGATION & BACKDROP (MODAL MELAYANG ANTI-OVERLAP)
+   ========================================================================== */
+.nav-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.48);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.nav-drawer-backdrop.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Desktop Navigation (>=901px) */
+@media (min-width: 901px) {
+  .menu-toggle {
+    display: none !important;
+  }
+  .nav-drawer-backdrop {
+    display: none !important;
+  }
+  .drawer-header, .drawer-user-info {
+    display: none !important;
+  }
+  nav.nav-drawer {
+    display: flex !important;
+    align-items: center;
+    gap: 16px;
+    position: static !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+  .drawer-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .drawer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #475569;
+    text-decoration: none;
+    padding: 7px 12px;
+    border-radius: 8px;
+    transition: all 0.16s ease;
+  }
+  .drawer-link:hover {
+    color: #d90429;
+    background: #fff1f2;
+  }
+  .drawer-footer {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  .drawer-btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.18s ease;
+  }
+  .drawer-btn-logout:hover {
+    background: #fef2f2;
+    color: #d90429;
+    border-color: #fecaca;
+  }
+}
+
+/* Mobile Slide-Over Drawer (<900px) */
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    padding: 0;
+  }
+
+  .menu-toggle:hover {
+    background: #f1f5f9;
+    color: #d90429;
+  }
+
+  nav.nav-drawer {
+    display: flex !important;
+    flex-direction: column !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 290px !important;
+    max-width: 85vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: #ffffff !important;
+    z-index: 10000 !important;
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.22) !important;
+    padding: 20px 20px 24px !important;
+    box-sizing: border-box !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    overflow-y: auto !important;
+  }
+
+  nav.nav-drawer.open {
+    transform: translateX(0) !important;
+  }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 16px;
+  }
+
+  .drawer-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .drawer-close-btn {
+    background: #f1f5f9;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.16s ease;
+  }
+
+  .drawer-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+
+  .drawer-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+  }
+
+  .drawer-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d90429, #a8001b);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .drawer-user-meta {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .drawer-user-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .drawer-user-id {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .drawer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .drawer-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #334155;
+    text-decoration: none;
+    transition: all 0.16s ease;
+  }
+
+  .drawer-link:hover, .drawer-link:active {
+    background: #fff1f2;
+    color: #d90429;
+    transform: translateX(3px);
+  }
+
+  .drawer-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .drawer-btn-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.16s ease;
+  }
+
+  .drawer-btn-logout:hover {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+}
