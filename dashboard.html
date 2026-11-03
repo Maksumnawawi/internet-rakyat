@@ -20,6 +20,7 @@
 <body>
 
   <!-- ==================== HEADER ==================== -->
+  <!-- ==================== HEADER ==================== -->
   <header>
     <a class="brand" href="index.html" aria-label="Internet Rakyat Beranda">
       <svg viewBox="0 0 64 64" width="40" height="40">
@@ -35,92 +36,25 @@
       </div>
     </a>
 
+    <!-- Desktop Navigation Links (Hanya Tampil di Layar Besar) -->
+    <nav class="desktop-nav" aria-label="Navigasi Utama Desktop">
+      <a href="index.html">Beranda</a>
+      <a href="#apps">Bantuan</a>
+      <a href="#paket" onclick="if(document.getElementById('tab-paket')) document.getElementById('tab-paket').click()">Perpanjang Paket</a>
+      <div style="display:inline-flex;align-items:center;gap:10px">
+        <button class="btn-area" id="accountBtn" type="button">Area Pelanggan ▾</button>
+        <a href="login.html" class="btn-logout" title="Keluar ke halaman login">Keluar</a>
+      </div>
+    </nav>
+
     <!-- Hamburger Menu Toggle Button (Mobile) -->
-    <button class="menu-toggle" id="menuBtn" aria-label="Buka Menu Navigasi" type="button">
+    <button class="menu-toggle" id="menuBtn" aria-label="Buka Menu Navigasi" type="button" onclick="openSidebar()">
       <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
         <line x1="3" y1="6" x2="21" y2="6"/>
         <line x1="3" y1="12" x2="21" y2="12"/>
         <line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
     </button>
-
-    <!-- Overlay Backdrop untuk Mobile Drawer -->
-    <div id="navBackdrop" class="nav-drawer-backdrop" onclick="closeNavDrawer()"></div>
-
-    <!-- Navigasi (Desktop Navbar & Mobile Slide-Over Drawer) -->
-    <nav id="nav" class="nav-drawer">
-      <!-- Drawer Header (Hanya tampil di mobile) -->
-      <div class="drawer-header">
-        <div class="drawer-brand">
-          <span style="color:#d90429;font-weight:900;font-size:16px;">internet</span>
-          <span style="color:#1e293b;font-weight:800;font-size:13px;letter-spacing:0.5px;">RAKYAT</span>
-        </div>
-        <button type="button" class="drawer-close-btn" id="navDrawerCloseBtn" aria-label="Tutup menu">✕</button>
-      </div>
-
-      <!-- User Mini Profile (Hanya tampil di mobile drawer) -->
-      <div class="drawer-user-info">
-        <div class="drawer-avatar" id="drawerAvatar">M</div>
-        <div class="drawer-user-meta">
-          <strong class="drawer-user-name" id="drawerUserName">Masum Nawawi</strong>
-          <span class="drawer-user-id" id="drawerUserId">ID: DV765</span>
-        </div>
-      </div>
-
-      <!-- Links Navigasi Utama -->
-      <div class="drawer-links">
-        <a href="index.html" class="drawer-link">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-          <span>Beranda</span>
-        </a>
-
-        <a href="#paket" class="drawer-link" onclick="if(document.getElementById('tab-paket')) document.getElementById('tab-paket').click()">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-          </svg>
-          <span>Paket &amp; Riwayat</span>
-        </a>
-
-        <a href="#pribadi" class="drawer-link" onclick="if(document.getElementById('tab-pribadi')) document.getElementById('tab-pribadi').click()">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span>Profil Pengguna</span>
-        </a>
-
-        <a href="#apps" class="drawer-link">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-            <line x1="12" y1="17" x2="12.01" y2="17"/>
-          </svg>
-          <span>Bantuan &amp; Panduan</span>
-        </a>
-
-        <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20butuh%20bantuan" target="_blank" rel="noopener noreferrer" class="drawer-link">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="#25d366">
-            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
-          </svg>
-          <span>Chat WhatsApp CS</span>
-        </a>
-      </div>
-
-      <!-- Action Footer: Tombol Keluar (Di dalam Drawer) -->
-      <div class="drawer-footer">
-        <a href="login.html" class="drawer-btn-logout">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
-          <span>Keluar dari Akun</span>
-        </a>
-      </div>
-    </nav>
   </header>
 
   <!-- ==================== HERO BANNER ==================== -->
@@ -467,5 +401,85 @@
 
   <!-- Main Application Script -->
   <script src="assets/js/app.js"></script>
+
+  <!-- ==================== SIDEBAR DRAWER MELAYANG (DIRECT BODY CHILD) ==================== -->
+  <!-- Backdrop / Dim Layer (Fixed Inset-0, Z-40 / Z-99998) -->
+  <div id="menu-backdrop" class="fixed inset-0 bg-black/50 z-40 backdrop-blur-xs transition-opacity" onclick="closeSidebar()" aria-hidden="true"></div>
+
+  <!-- Sidebar Drawer Container (Fixed Top-0 Right-0 H-Full W-64, Z-50 / Z-99999) -->
+  <aside id="sidebar-drawer" class="sidebar-drawer fixed top-0 right-0 h-full w-64 bg-white z-50 shadow-2xl transition-transform duration-300 ease-in-out" aria-label="Menu Navigasi Mobile">
+    <!-- Header Drawer dengan Tombol Close (X) -->
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span style="color:#d90429;font-weight:900;font-size:16px;">internet</span>
+        <span style="color:#1e293b;font-weight:800;font-size:13px;letter-spacing:0.5px;">RAKYAT</span>
+      </div>
+      <button type="button" class="drawer-close-btn" id="navDrawerCloseBtn" onclick="closeSidebar()" aria-label="Tutup menu">✕</button>
+    </div>
+
+    <!-- Mini Profil Pengguna di Drawer -->
+    <div class="drawer-user-info">
+      <div class="drawer-avatar" id="drawerAvatar">M</div>
+      <div class="drawer-user-meta">
+        <strong class="drawer-user-name" id="drawerUserName">Masum Nawawi</strong>
+        <span class="drawer-user-id" id="drawerUserId">ID: DV765</span>
+      </div>
+    </div>
+
+    <!-- Navigasi Vertikal Rapi -->
+    <div class="drawer-links">
+      <a href="index.html" class="drawer-link" onclick="closeSidebar()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Beranda</span>
+      </a>
+
+      <a href="#paket" class="drawer-link" onclick="closeSidebar(); if(document.getElementById('tab-paket')) document.getElementById('tab-paket').click()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+        </svg>
+        <span>Paket &amp; Riwayat</span>
+      </a>
+
+      <a href="#pribadi" class="drawer-link" onclick="closeSidebar(); if(document.getElementById('tab-pribadi')) document.getElementById('tab-pribadi').click()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Profil Pengguna</span>
+      </a>
+
+      <a href="#apps" class="drawer-link" onclick="closeSidebar()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <span>Bantuan &amp; Panduan</span>
+      </a>
+
+      <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20butuh%20bantuan" target="_blank" rel="noopener noreferrer" class="drawer-link" onclick="closeSidebar()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#25d366">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+        </svg>
+        <span>Chat WhatsApp CS</span>
+      </a>
+    </div>
+
+    <!-- Tombol Keluar dari Akun (Rapi di Bawah Drawer) -->
+    <div class="drawer-footer">
+      <a href="login.html" class="drawer-btn-logout">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        <span>Keluar dari Akun</span>
+      </a>
+    </div>
+  </aside>
+
 </body>
 </html>

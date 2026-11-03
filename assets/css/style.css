@@ -28,6 +28,11 @@ body, button, input, select, textarea {
   font-family: var(--font-main);
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -1467,22 +1472,7 @@ dialog::backdrop {
   .grid {
     grid-template-columns: 1fr;
   }
-  nav {
-    display: none;
-    position: absolute;
-    top: 76px;
-    left: 0;
-    right: 0;
-    background: #fff;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 16px 24px;
-    gap: 16px;
-    box-shadow: 0 8px 16px rgba(0,0,0,.08);
-  }
-  nav.open {
-    display: flex;
-  }
+  /* Old nav block removed */
   .menu-toggle {
     display: block;
   }
@@ -2215,4 +2205,130 @@ dialog::backdrop {
     background: #fee2e2;
     color: #991b1b;
   }
+}
+
+
+
+/* ==========================================================================
+   ISOLATED SIDEBAR DRAWER (Z-50) & BACKDROP (Z-40)
+   ========================================================================== */
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.desktop-nav a {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #475569;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.16s ease;
+}
+
+.desktop-nav a:hover {
+  color: #d90429;
+  background: #fff1f2;
+}
+
+.desktop-nav .btn-logout {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.desktop-nav .btn-logout:hover {
+  color: #d90429;
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+@media (max-width: 900px) {
+  header {
+    padding: 0 16px !important;
+    height: 68px !important;
+  }
+  .desktop-nav {
+    display: none !important;
+  }
+}
+
+/* BACKDROP OVERLAY (Z-40 / Z-99998) */
+#menu-backdrop, .menu-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  background: rgba(0, 0, 0, 0.52) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  z-index: 99998 !important;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.28s ease !important;
+  cursor: pointer;
+}
+
+#menu-backdrop.active, .menu-backdrop.active {
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* SIDEBAR DRAWER CONTAINER (Z-50 / Z-99999) */
+#sidebar-drawer, .sidebar-drawer {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  width: 280px !important;
+  max-width: 82vw !important;
+  background: #ffffff !important;
+  z-index: 99999 !important;
+  box-shadow: -12px 0 45px rgba(0, 0, 0, 0.3) !important;
+  padding: 20px 20px 26px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateX(100%) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow-y: auto !important;
+  margin: 0 !important;
+}
+
+#sidebar-drawer.open, .sidebar-drawer.open {
+  transform: translateX(0) !important;
+}
+
+/* Ensure Page Stays 100% Stable When Drawer Is Open */
+body.drawer-open {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
+
+/* Z-INDEX DISCIPLINE: Profile Card and Hero Stay Below Drawer */
+.profile-card {
+  z-index: 10 !important;
+}
+
+header {
+  z-index: 20 !important;
+}
+
+.hero {
+  z-index: 1 !important;
 }

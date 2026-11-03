@@ -106,63 +106,58 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // ==========================================
-  // 3. RESPONSIVE MOBILE NAVIGATION (SLIDE-OVER DRAWER WITH BACKDROP)
+  // 3. RESPONSIVE MOBILE NAVIGATION (ISOLATED SIDEBAR DRAWER & BACKDROP)
   // ==========================================
-  var nav = document.getElementById('nav');
+  var sidebarDrawer = document.getElementById('sidebar-drawer');
+  var menuBackdrop = document.getElementById('menu-backdrop');
   var menuBtn = document.getElementById('menuBtn');
-  var navBackdrop = document.getElementById('navBackdrop');
   var navDrawerCloseBtn = document.getElementById('navDrawerCloseBtn');
 
-  function openNavDrawer() {
-    if (!nav) return;
-    nav.classList.add('open');
-    if (navBackdrop) navBackdrop.classList.add('active');
+  function openSidebar() {
+    if (!sidebarDrawer) return;
+    sidebarDrawer.classList.add('open');
+    if (menuBackdrop) menuBackdrop.classList.add('active');
     if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('drawer-open');
   }
+  window.openSidebar = openSidebar;
 
-  function closeNavDrawer() {
-    if (!nav) return;
-    nav.classList.remove('open');
-    if (navBackdrop) navBackdrop.classList.remove('active');
+  function closeSidebar() {
+    if (!sidebarDrawer) return;
+    sidebarDrawer.classList.remove('open');
+    if (menuBackdrop) menuBackdrop.classList.remove('active');
     if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
+    document.body.classList.remove('drawer-open');
   }
-  window.closeNavDrawer = closeNavDrawer;
+  window.closeSidebar = closeSidebar;
 
-  if (menuBtn && nav) {
+  if (menuBtn) {
     menuBtn.setAttribute('aria-expanded', 'false');
     menuBtn.addEventListener('click', function (e) {
       e.stopPropagation();
-      if (nav.classList.contains('open')) {
-        closeNavDrawer();
+      if (sidebarDrawer && sidebarDrawer.classList.contains('open')) {
+        closeSidebar();
       } else {
-        openNavDrawer();
-      }
-    });
-
-    if (navDrawerCloseBtn) {
-      navDrawerCloseBtn.addEventListener('click', closeNavDrawer);
-    }
-
-    if (navBackdrop) {
-      navBackdrop.addEventListener('click', closeNavDrawer);
-    }
-
-    nav.querySelectorAll('a, button:not(#navDrawerCloseBtn)').forEach(function (link) {
-      link.addEventListener('click', function () {
-        closeNavDrawer();
-      });
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && nav.classList.contains('open')) {
-        closeNavDrawer();
+        openSidebar();
       }
     });
   }
 
-  // Also sync drawer user info if savedUser exists
+  if (navDrawerCloseBtn) {
+    navDrawerCloseBtn.addEventListener('click', closeSidebar);
+  }
+
+  if (menuBackdrop) {
+    menuBackdrop.addEventListener('click', closeSidebar);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebarDrawer && sidebarDrawer.classList.contains('open')) {
+      closeSidebar();
+    }
+  });
+
+  // Sync user info inside drawer
   var savedUser = JSON.parse(localStorage.getItem('ira_active_user') || 'null');
   if (savedUser) {
     var drawerAvatar = document.getElementById('drawerAvatar');
