@@ -684,9 +684,149 @@
         gap: 10px;
       }
     }
-  </style>
+  
+    /* ================= REALISTIC WHATSAPP PUSH NOTIFICATION SIMULATION ================= */
+    .wa-push-banner {
+      position: fixed;
+      top: -140px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      z-index: 999999;
+      cursor: pointer;
+      transition: top 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+      opacity: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .wa-push-banner.visible {
+      top: 18px;
+      opacity: 1;
+    }
+
+    .wa-push-icon {
+      width: 38px;
+      height: 38px;
+      background: #25d366;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+    }
+
+    .wa-push-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wa-push-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .wa-push-app {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      color: #64748b;
+    }
+
+    .wa-push-time {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .wa-push-sender {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 2px;
+    }
+
+    .wa-push-body {
+      font-size: 12px;
+      color: #334155;
+      line-height: 1.45;
+    }
+
+    .wa-otp-highlight {
+      display: inline-block;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 1px 7px;
+      border-radius: 6px;
+      letter-spacing: 1.2px;
+    }
+
+    .wa-push-action-tip {
+      font-size: 11px;
+      font-weight: 700;
+      color: #15803d;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .wa-push-close {
+      background: none;
+      border: none;
+      font-size: 14px;
+      color: #94a3b8;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .wa-push-close:hover {
+      color: #334155;
+      background: #f1f5f9;
+    }
+
+</style>
 </head>
 <body>
+
+  <!-- Simulated WhatsApp Push Notification Banner -->
+  <div id="waNotificationBanner" class="wa-push-banner" onclick="handleNotificationClick()" title="Klik untuk mengisi kode otomatis">
+    <div class="wa-push-icon">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff">
+        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+      </svg>
+    </div>
+    <div class="wa-push-content">
+      <div class="wa-push-header">
+        <span class="wa-push-app">WHATSAPP</span>
+        <span class="wa-push-time">baru saja</span>
+      </div>
+      <div class="wa-push-sender">Internet Rakyat Official</div>
+      <div class="wa-push-body">
+        Kode OTP verifikasi Anda: <strong id="waOtpCode" class="wa-otp-highlight">123456</strong>. Jangan bagikan ke siapapun.
+      </div>
+      <div class="wa-push-action-tip">
+        👉 Ketuk notifikasi ini untuk Tempel Otomatis
+      </div>
+    </div>
+    <button type="button" class="wa-push-close" onclick="event.stopPropagation(); dismissNotification()">✕</button>
+  </div>
+
 
   <!-- ================= FLOATING NAVBAR ================= -->
   <header class="nav-wrapper">
@@ -910,32 +1050,93 @@
       }
     }
 
+    let currentGeneratedOtp = '';
+    let countdownInterval = null;
+
     function sendOtp() {
       const phone = document.getElementById('regPhone').value.trim();
+      const errPhone = document.getElementById('errPhone');
       const btn = document.getElementById('btnSendOtp');
-      if (!phone) {
-        document.getElementById('errPhone').classList.add('visible');
+
+      if (!phone || phone.length < 9) {
+        errPhone.innerText = 'Nomor Handphone wajib diisi minimal 9 digit.';
+        errPhone.classList.add('visible');
         return;
       }
-      document.getElementById('errPhone').classList.remove('visible');
+      errPhone.classList.remove('visible');
+
+      // Generate random 6-digit OTP
+      currentGeneratedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Clear previous inputs
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById('otp' + i).value = '';
+      }
+      const status = document.getElementById('otpStatus');
+      status.style.display = 'none';
+
+      // Visual feedback on button
       btn.disabled = true;
-      btn.innerText = 'Mengirim...';
+      let countdown = 60;
+      btn.innerText = `Kirim Ulang (${countdown}s)`;
 
+      if (countdownInterval) clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        countdown--;
+        if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          btn.disabled = false;
+          btn.innerText = 'Kirim Ulang OTP';
+        } else {
+          btn.innerText = `Kirim Ulang (${countdown}s)`;
+        }
+      }, 1000);
+
+      // Trigger realistic WhatsApp Notification after 900ms
       setTimeout(() => {
-        btn.innerText = 'Terkirim ✓';
-        // Auto-fill OTP for test convenience after clicking Kirim OTP
-        document.getElementById('otp1').value = '1';
-        document.getElementById('otp2').value = '2';
-        document.getElementById('otp3').value = '3';
-        document.getElementById('otp4').value = '4';
-        document.getElementById('otp5').value = '5';
-        document.getElementById('otp6').value = '6';
+        document.getElementById('waOtpCode').innerText = currentGeneratedOtp;
+        const banner = document.getElementById('waNotificationBanner');
+        banner.classList.add('visible');
 
-        const status = document.getElementById('otpStatus');
-        status.style.display = 'flex';
-        status.className = 'otp-status verified';
-        status.innerHTML = '<span>✓ Kode OTP (123456) Berhasil Diverifikasi</span>';
-      }, 500);
+        // Play gentle audio beep
+        try {
+          const ctx = new (window.AudioContext || window.webkitAudioContext)();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+          osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.35);
+        } catch (e) {}
+
+        // Focus first OTP input
+        const otp1 = document.getElementById('otp1');
+        if (otp1) otp1.focus();
+
+        // Auto dismiss banner after 12 seconds
+        setTimeout(() => {
+          dismissNotification();
+        }, 12000);
+      }, 900);
+    }
+
+    function dismissNotification() {
+      const banner = document.getElementById('waNotificationBanner');
+      if (banner) banner.classList.remove('visible');
+    }
+
+    function handleNotificationClick() {
+      if (!currentGeneratedOtp) return;
+      // Auto-fill OTP on click for ultra convenience
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById('otp' + i).value = currentGeneratedOtp[i - 1];
+      }
+      checkOtpFull();
+      dismissNotification();
     }
 
     function moveOtp(current, nextId) {
@@ -945,20 +1146,38 @@
       checkOtpFull();
     }
 
+    // Support backspace navigation
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.otp-box').forEach((box, idx, arr) => {
+        box.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !box.value && idx > 0) {
+            arr[idx - 1].focus();
+          }
+        });
+      });
+    });
+
     function checkOtpFull() {
       let full = '';
       for (let i = 1; i <= 6; i++) {
-        full += document.getElementById('otp' + i).value;
+        full += document.getElementById('otp' + i).value.trim();
       }
       const status = document.getElementById('otpStatus');
+      const btnNext = document.getElementById('btnNext');
+
       if (full.length === 6) {
         status.style.display = 'flex';
-        status.className = 'otp-status verified';
-        status.innerHTML = '<span>✓ OTP Berhasil Terverifikasi</span>';
+        if (full === currentGeneratedOtp) {
+          status.className = 'otp-status verified';
+          status.innerHTML = '<span style="color:#15803d;font-weight:700">✓ OTP Cocok! Terverifikasi via WhatsApp</span>';
+        } else {
+          status.className = 'otp-status';
+          status.innerHTML = '<span style="color:#b91c1c;font-weight:700">✗ Kode OTP salah, silakan cek notifikasi WA Anda</span>';
+        }
       } else if (full.length > 0) {
         status.style.display = 'flex';
         status.className = 'otp-status';
-        status.innerHTML = '<span>❗ Masukkan 6 digit kode OTP</span>';
+        status.innerHTML = '<span style="color:#64748b">Masukkan 6 digit kode OTP</span>';
       } else {
         status.style.display = 'none';
       }
@@ -966,6 +1185,15 @@
 
     function handleNextStep(e) {
       e.preventDefault();
+      if (currentGeneratedOtp) {
+        let full = '';
+        for (let i = 1; i <= 6; i++) full += document.getElementById('otp' + i).value.trim();
+        if (full !== currentGeneratedOtp) {
+          alert('Silakan masukkan dan verifikasi kode OTP WhatsApp Anda terlebih dahulu.');
+          document.getElementById('otp1').focus();
+          return;
+        }
+      }
       const nama = document.getElementById('regNama').value.trim() || 'Pelanggan Baru';
       const email = document.getElementById('regEmail').value.trim();
       const phone = document.getElementById('regPhone').value.trim();
