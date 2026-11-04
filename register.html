@@ -406,6 +406,12 @@
       display: none;
     }
 
+    .field-input.is-invalid {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+    }
+
     .error-msg.visible {
       display: block;
     }
@@ -1074,6 +1080,8 @@
     </div>
   </footer>
 
+  <!-- Shared Authentication Module -->
+  <script src="assets/js/login.js"></script>
   <script>
     function applyVoucher() {
       const code = document.getElementById('regVoucher').value.trim();
@@ -1088,16 +1096,26 @@
     let countdownInterval = null;
 
     function sendOtp() {
-      const phone = document.getElementById('regPhone').value.trim();
+      const phoneInput = document.getElementById('regPhone');
+      const phone = phoneInput ? phoneInput.value.trim() : '';
       const errPhone = document.getElementById('errPhone');
       const btn = document.getElementById('btnSendOtp');
 
-      if (!phone || phone.length < 9) {
-        errPhone.innerText = 'Nomor Handphone wajib diisi minimal 9 digit.';
+      const validation = (window.IRAAuth && window.IRAAuth.validateIndonesianPhone)
+        ? window.IRAAuth.validateIndonesianPhone(phone)
+        : { isValid: phone.length >= 10 && phone.startsWith('08'), message: 'Format nomor tidak valid. Masukkan nomor WhatsApp aktif diawali 08... minimal 10 digit.' };
+
+      if (!validation.isValid) {
+        errPhone.innerText = validation.message;
         errPhone.classList.add('visible');
+        if (phoneInput) {
+          phoneInput.classList.add('is-invalid');
+          phoneInput.focus();
+        }
         return;
       }
       errPhone.classList.remove('visible');
+      if (phoneInput) phoneInput.classList.remove('is-invalid');
 
       // Generate random 6-digit OTP
       currentGeneratedOtp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -1178,6 +1196,16 @@
         document.getElementById(nextId).focus();
       }
       checkOtpFull();
+    }
+
+    // Input listener to clear error state
+    const regPhoneInput = document.getElementById('regPhone');
+    if (regPhoneInput) {
+      regPhoneInput.addEventListener('input', () => {
+        regPhoneInput.classList.remove('is-invalid');
+        const err = document.getElementById('errPhone');
+        if (err) err.classList.remove('visible');
+      });
     }
 
     // Support backspace navigation
