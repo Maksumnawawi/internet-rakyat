@@ -1,26 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 48" width="170" height="48" fill="none">
-  <!-- Left Icon: Official IRA Circular Signal Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 44" width="160" height="44" fill="none">
+  <!-- Left Icon: Red Circle with Top Opening (#D91E2A) -->
   <g id="ira-logo-mark">
     <!-- Top WiFi Signal Arcs (Replacing Dot of 'i') -->
-    <path d="M 14.5 4.5 A 10.5 10.5 0 0 1 29.5 4.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-    <path d="M 17.5 8.5 A 6 6 0 0 1 26.5 8.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+    <path d="M 15 4.5 A 10 10 0 0 1 29 4.5" stroke="#D91E2A" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+    <path d="M 17.5 8 A 6 6 0 0 1 26.5 8" stroke="#D91E2A" stroke-width="2.6" stroke-linecap="round" fill="none"/>
 
-    <!-- Thick Red Open Circle (#E10600) with top opening -->
-    <path d="M 14 11 A 16.5 16.5 0 1 0 30 11" stroke="#E10600" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+    <!-- Thick Red Open Circle (#D91E2A) with top opening -->
+    <path d="M 14 11 A 15.5 15.5 0 1 0 30 11" stroke="#D91E2A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
 
     <!-- Vertical 'i', 'r', 'a' Inside Circle -->
-    <!-- 'i' stem (without dot; dot is wifi arcs above) -->
-    <line x1="22" y1="13.5" x2="22" y2="19" stroke="#E10600" stroke-width="3" stroke-linecap="round"/>
-    <!-- 'r' letter -->
-    <path d="M 18.5 29 V 22.5 C 18.5 22.5 19.5 21 22 21 C 24.5 21 25.5 22.5 25.5 22.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- 'a' letter -->
-    <circle cx="21.5" cy="34.5" r="3.8" stroke="#E10600" stroke-width="2.4" fill="none"/>
-    <path d="M 25.3 31.5 V 38.5" stroke="#E10600" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="22" y1="13.5" x2="22" y2="18.5" stroke="#D91E2A" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 18.5 28 V 22 C 18.5 22 19.5 20.5 22 20.5 C 24.5 20.5 25.5 22 25.5 22" stroke="#D91E2A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="21.5" cy="33.5" r="3.6" stroke="#D91E2A" stroke-width="2.4" fill="none"/>
+    <path d="M 25.1 30.5 V 37.2" stroke="#D91E2A" stroke-width="2.4" stroke-linecap="round"/>
   </g>
 
-  <!-- Right Text: Two Lines Left-Aligned ("internet", "rakyat" lowercase bold #E10600) -->
-  <g id="ira-logo-text" fill="#E10600" font-family="'Be Vietnam Pro', 'Figtree', sans-serif">
-    <text x="46" y="20" font-size="17" font-weight="900" letter-spacing="-0.3">internet</text>
-    <text x="46" y="37" font-size="15" font-weight="900" letter-spacing="-0.2">rakyat</text>
+  <!-- Right Text: Two Lines Left-Aligned ("internet", "rakyat" lowercase bold #D91E2A) -->
+  <g id="ira-logo-text" fill="#D91E2A" font-family="'Be Vietnam Pro', 'Figtree', -apple-system, sans-serif">
+    <text x="44" y="19" font-size="16" font-weight="900" letter-spacing="-0.3">internet</text>
+    <text x="44" y="36" font-size="14.5" font-weight="900" letter-spacing="-0.2">rakyat</text>
   </g>
 </svg>

@@ -15,7 +15,7 @@
 
   <style>
     :root {
-      --primary: #d90429;
+      --primary: #D91E2A;
       --primary-dark: #b80020;
       --navy: #0b1a30;
       --slate-50: #f8fafc;
@@ -170,6 +170,100 @@
     .btn-wa-pill:hover {
       background: #008f4c;
       transform: translateY(-1px);
+    }
+
+    /* Brand Logo in Red Box */
+    .brand-badge-box {
+      background: #D91E2A;
+      border-radius: 999px;
+      padding: 6px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.18s ease, background-color 0.18s ease;
+      box-shadow: 0 2px 8px rgba(217, 30, 42, 0.28);
+    }
+
+    .brand-badge-box:hover {
+      transform: scale(1.02);
+      background: #b81420;
+    }
+
+    /* Black Hamburger Icon */
+    .btn-hamburger-landing {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: background 0.18s;
+      outline: none;
+    }
+
+    .btn-hamburger-landing:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Dropdown Menu below navbar-pill */
+    .landing-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      padding: 10px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      animation: dropDownSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes dropDownSlide {
+      from { opacity: 0; transform: translate(-50%, -8px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    .landing-dropdown-item {
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.16s ease;
+    }
+
+    .landing-dropdown-item:hover {
+      background: #f8fafc;
+      color: #D91E2A;
+      transform: translateX(4px);
+    }
+
+    .landing-dropdown-item.btn-landing-masuk {
+      margin-top: 4px;
+      background: #fef2f2;
+      border: 1.5px solid #fee2e2;
+      color: #D91E2A;
+      font-weight: 800;
+    }
+
+    .landing-dropdown-item.btn-landing-masuk:hover {
+      background: #D91E2A;
+      color: #ffffff;
+      border-color: #D91E2A;
+      transform: none;
     }
 
     /* ================= HERO SECTION ================= */
@@ -1067,43 +1161,47 @@
   <!-- ================= FLOATING NAVBAR ================= -->
   <header class="nav-wrapper">
     <div class="navbar-pill">
-      <a href="index.html" class="brand" aria-label="Internet Rakyat Beranda">
-        <div class="brand-badge">
-          <svg viewBox="0 0 64 64" width="24" height="24">
-            <circle cx="32" cy="32" r="32" fill="#ffffff"/>
-            <path d="M15 25a24 24 0 0 1 34 0" stroke="#d90429" stroke-width="5" stroke-linecap="round" fill="none"/>
-            <path d="M21 32a16 16 0 0 1 22 0" stroke="#d90429" stroke-width="5" stroke-linecap="round" fill="none"/>
-            <path d="M27 39a8 8 0 0 1 10 0" stroke="#d90429" stroke-width="5" stroke-linecap="round" fill="none"/>
-            <circle cx="32" cy="47" r="3.5" fill="#d90429"/>
-          </svg>
-          <div class="brand-text">
-            <span class="top">internet</span>
-            <span class="bottom">rakyat</span>
-          </div>
-        </div>
+      <!-- 1. BrandLogo dalam kotak merah di kiri -->
+      <a href="index.html" class="brand-badge-box" aria-label="Internet Rakyat Beranda">
+        <img src="assets/images/logo_ira_white.svg" alt="Internet Rakyat" height="26" style="display:block;">
       </a>
 
-      <nav class="nav-links">
-        <a href="#paket">Paket</a>
-        <a href="register.html">Alur Pendaftaran</a>
-        <a href="#keunggulan">Janji Pasti</a>
-        <a href="#bantuan">Bantuan</a>
-      </nav>
+      <!-- 2. Ikon garis tiga hitam di tengah (berubah jadi X saat terbuka) -->
+      <button type="button" class="btn-hamburger-landing" id="landingMenuBtn" onclick="toggleLandingMenu()" aria-label="Menu Navigasi" aria-expanded="false">
+        <svg id="landingBurgerIcon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1e293b" stroke-width="2.6" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg id="landingCloseIcon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1e293b" stroke-width="2.6" stroke-linecap="round" style="display:none;">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
 
-      <div class="nav-right-actions">
-        <!-- Tombol Masuk resmi menuju Login IRA -->
-        <a href="login.html" class="btn-login-link" title="Masuk ke Area Pelanggan">
-          Masuk
-        </a>
+      <!-- 3. Tombol kapsul hijau "Tanya Lewat Whatsapp" di kanan -->
+      <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20ingin%20tanya%20informasi%20layanan" target="_blank" rel="noopener noreferrer" class="btn-wa-pill" title="Tanya Customer Service">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+        </svg>
+        <span>Tanya Lewat Whatsapp</span>
+      </a>
+    </div>
 
-        <!-- Tombol WhatsApp Resmi -->
-        <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="btn-wa-pill" title="Tanya Customer Service">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
-          </svg>
-          <span>Tanya Lewat Whatsapp</span>
-        </a>
-      </div>
+    <!-- Panel Dropdown Putih Berisi Menu Vertikal: Paket, Alur Pendaftaran, Janji Pasti, Bantuan, Masuk -->
+    <div id="landingDropdownMenu" class="landing-dropdown-menu" style="display:none;">
+      <a href="#paket" class="landing-dropdown-item" onclick="closeLandingMenu()">Paket</a>
+      <a href="register.html" class="landing-dropdown-item" onclick="closeLandingMenu()">Alur Pendaftaran</a>
+      <a href="#keunggulan" class="landing-dropdown-item" onclick="closeLandingMenu()">Janji Pasti</a>
+      <a href="#bantuan" class="landing-dropdown-item" onclick="closeLandingMenu()">Bantuan</a>
+      <a href="login.html" class="landing-dropdown-item btn-landing-masuk" onclick="closeLandingMenu()">
+        <span>Masuk</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+      </a>
     </div>
   </header>
 
@@ -1188,7 +1286,7 @@
 
         <div class="hero-actions">
           <a href="register.html" class="btn-cta-primary" title="Registrasi Pemasangan Baru">
-            Daftar Pasang Baru &rsaquo;
+            Daftar Akun Baru &rsaquo;
           </a>
           <a href="login.html" class="btn-cta-secondary" title="Login ke Akun Area Pelanggan">
             Area Pelanggan
@@ -1538,6 +1636,44 @@
       document.getElementById('recPlanPrice').innerHTML = price + ' <span>/bulan</span>';
       document.getElementById('recPlanDesc').innerText = desc;
     }
+
+    function toggleLandingMenu() {
+      const menu = document.getElementById('landingDropdownMenu');
+      const burger = document.getElementById('landingBurgerIcon');
+      const close = document.getElementById('landingCloseIcon');
+      const btn = document.getElementById('landingMenuBtn');
+      if (!menu) return;
+      const isOpen = menu.style.display !== 'none';
+      if (isOpen) {
+        menu.style.display = 'none';
+        if (burger) burger.style.display = 'block';
+        if (close) close.style.display = 'none';
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      } else {
+        menu.style.display = 'flex';
+        if (burger) burger.style.display = 'none';
+        if (close) close.style.display = 'block';
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    function closeLandingMenu() {
+      const menu = document.getElementById('landingDropdownMenu');
+      const burger = document.getElementById('landingBurgerIcon');
+      const close = document.getElementById('landingCloseIcon');
+      const btn = document.getElementById('landingMenuBtn');
+      if (menu) menu.style.display = 'none';
+      if (burger) burger.style.display = 'block';
+      if (close) close.style.display = 'none';
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    document.addEventListener('click', function(e) {
+      const wrapper = document.querySelector('.nav-wrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
+        closeLandingMenu();
+      }
+    });
   </script>
 
 </body>

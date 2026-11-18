@@ -22,22 +22,7 @@
   <!-- ==================== HEADER ==================== -->
   <header>
     <a class="brand" href="index.html" aria-label="Internet Rakyat Beranda">
-      <svg class="brand-logo-icon" viewBox="0 0 44 48" width="38" height="42" fill="none">
-        <!-- Top WiFi Signal Arcs (Replacing Dot of 'i') -->
-        <path d="M 14.5 4.5 A 10.5 10.5 0 0 1 29.5 4.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-        <path d="M 17.5 8.5 A 6 6 0 0 1 26.5 8.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-        <!-- Thick Red Open Circle (#E10600) -->
-        <path d="M 14 11 A 16.5 16.5 0 1 0 30 11" stroke="#E10600" stroke-width="3.6" stroke-linecap="round" fill="none"/>
-        <!-- Vertical 'i', 'r', 'a' Inside Circle -->
-        <line x1="22" y1="13.5" x2="22" y2="19" stroke="#E10600" stroke-width="3" stroke-linecap="round"/>
-        <path d="M 18.5 29 V 22.5 C 18.5 22.5 19.5 21 22 21 C 24.5 21 25.5 22.5 25.5 22.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <circle cx="21.5" cy="34.5" r="3.8" stroke="#E10600" stroke-width="2.4" fill="none"/>
-        <path d="M 25.3 31.5 V 38.5" stroke="#E10600" stroke-width="2.4" stroke-linecap="round"/>
-      </svg>
-      <div class="brand-text">
-        <span class="top" style="color:#E10600;font-weight:900;">internet</span>
-        <span class="bottom" style="color:#E10600;font-weight:900;text-transform:lowercase;">rakyat</span>
-      </div>
+      <img src="assets/images/logo_ira.svg" alt="Internet Rakyat" height="38" style="display:block;">
     </a>
 
     <!-- Desktop Navigation Links (Hanya Tampil di Layar Besar) -->
@@ -50,8 +35,8 @@
     </nav>
 
     <!-- Hamburger Menu Toggle Button (Selalu Tersedia, Top Z-Index & Interaktif Penuh) -->
-    <button class="menu-toggle" id="menuBtn" aria-label="Buka Menu Navigasi" type="button" onclick="openSidebar()" title="Buka menu navigasi" style="z-index:1000;cursor:pointer;pointer-events:auto;">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <button class="menu-toggle" id="menuBtn" aria-label="Buka Menu Navigasi" type="button" onclick="openSidebar()" title="Buka menu navigasi" style="z-index:1000;cursor:pointer;pointer-events:auto;background:none;border:none;padding:6px;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#D91E2A" stroke-width="2.6" stroke-linecap="round">
         <line x1="3" y1="6" x2="21" y2="6"/>
         <line x1="3" y1="12" x2="21" y2="12"/>
         <line x1="3" y1="18" x2="21" y2="18"/>
@@ -766,67 +751,73 @@
 
     <!-- Navigasi Vertikal Rapi Sesuai Ketentuan -->
     <div class="drawer-links">
-      <!-- 1. Beranda Utama -->
-      <a href="index.html" class="drawer-link" onclick="closeSidebar()">
+      <!-- 1. Paket -->
+      <a href="index.html#paket" class="drawer-link" onclick="closeSidebar()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
         </svg>
-        <span>Beranda Utama</span>
+        <span>Paket</span>
       </a>
 
-      <!-- 2. Dashboard Pelanggan -->
-      <a href="#top" class="drawer-link" onclick="closeSidebar(); window.scrollTo({top:0, behavior:'smooth'});">
+      <!-- 2. Alur Pendaftaran -->
+      <a href="register.html" class="drawer-link" onclick="closeSidebar()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+        </svg>
+        <span>Alur Pendaftaran</span>
+      </a>
+
+      <!-- 3. Janji Pasti -->
+      <a href="index.html#keunggulan" class="drawer-link" onclick="closeSidebar()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>Janji Pasti</span>
+      </a>
+
+      <!-- 4. Bantuan -->
+      <a href="#helpCard" class="drawer-link" onclick="closeSidebar(); document.getElementById('helpCard').scrollIntoView({behavior:'smooth'});">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <span>Bantuan</span>
+      </a>
+
+      <!-- 5. Perpanjang Paket -->
+      <a href="javascript:void(0)" class="drawer-link" onclick="closeSidebar(); openPackageModal();">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10"/>
+          <polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        <span>Perpanjang Paket</span>
+      </a>
+
+      <!-- 6. Area Pelanggan (Aktif & Bold) -->
+      <a href="dashboard.html" class="drawer-link active" onclick="closeSidebar()" style="font-weight: 800; color: #D91E2A; background: #fef2f2; border: 1px solid #fee2e2;">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#D91E2A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="7" height="7"/>
           <rect x="14" y="3" width="7" height="7"/>
           <rect x="14" y="14" width="7" height="7"/>
           <rect x="3" y="14" width="7" height="7"/>
         </svg>
-        <span>Dashboard Pelanggan</span>
-      </a>
-
-      <!-- 3. Kelola WiFi Rumah -->
-      <a href="#wifiCard" class="drawer-link" onclick="closeSidebar(); document.getElementById('wifiCard').scrollIntoView({behavior:'smooth'});">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-          <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-          <line x1="12" y1="20" x2="12.01" y2="20"/>
-        </svg>
-        <span>Kelola WiFi Rumah</span>
-      </a>
-
-      <!-- 4. Riwayat & Invoice -->
-      <a href="#historySection" class="drawer-link" onclick="closeSidebar(); document.getElementById('historySection').scrollIntoView({behavior:'smooth'});">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-          <line x1="16" y1="13" x2="8" y2="13"/>
-          <line x1="16" y1="17" x2="8" y2="17"/>
-          <polyline points="10 9 9 9 8 9"/>
-        </svg>
-        <span>Riwayat &amp; Invoice</span>
-      </a>
-
-      <!-- Pusat Bantuan WhatsApp CS -->
-      <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20butuh%20bantuan" target="_blank" rel="noopener noreferrer" class="drawer-link" onclick="closeSidebar()">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="#25d366">
-          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
-        </svg>
-        <span>Pusat Bantuan CS</span>
+        <span style="color: #D91E2A; font-weight: 800;">Area Pelanggan</span>
       </a>
     </div>
 
-    <!-- Tombol Merah Keluar / Logout di Bagian Bawah -->
-    <div class="drawer-footer">
-      <a href="login.html" class="drawer-btn-logout">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 7. Tombol Kapsul Merah Penuh: Logout -->
+    <div class="drawer-footer" style="padding: 16px 20px; border-top: 1px solid #f1f5f9;">
+      <a href="login.html" class="drawer-btn-logout-full" style="display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#D91E2A;color:#ffffff;border-radius:999px;padding:12px 20px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 4px 14px rgba(217,30,42,0.35);transition:all 0.2s;">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
           <polyline points="16 17 21 12 16 7"/>
           <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        <span>Keluar / Logout</span>
+        <span>Logout</span>
       </a>
     </div>
   </aside>
