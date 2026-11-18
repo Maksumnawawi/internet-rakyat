@@ -115,6 +115,22 @@ document.addEventListener('DOMContentLoaded', function () {
   var notificationPanel = document.getElementById('notificationPanel');
   var notificationBackdrop = document.getElementById('notificationBackdrop');
 
+  function markAllNotificationsRead() {
+    var bellBadge = document.getElementById('bellBadge');
+    if (bellBadge) {
+      bellBadge.style.display = 'none';
+      bellBadge.textContent = '0';
+    }
+    document.querySelectorAll('.notif-row.unread').forEach(function (row) {
+      row.classList.remove('unread');
+    });
+    try {
+      localStorage.setItem('ira_notifs_read', 'true');
+    } catch (e) {}
+    showToast('Seluruh notifikasi telah ditandai sebagai dibaca.');
+  }
+  window.markAllNotificationsRead = markAllNotificationsRead;
+
   function openNotifications() {
     if (!notificationPanel) return;
     notificationPanel.hidden = false;
@@ -124,6 +140,19 @@ document.addEventListener('DOMContentLoaded', function () {
       notificationBtn.setAttribute('aria-expanded', 'true');
       notificationBtn.classList.add('is-active');
     }
+
+    // KETENTUAN 3: Saat dibuka, tandai seluruh notifikasi sudah dibaca & hilangkan badge angka "58"
+    var bellBadge = document.getElementById('bellBadge');
+    if (bellBadge) {
+      bellBadge.style.display = 'none';
+      bellBadge.textContent = '0';
+    }
+    document.querySelectorAll('.notif-row.unread').forEach(function (row) {
+      row.classList.remove('unread');
+    });
+    try {
+      localStorage.setItem('ira_notifs_read', 'true');
+    } catch (e) {}
   }
 
   function closeNotifications() {
@@ -134,6 +163,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (notificationBtn) {
       notificationBtn.setAttribute('aria-expanded', 'false');
       notificationBtn.classList.remove('is-active');
+    }
+    // Pastikan badge tetap tersembunyi setelah popup ditutup
+    var bellBadge = document.getElementById('bellBadge');
+    if (bellBadge && localStorage.getItem('ira_notifs_read') === 'true') {
+      bellBadge.style.display = 'none';
+      bellBadge.textContent = '0';
     }
   }
   window.closeNotifications = closeNotifications;

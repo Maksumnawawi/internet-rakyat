@@ -20,38 +20,45 @@
    * @param {string} phone
    * @returns {{ isValid: boolean, message: string, normalized?: string }}
    */
+  /**
+   * KETENTUAN 5: Sanitasi dan normalisasi nomor HP Indonesia
+   * Otomatis mengubah "+62 838-..." atau "62838..." menjadi "0838..."
+   * Menjamin tidak ada digit yang terpotong menjadi "52..."
+   * @param {string} phone
+   * @returns {string}
+   */
+  function sanitizeIndonesianPhone(phone) {
+    if (!phone) return '';
+    var str = String(phone).trim();
+    // Hapus spasi, strip, tanda kurung, dan titik
+    var clean = str.replace(/[\s\-\(\)\.]/g, '');
+    // Normalisasi kode negara Indonesia (+62 / 62) menjadi 08
+    if (clean.indexOf('+62') === 0) {
+      clean = '0' + clean.slice(3);
+    } else if (clean.indexOf('62') === 0 && clean.length > 4) {
+      clean = '0' + clean.slice(2);
+    }
+    // Hapus karakter non-digit selain angka
+    clean = clean.replace(/\D/g, '');
+    return clean;
+  }
+
   function validateIndonesianPhone(phone) {
-    if (!phone || typeof phone !== 'string') {
+    if (!phone) {
       return { 
         isValid: false, 
         message: 'Nomor handphone wajib diisi.' 
       };
     }
 
-    // Bersihkan spasi dan tanda hubung
-    var clean = phone.trim().replace(/[\s-]/g, '');
+    // Sanitasi dan normalisasi nomor terlebih dahulu
+    var normalized = sanitizeIndonesianPhone(phone);
 
-    if (!clean) {
+    if (!normalized) {
       return { 
         isValid: false, 
         message: 'Nomor handphone tidak boleh kosong.' 
       };
-    }
-
-    // Nomor wajib berupa angka murni (boleh diawali satu simbol '+' untuk kode negara)
-    if (!/^\+?[0-9]+$/.test(clean)) {
-      return { 
-        isValid: false, 
-        message: 'Nomor handphone hanya boleh berisi angka murni.' 
-      };
-    }
-
-    // Normalisasi format internasional (+62 / 62) ke format lokal (08)
-    var normalized = clean;
-    if (normalized.indexOf('+62') === 0) {
-      normalized = '0' + normalized.slice(3);
-    } else if (normalized.indexOf('62') === 0) {
-      normalized = '0' + normalized.slice(2);
     }
 
     // Harus diawali dengan format seluler Indonesia yang valid: '08'
@@ -217,8 +224,16 @@
    */
   function handlePhoneInput() {
     clearPhoneError();
-    var val = elements.phoneInput.value.trim();
-    // Beri highlight tombol "ready" saat nomor mulai terisi dengan panjang cukup
+    var val = elements.phoneInput ? elements.phoneInput.value : '';
+    // Otomatis normalisasi nomor jika terdapat awalan +62, 62, spasi, atau simbol
+    if (val.indexOf('+') !== -1 || val.indexOf(' ') !== -1 || val.indexOf('-') !== -1 || (val.indexOf('62') === 0 && val.length >= 4)) {
+      var sanitized = sanitizeIndonesianPhone(val);
+      if (sanitized && sanitized !== val) {
+        elements.phoneInput.value = sanitized;
+        val = sanitized;
+      }
+    }
+    // Beri highlight tombol "ready" saat nomor mulai terisi dengan format valid
     var check = validateIndonesianPhone(val);
     if (check.isValid) {
       elements.btnSubmit.classList.add('ready');
@@ -575,6 +590,17 @@
     setupOtpBoxes();
 
     if (elements.phoneInput) {
+      // KETENTUAN 5: Paste listener otomatis menormalisasi nomor internasional (+62 / 62)
+      elements.phoneInput.addEventListener('paste', function (e) {
+        var pasteText = (e.clipboardData || window.clipboardData).getData('text');
+        if (pasteText) {
+          e.preventDefault();
+          var sanitized = sanitizeIndonesianPhone(pasteText);
+          elements.phoneInput.value = sanitized;
+          handlePhoneInput();
+        }
+      });
+
       elements.phoneInput.addEventListener('input', handlePhoneInput);
       elements.phoneInput.addEventListener('blur', function () {
         var val = elements.phoneInput.value.trim();
@@ -600,6 +626,7 @@
 
   // Ekspor Global untuk Event Handler Inline di HTML
   window.IRAAuth = {
+    sanitizeIndonesianPhone: sanitizeIndonesianPhone,
     validateIndonesianPhone: validateIndonesianPhone,
     formatIndonesianPhone: formatIndonesianPhone,
     handleSendOtp: handleSendOtp,

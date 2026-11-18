@@ -70,20 +70,9 @@
       line-height: 1.15;
     }
 
-    .brand-text .top {
-      font-size: 17px;
-      font-weight: 900;
-      letter-spacing: -0.3px;
-      color: var(--primary);
-    }
+    .brand-text .top { font-size: 16px; font-weight: 900; letter-spacing: -0.3px; color: #E10600; }
 
-    .brand-text .bottom {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--slate-800);
-      text-transform: uppercase;
-    }
+    .brand-text .bottom { font-size: 14px; font-weight: 900; letter-spacing: -0.2px; color: #E10600; text-transform: lowercase; }
 
     .header-nav {
       display: flex;
@@ -689,17 +678,22 @@
 
   <!-- ================= HEADER ================= -->
   <header>
-    <a href="index.html" class="brand" title="Kembali ke Beranda">
-      <svg viewBox="0 0 64 64" width="38" height="38">
-        <circle cx="32" cy="32" r="32" fill="#d90429"/>
-        <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-        <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-        <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-        <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+    <a class="brand" href="index.html" aria-label="Internet Rakyat Beranda">
+      <svg class="brand-logo-icon" viewBox="0 0 44 48" width="38" height="42" fill="none">
+        <!-- Top WiFi Signal Arcs (Replacing Dot of 'i') -->
+        <path d="M 14.5 4.5 A 10.5 10.5 0 0 1 29.5 4.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+        <path d="M 17.5 8.5 A 6 6 0 0 1 26.5 8.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+        <!-- Thick Red Open Circle (#E10600) -->
+        <path d="M 14 11 A 16.5 16.5 0 1 0 30 11" stroke="#E10600" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+        <!-- Vertical 'i', 'r', 'a' Inside Circle -->
+        <line x1="22" y1="13.5" x2="22" y2="19" stroke="#E10600" stroke-width="3" stroke-linecap="round"/>
+        <path d="M 18.5 29 V 22.5 C 18.5 22.5 19.5 21 22 21 C 24.5 21 25.5 22.5 25.5 22.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="21.5" cy="34.5" r="3.8" stroke="#E10600" stroke-width="2.4" fill="none"/>
+        <path d="M 25.3 31.5 V 38.5" stroke="#E10600" stroke-width="2.4" stroke-linecap="round"/>
       </svg>
       <div class="brand-text">
-        <span class="top">internet</span>
-        <span class="bottom">rakyat</span>
+        <span class="top" style="color:#E10600;font-weight:900;">internet</span>
+        <span class="bottom" style="color:#E10600;font-weight:900;text-transform:lowercase;">rakyat</span>
       </div>
     </a>
 
@@ -728,7 +722,7 @@
                 class="form-input" 
                 placeholder="contoh: 08123456789" 
                 autocomplete="tel"
-                maxlength="16"
+                maxlength="20"
               >
             </div>
             <!-- Error message container -->

@@ -83,20 +83,9 @@
       line-height: 1.15;
     }
 
-    .brand-text .top {
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: -0.3px;
-      color: var(--primary);
-    }
+    .brand-text .top { font-size: 16px; font-weight: 900; letter-spacing: -0.3px; color: #E10600; }
 
-    .brand-text .bottom {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      color: var(--slate-800);
-      text-transform: uppercase;
-    }
+    .brand-text .bottom { font-size: 14px; font-weight: 900; letter-spacing: -0.2px; color: #E10600; text-transform: lowercase; }
 
     .nav-links {
       display: flex;
@@ -871,19 +860,24 @@
   <!-- ================= FLOATING NAVBAR ================= -->
   <header class="nav-wrapper">
     <div class="navbar-pill">
-      <a href="index.html" class="brand" aria-label="Internet Rakyat Beranda">
-        <svg viewBox="0 0 64 64" width="36" height="36">
-          <circle cx="32" cy="32" r="32" fill="#d90429"/>
-          <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-          <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-        </svg>
-        <div class="brand-text">
-          <span class="top">internet</span>
-          <span class="bottom">rakyat</span>
-        </div>
-      </a>
+      <a class="brand" href="index.html" aria-label="Internet Rakyat Beranda">
+      <svg class="brand-logo-icon" viewBox="0 0 44 48" width="38" height="42" fill="none">
+        <!-- Top WiFi Signal Arcs (Replacing Dot of 'i') -->
+        <path d="M 14.5 4.5 A 10.5 10.5 0 0 1 29.5 4.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+        <path d="M 17.5 8.5 A 6 6 0 0 1 26.5 8.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+        <!-- Thick Red Open Circle (#E10600) -->
+        <path d="M 14 11 A 16.5 16.5 0 1 0 30 11" stroke="#E10600" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+        <!-- Vertical 'i', 'r', 'a' Inside Circle -->
+        <line x1="22" y1="13.5" x2="22" y2="19" stroke="#E10600" stroke-width="3" stroke-linecap="round"/>
+        <path d="M 18.5 29 V 22.5 C 18.5 22.5 19.5 21 22 21 C 24.5 21 25.5 22.5 25.5 22.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="21.5" cy="34.5" r="3.8" stroke="#E10600" stroke-width="2.4" fill="none"/>
+        <path d="M 25.3 31.5 V 38.5" stroke="#E10600" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-text">
+        <span class="top" style="color:#E10600;font-weight:900;">internet</span>
+        <span class="bottom" style="color:#E10600;font-weight:900;text-transform:lowercase;">rakyat</span>
+      </div>
+    </a>
 
       <nav class="nav-links">
         <a href="index.html#keunggulan">Keunggulan</a>
@@ -1095,9 +1089,55 @@
     let currentGeneratedOtp = '';
     let countdownInterval = null;
 
+    
+    // KETENTUAN 5: Sanitasi dan normalisasi otomatis input nomor HP (+62 / 62 -> 08...)
+    function sanitizeIndonesianPhone(phone) {
+      if (!phone) return '';
+      var str = String(phone).trim();
+      var clean = str.replace(/[\s\-\(\)\.]/g, '');
+      if (clean.indexOf('+62') === 0) {
+        clean = '0' + clean.slice(3);
+      } else if (clean.indexOf('62') === 0 && clean.length > 4) {
+        clean = '0' + clean.slice(2);
+      }
+      clean = clean.replace(/\D/g, '');
+      return clean;
+    }
+
+    const regPhoneInput = document.getElementById('regPhone');
+    if (regPhoneInput) {
+      regPhoneInput.setAttribute('maxlength', '20');
+
+      regPhoneInput.addEventListener('paste', function(e) {
+        const pasteText = (e.clipboardData || window.clipboardData).getData('text');
+        if (pasteText) {
+          e.preventDefault();
+          const sanitized = sanitizeIndonesianPhone(pasteText);
+          regPhoneInput.value = sanitized;
+          regPhoneInput.classList.remove('is-invalid');
+          const err = document.getElementById('errPhone');
+          if (err) err.classList.remove('visible');
+        }
+      });
+
+      regPhoneInput.addEventListener('input', function() {
+        let val = regPhoneInput.value;
+        if (val.includes('+') || val.includes(' ') || val.includes('-') || (val.startsWith('62') && val.length >= 4)) {
+          const cleaned = sanitizeIndonesianPhone(val);
+          if (cleaned && cleaned !== val) {
+            regPhoneInput.value = cleaned;
+          }
+        }
+        regPhoneInput.classList.remove('is-invalid');
+        const err = document.getElementById('errPhone');
+        if (err) err.classList.remove('visible');
+      });
+    }
+
     function sendOtp() {
       const phoneInput = document.getElementById('regPhone');
-      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const phone = phoneInput ? sanitizeIndonesianPhone(phoneInput.value) : '';
+      if (phoneInput && phone) phoneInput.value = phone;
       const errPhone = document.getElementById('errPhone');
       const btn = document.getElementById('btnSendOtp');
 

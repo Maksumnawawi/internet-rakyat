@@ -1730,7 +1730,7 @@ dialog::backdrop {
 }
 
 .tab.active {
-  color: #d90429;
+  color: #E10600;
 }
 
 .tab::after {
@@ -1920,7 +1920,7 @@ dialog::backdrop {
   }
   .tab.active {
     background: #ffffff;
-    color: #d90429;
+    color: #E10600;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
   .tab::after {
@@ -1992,7 +1992,7 @@ dialog::backdrop {
     transition: all 0.16s ease;
   }
   .drawer-link:hover {
-    color: #d90429;
+    color: #E10600;
     background: #fff1f2;
   }
   .drawer-footer {
@@ -2017,7 +2017,7 @@ dialog::backdrop {
   }
   .drawer-btn-logout:hover {
     background: #fef2f2;
-    color: #d90429;
+    color: #E10600;
     border-color: #fecaca;
   }
 }
@@ -2041,7 +2041,7 @@ dialog::backdrop {
 
   .menu-toggle:hover {
     background: #f1f5f9;
-    color: #d90429;
+    color: #E10600;
   }
 
   nav.nav-drawer {
@@ -2173,7 +2173,7 @@ dialog::backdrop {
 
   .drawer-link:hover, .drawer-link:active {
     background: #fff1f2;
-    color: #d90429;
+    color: #E10600;
     transform: translateX(3px);
   }
 
@@ -2229,7 +2229,7 @@ dialog::backdrop {
 }
 
 .desktop-nav a:hover {
-  color: #d90429;
+  color: #E10600;
   background: #fff1f2;
 }
 
@@ -2245,7 +2245,7 @@ dialog::backdrop {
 }
 
 .desktop-nav .btn-logout:hover {
-  color: #d90429;
+  color: #E10600;
   border-color: #fecaca;
   background: #fef2f2;
 }
@@ -2338,7 +2338,7 @@ header {
    AREA PELANGGAN - SUSUNAN KARTU & FITUR BARU INTERAKTIF
    ========================================================================== */
 
-/* Header Hamburger Toggle (Always accessible) */
+/* Header Hamburger Toggle (Always accessible with top z-index) */
 .menu-toggle {
   display: flex !important;
   align-items: center;
@@ -2349,14 +2349,17 @@ header {
   border: 1.5px solid #e2e8f0;
   border-radius: 12px;
   color: #0f172a;
-  cursor: pointer;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 1000 !important;
   transition: all 0.2s ease;
   padding: 0;
   flex-shrink: 0;
 }
 .menu-toggle:hover {
   background: #fff1f2;
-  color: #d90429;
+  color: #E10600;
   border-color: #fecaca;
   transform: translateY(-1px);
 }
@@ -2449,7 +2452,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #d90429;
+  color: #E10600;
   flex-shrink: 0;
 }
 
@@ -2569,7 +2572,7 @@ header {
 }
 
 .pkg-option-card.selected {
-  border-color: #d90429;
+  border-color: #E10600;
   background: #fff;
   box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.15);
 }
@@ -2595,7 +2598,7 @@ header {
 .pkg-option-price {
   font-size: 18px;
   font-weight: 900;
-  color: #d90429;
+  color: #E10600;
   margin: 6px 0;
 }
 
@@ -2625,8 +2628,8 @@ header {
 }
 
 .payment-tab-btn.active {
-  border-color: #d90429;
-  color: #d90429;
+  border-color: #E10600;
+  color: #E10600;
   background: #fff1f2;
 }
 
@@ -2731,7 +2734,7 @@ header {
   width: 56px;
   height: 56px;
   border: 4px solid #f1f5f9;
-  border-top-color: #d90429;
+  border-top-color: #E10600;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin: 0 auto 18px;
@@ -2752,4 +2755,128 @@ header {
   width: 0%;
   border-radius: 999px;
   transition: width 0.3s ease;
+}
+
+
+/* ==========================================================================
+   ENHANCED HELP CENTER CARD & NOTIFICATION BADGE STYLING
+   ========================================================================== */
+.btn-mark-all-read {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+}
+.btn-mark-all-read:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+.card.help-center-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.help-center-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.help-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #fff1f2;
+  border: 1.5px solid #fecaca;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #E10600;
+  flex-shrink: 0;
+}
+
+.help-text-box {
+  flex: 1;
+  min-width: 0;
+}
+
+.help-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.help-subtitle {
+  font-size: 13.5px;
+  color: #64748b;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.help-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .help-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-help-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.btn-help-wa {
+  background: #15803d;
+  color: #ffffff !important;
+  border: none;
+  box-shadow: 0 4px 12px rgba(21, 128, 61, 0.25);
+}
+
+.btn-help-wa:hover {
+  background: #166534;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(21, 128, 61, 0.35);
+}
+
+.btn-help-call {
+  background: #f8fafc;
+  color: #0f172a !important;
+  border: 1.5px solid #cbd5e1;
+}
+
+.btn-help-call:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
 }
