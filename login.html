@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login IRA - Internet Rakyat</title>
+  <title>Login Area Pelanggan - Internet Rakyat</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
@@ -15,11 +15,9 @@
 
   <style>
     :root {
-      --primary: #e60000;
-      --primary-hover: #cc0000;
+      --primary: #E10600;
+      --primary-hover: #b80020;
       --navy: #0b1a30;
-      --btn-slate: #7a92a7;
-      --btn-slate-active: #486581;
       --slate-50: #f8fafc;
       --slate-100: #f1f5f9;
       --slate-200: #e2e8f0;
@@ -38,8 +36,9 @@
     body {
       font-family: var(--font-main);
       color: var(--slate-800);
-      background-color: #ffffff;
+      background-color: #f8fafc;
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
@@ -48,12 +47,12 @@
     /* ================= HEADER ================= */
     header {
       width: 100%;
-      height: 76px;
+      height: 74px;
       padding: 0 5%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--slate-100);
+      border-bottom: 1px solid var(--slate-200);
       background: #ffffff;
     }
 
@@ -70,20 +69,31 @@
       line-height: 1.15;
     }
 
-    .brand-text .top { font-size: 16px; font-weight: 900; letter-spacing: -0.3px; color: #E10600; }
+    .brand-text .top {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+      color: #E10600;
+    }
 
-    .brand-text .bottom { font-size: 14px; font-weight: 900; letter-spacing: -0.2px; color: #E10600; text-transform: lowercase; }
+    .brand-text .bottom {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.2px;
+      color: #E10600;
+      text-transform: lowercase;
+    }
 
     .header-nav {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
     }
 
     .header-nav a.nav-link {
       color: var(--navy);
       text-decoration: none;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       transition: color 0.2s;
     }
@@ -98,12 +108,13 @@
       justify-content: center;
       background: var(--primary);
       color: #ffffff;
-      padding: 8px 26px;
+      padding: 8px 24px;
       border-radius: 999px;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 800;
       text-decoration: none;
       transition: background-color 0.2s, transform 0.15s;
+      box-shadow: 0 4px 12px rgba(225, 6, 0, 0.25);
     }
 
     .btn-daftar:hover {
@@ -118,32 +129,55 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 60px 20px 80px;
+      padding: 40px 20px 60px;
     }
 
-    .login-box {
+    /* CLEAN LOGIN CARD IN CENTER SCREEN */
+    .login-card {
       width: 100%;
       max-width: 440px;
+      background: #ffffff;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 24px;
+      padding: 38px 32px 34px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
       text-align: center;
+      margin: 0 auto;
+      transition: all 0.3s ease;
     }
 
-    .login-box h1 {
-      font-size: 32px;
+    /* Official IRA Logo Container inside Card */
+    .login-card-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .login-title {
+      font-size: 22px;
       font-weight: 900;
       color: var(--navy);
-      letter-spacing: -0.5px;
-      margin-bottom: 34px;
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+
+    .login-subtitle {
+      font-size: 14px;
+      color: var(--slate-600);
+      margin-bottom: 26px;
+      line-height: 1.45;
     }
 
     .form-group {
       text-align: left;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .form-label {
       display: block;
-      font-size: 14.5px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
       color: var(--slate-800);
       margin-bottom: 8px;
     }
@@ -154,10 +188,10 @@
 
     .form-input {
       width: 100%;
-      height: 52px;
+      height: 50px;
       padding: 0 16px;
       border: 1.5px solid #d1d5db;
-      border-radius: 10px;
+      border-radius: 12px;
       background-color: #f9fafb;
       font-size: 15px;
       font-family: inherit;
@@ -167,72 +201,170 @@
     }
 
     .form-input:focus {
-      border-color: #3b82f6;
+      border-color: #2563eb;
       background-color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      box-shadow: 0 0 0 3.5px rgba(37, 99, 235, 0.12);
     }
 
-    .form-input::placeholder {
-      color: var(--slate-400);
+    .form-input.is-invalid {
+      border-color: #ef4444 !important;
+      background-color: #fef2f2 !important;
+      box-shadow: 0 0 0 3.5px rgba(239, 68, 68, 0.15) !important;
     }
 
-    /* Demo Helper Badge */
-    .demo-hint {
-      margin-top: 8px;
+    .field-error-msg {
+      display: none;
+      align-items: center;
+      gap: 6px;
       font-size: 12.5px;
-      color: var(--slate-600);
+      font-weight: 600;
+      color: #dc2626;
+      margin-top: 7px;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .field-error-msg.visible {
+      display: flex;
+    }
+
+    /* Tahap 2: Target Phone Pill with "Ubah" button */
+    .user-phone-pill {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: #f8fafc;
+      border: 1.5px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
     }
 
-    .btn-fill-demo {
-      background: none;
-      border: none;
+    .phone-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--navy);
+      font-size: 14.5px;
+    }
+
+    .btn-edit-phone {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
       color: #2563eb;
+      border-radius: 8px;
+      padding: 4px 10px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      text-decoration: underline;
-      padding: 2px 4px;
+      transition: all 0.16s ease;
     }
 
-    .btn-lanjutkan {
-      width: 100%;
-      height: 52px;
-      border-radius: 10px;
-      border: none;
-      background: var(--btn-slate);
-      color: #ffffff;
-      font-size: 16px;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.25s ease;
+    .btn-edit-phone:hover {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .account-status-desc {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 6px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #15803d;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 22px;
     }
 
-    .btn-lanjutkan.ready {
-      background: var(--btn-slate-active);
-      box-shadow: 0 4px 12px rgba(72, 101, 129, 0.25);
+    /* Password Input Wrapper with Eye Toggle */
+    .password-input-wrapper {
+      position: relative;
     }
 
-    .btn-lanjutkan:hover {
-      background: #334e68;
+    .password-input-wrapper .form-input {
+      padding-right: 48px;
     }
 
-    .btn-lanjutkan:disabled {
+    .btn-toggle-eye {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.18s;
+    }
+
+    .btn-toggle-eye:hover {
+      color: #0f172a;
+    }
+
+    /* Forgot Password Link */
+    .forgot-password-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+      margin-bottom: 18px;
+    }
+
+    .btn-forgot-password {
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .btn-forgot-password:hover {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+
+    /* Primary Red Action Button */
+    .btn-primary-red {
+      width: 100%;
+      height: 50px;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 15.5px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(225, 6, 0, 0.28);
+    }
+
+    .btn-primary-red:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(225, 6, 0, 0.38);
+    }
+
+    .btn-primary-red:disabled {
       cursor: not-allowed;
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
     .register-text {
-      margin-top: 28px;
-      font-size: 14px;
-      color: var(--slate-800);
+      margin-top: 22px;
+      font-size: 13.5px;
+      color: var(--slate-600);
     }
 
     .register-text a {
@@ -245,106 +377,7 @@
       text-decoration: underline;
     }
 
-    /* ================= FOOTER ================= */
-    footer {
-      width: 100%;
-      border-top: 1px solid var(--slate-100);
-      background: #ffffff;
-      padding: 50px 5% 30px;
-      font-size: 13.5px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1.1fr 1fr 1fr;
-      gap: 36px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-col h4 {
-      font-size: 14.5px;
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 12px;
-    }
-
-    .footer-col p {
-      color: var(--slate-600);
-      line-height: 1.6;
-      margin-bottom: 6px;
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 14px;
-      margin-top: 6px;
-      margin-bottom: 18px;
-    }
-
-    .social-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      color: var(--slate-800);
-      transition: color 0.2s, transform 0.2s;
-    }
-
-    .social-link:hover {
-      color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    .store-badges {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .store-badges img {
-      height: 36px;
-      width: auto;
-      object-fit: contain;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .store-badges img:hover {
-      opacity: 0.85;
-    }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 40px auto 0;
-      padding-top: 24px;
-      border-top: 1px solid var(--slate-100);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      color: var(--slate-600);
-      font-size: 12.5px;
-    }
-
-    .footer-bottom-links {
-      display: flex;
-      gap: 18px;
-      margin-bottom: 6px;
-    }
-
-    .footer-bottom-links a {
-      color: var(--slate-600);
-      text-decoration: none;
-    }
-
-    .footer-bottom-links a:hover {
-      color: var(--primary);
-    }
-
-    /* Spinner Animation */
+    /* Spinner */
     .spinner {
       width: 18px;
       height: 18px;
@@ -358,6 +391,137 @@
       to { transform: rotate(360deg); }
     }
 
+    /* Modal Dialog: Lupa Kata Sandi */
+    .modal-backdrop-custom {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop-custom.visible {
+      display: flex;
+    }
+
+    .modal-card-custom {
+      background: #ffffff;
+      border-radius: 20px;
+      max-width: 420px;
+      width: 100%;
+      padding: 26px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      animation: popIn 0.25s ease;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-card-custom h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .modal-card-custom p {
+      font-size: 13.5px;
+      color: var(--slate-600);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .modal-actions-custom {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-modal-wa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #15803d;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14.5px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-modal-wa:hover {
+      background: #166534;
+    }
+
+    .btn-modal-cancel {
+      background: #f1f5f9;
+      color: #475569;
+      border: none;
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-modal-cancel:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      width: 100%;
+      background-color: #ffffff;
+      border-top: 1px solid var(--slate-200);
+      padding: 34px 5% 24px;
+      font-size: 13px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1.2fr 1fr 1fr;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .footer-col p {
+      color: var(--slate-600);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 28px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--slate-100);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--slate-600);
+      font-size: 12px;
+    }
+
     @media (max-width: 900px) {
       .footer-grid {
         grid-template-columns: 1fr 1fr;
@@ -365,335 +529,38 @@
     }
 
     @media (max-width: 580px) {
+      .login-card {
+        padding: 28px 20px;
+      }
       .footer-grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 24px;
       }
       .footer-bottom {
         flex-direction: column;
         text-align: center;
+        gap: 10px;
       }
-    }
-  
-    .login-subtitle {
-      font-size: 14.5px;
-      color: var(--slate-600);
-      margin-top: -24px;
-      margin-bottom: 28px;
-      line-height: 1.5;
-    }
-
-    /* Error Validation Styling */
-    .form-input.is-invalid {
-      border-color: #ef4444 !important;
-      background-color: #fef2f2 !important;
-      box-shadow: 0 0 0 3.5px rgba(239, 68, 68, 0.15) !important;
-    }
-
-    .field-error-msg {
-      display: none;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #dc2626;
-      margin-top: 8px;
-      line-height: 1.4;
-      text-align: left;
-    }
-
-    .field-error-msg.visible {
-      display: flex;
-    }
-
-    .field-error-msg svg {
-      flex-shrink: 0;
-    }
-
-    /* OTP Step Styling */
-    .otp-info-card {
-      background: #f8fafc;
-      border: 1px solid var(--slate-200);
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin-bottom: 22px;
-      text-align: center;
-    }
-
-    .otp-instruction {
-      font-size: 14px;
-      color: var(--slate-600);
-      margin-bottom: 8px;
-    }
-
-    .target-phone-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #ffffff;
-      border: 1px solid var(--slate-200);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 15px;
-      color: var(--slate-800);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-
-    .btn-change-phone {
-      background: none;
-      border: none;
-      color: #2563eb;
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
-      text-decoration: underline;
-      font-family: inherit;
-    }
-
-    .btn-change-phone:hover {
-      color: #1d4ed8;
-    }
-
-    .otp-boxes-group {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin: 20px 0 10px;
-    }
-
-    .otp-digit {
-      width: 48px;
-      height: 54px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 800;
-      border: 1.5px solid #d1d5db;
-      border-radius: 12px;
-      background: #f9fafb;
-      color: #0f172a;
-      outline: none;
-      transition: all 0.2s ease;
-      font-family: inherit;
-    }
-
-    .otp-digit:focus {
-      border-color: var(--primary);
-      background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(230, 0, 0, 0.15);
-      transform: translateY(-1px);
-    }
-
-    .otp-digit.is-invalid {
-      border-color: #ef4444;
-      background: #fef2f2;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-    }
-
-    .otp-separator {
-      font-size: 20px;
-      font-weight: 800;
-      color: #94a3b8;
-    }
-
-    .otp-error-feedback {
-      font-size: 13px;
-      font-weight: 600;
-      color: #dc2626;
-      margin-top: 10px;
-      text-align: center;
-      line-height: 1.4;
-    }
-
-    .otp-error-feedback.success {
-      color: #15803d;
-    }
-
-    .otp-resend-box {
-      margin-top: 22px;
-      font-size: 13.5px;
-      color: var(--slate-600);
-      text-align: center;
-    }
-
-    .btn-resend {
-      background: none;
-      border: none;
-      color: var(--primary);
-      font-size: 13.5px;
-      font-weight: 800;
-      cursor: pointer;
-      text-decoration: underline;
-      font-family: inherit;
-    }
-
-    .btn-resend:hover {
-      color: var(--primary-hover);
-    }
-
-    /* WhatsApp Push Banner Simulation */
-    .wa-push-banner {
-      position: fixed;
-      top: -140px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 92%;
-      max-width: 420px;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 20px;
-      padding: 14px 16px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      z-index: 999999;
-      cursor: pointer;
-      transition: top 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
-      opacity: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    .wa-push-banner.visible {
-      top: 18px;
-      opacity: 1;
-    }
-
-    .wa-push-icon {
-      width: 38px;
-      height: 38px;
-      background: #25d366;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
-    }
-
-    .wa-push-content {
-      flex: 1;
-      min-width: 0;
-      text-align: left;
-    }
-
-    .wa-push-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2px;
-    }
-
-    .wa-push-app {
-      font-size: 10.5px;
-      font-weight: 800;
-      letter-spacing: 0.6px;
-      color: #64748b;
-    }
-
-    .wa-push-time {
-      font-size: 11px;
-      color: #94a3b8;
-    }
-
-    .wa-push-sender {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 2px;
-    }
-
-    .wa-push-body {
-      font-size: 12px;
-      color: #334155;
-      line-height: 1.45;
-    }
-
-    .wa-otp-highlight {
-      display: inline-block;
-      background: #fee2e2;
-      color: #b91c1c;
-      font-size: 14px;
-      font-weight: 900;
-      padding: 1px 7px;
-      border-radius: 6px;
-      letter-spacing: 1.2px;
-    }
-
-    .wa-push-action-tip {
-      font-size: 11px;
-      font-weight: 700;
-      color: #15803d;
-      margin-top: 6px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .wa-push-close {
-      background: none;
-      border: none;
-      font-size: 14px;
-      color: #94a3b8;
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
-      line-height: 1;
-    }
-
-    .wa-push-close:hover {
-      color: #334155;
-      background: #f1f5f9;
     }
   </style>
 </head>
 <body>
 
-  <!-- Simulated WhatsApp Push Notification Banner -->
-  <div id="waNotificationBanner" class="wa-push-banner" onclick="IRAAuth.handleNotificationClick()" title="Klik untuk mengisi kode otomatis">
-    <div class="wa-push-icon">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff">
-        <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
-      </svg>
-    </div>
-    <div class="wa-push-content">
-      <div class="wa-push-header">
-        <span class="wa-push-app">WHATSAPP</span>
-        <span class="wa-push-time">baru saja</span>
-      </div>
-      <div class="wa-push-sender">Internet Rakyat Official</div>
-      <div class="wa-push-body">
-        Kode OTP verifikasi login Anda: <strong id="waOtpCode" class="wa-otp-highlight">123456</strong>. Jangan bagikan ke siapapun.
-      </div>
-      <div class="wa-push-action-tip">
-        👉 Ketuk notifikasi ini untuk Tempel Otomatis
-      </div>
-    </div>
-    <button type="button" class="wa-push-close" onclick="event.stopPropagation(); IRAAuth.dismissNotification()">✕</button>
-  </div>
-
-
   <!-- ================= HEADER ================= -->
   <header>
-    <a class="brand" href="index.html" aria-label="Internet Rakyat Beranda">
+    <a href="index.html" class="brand" title="Kembali ke Beranda" aria-label="Internet Rakyat Beranda">
       <svg class="brand-logo-icon" viewBox="0 0 44 48" width="38" height="42" fill="none">
-        <!-- Top WiFi Signal Arcs (Replacing Dot of 'i') -->
         <path d="M 14.5 4.5 A 10.5 10.5 0 0 1 29.5 4.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
         <path d="M 17.5 8.5 A 6 6 0 0 1 26.5 8.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
-        <!-- Thick Red Open Circle (#E10600) -->
         <path d="M 14 11 A 16.5 16.5 0 1 0 30 11" stroke="#E10600" stroke-width="3.6" stroke-linecap="round" fill="none"/>
-        <!-- Vertical 'i', 'r', 'a' Inside Circle -->
         <line x1="22" y1="13.5" x2="22" y2="19" stroke="#E10600" stroke-width="3" stroke-linecap="round"/>
         <path d="M 18.5 29 V 22.5 C 18.5 22.5 19.5 21 22 21 C 24.5 21 25.5 22.5 25.5 22.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
         <circle cx="21.5" cy="34.5" r="3.8" stroke="#E10600" stroke-width="2.4" fill="none"/>
         <path d="M 25.3 31.5 V 38.5" stroke="#E10600" stroke-width="2.4" stroke-linecap="round"/>
       </svg>
       <div class="brand-text">
-        <span class="top" style="color:#E10600;font-weight:900;">internet</span>
-        <span class="bottom" style="color:#E10600;font-weight:900;text-transform:lowercase;">rakyat</span>
+        <span class="top">internet</span>
+        <span class="bottom">rakyat</span>
       </div>
     </a>
 
@@ -704,15 +571,34 @@
     </nav>
   </header>
 
-    <!-- ================= LOGIN FORM ================= -->
+  <!-- ================= MAIN LOGIN FORM ================= -->
   <main>
-    <div class="login-box">
-      <!-- Step 1: Input Nomor Handphone -->
-      <div id="stepPhoneSection">
-        <h1>Login IRA</h1>
-        <p class="login-subtitle">Masukkan nomor handphone atau WhatsApp terdaftar</p>
+    <div class="login-card">
+      <!-- Logo Resmi Internet Rakyat di Atas Card -->
+      <div class="login-card-logo">
+        <a href="index.html" class="brand" aria-label="Internet Rakyat" title="Internet Rakyat">
+          <svg viewBox="0 0 44 48" width="42" height="46" fill="none">
+            <path d="M 14.5 4.5 A 10.5 10.5 0 0 1 29.5 4.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+            <path d="M 17.5 8.5 A 6 6 0 0 1 26.5 8.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+            <path d="M 14 11 A 16.5 16.5 0 1 0 30 11" stroke="#E10600" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+            <line x1="22" y1="13.5" x2="22" y2="19" stroke="#E10600" stroke-width="3" stroke-linecap="round"/>
+            <path d="M 18.5 29 V 22.5 C 18.5 22.5 19.5 21 22 21 C 24.5 21 25.5 22.5 25.5 22.5" stroke="#E10600" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="21.5" cy="34.5" r="3.8" stroke="#E10600" stroke-width="2.4" fill="none"/>
+            <path d="M 25.3 31.5 V 38.5" stroke="#E10600" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          <div class="brand-text">
+            <span class="top">internet</span>
+            <span class="bottom">rakyat</span>
+          </div>
+        </a>
+      </div>
 
-        <form id="loginForm" onsubmit="IRAAuth.handleSendOtp(event)" novalidate>
+      <!-- TAHAP 1: INPUT NOMOR HANDPHONE -->
+      <div id="stepPhoneSection">
+        <h1 class="login-title">Masuk ke Area Pelanggan</h1>
+        <p class="login-subtitle">Masukkan nomor handphone yang terdaftar</p>
+
+        <form id="phoneForm" onsubmit="IRAAuth.handleProceedToPassword(event)" novalidate>
           <div class="form-group">
             <label class="form-label" for="phoneInput">Nomor Handphone*</label>
             <div class="input-wrapper">
@@ -723,6 +609,7 @@
                 placeholder="contoh: 08123456789" 
                 autocomplete="tel"
                 maxlength="20"
+                required
               >
             </div>
             <!-- Error message container -->
@@ -734,61 +621,114 @@
             </div>
           </div>
 
-          <button type="submit" id="btnSubmit" class="btn-lanjutkan">
-            <span id="btnText">Kirim Kode OTP</span>
+          <button type="submit" id="btnSubmitPhone" class="btn-primary-red">
+            <span id="btnTextPhone">Lanjutkan</span>
           </button>
 
           <p class="register-text">
-            Belum punya akun? <a href="register.html">Daftar disini</a>
+            Belum memiliki akun? <a href="register.html">Daftar Pasang Baru</a>
           </p>
         </form>
       </div>
 
-      <!-- Step 2: Verifikasi Kode OTP (Hidden by default) -->
-      <div id="stepOtpSection" style="display: none;">
-        <h1>Verifikasi OTP</h1>
-        <div class="otp-info-card">
-          <p class="otp-instruction">
-            Masukkan 6 digit kode yang dikirim ke nomor:
-          </p>
-          <div class="target-phone-pill">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="#25d366">
-              <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+      <!-- TAHAP 2: INPUT KATA SANDI / PASSWORD (MUNCUL SETELAH KLIK LANJUTKAN) -->
+      <div id="stepPasswordSection" style="display: none;">
+        <h1 class="login-title">Masuk ke Area Pelanggan</h1>
+        
+        <!-- Nomor HP yang baru dimasukkan dengan tombol Ubah -->
+        <div class="user-phone-pill">
+          <div class="phone-meta">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
             </svg>
-            <strong id="displayPhone">08xx-xxxx-xxxx</strong>
-            <button type="button" class="btn-change-phone" onclick="IRAAuth.changePhoneNumber()" title="Ganti nomor">
-              Ubah
-            </button>
+            <strong id="displayTargetPhone">0812-3456-7890</strong>
           </div>
+          <button type="button" class="btn-edit-phone" onclick="IRAAuth.backToPhoneStep()" title="Ganti nomor">
+            Ubah
+          </button>
         </div>
 
-        <form id="otpForm" onsubmit="IRAAuth.handleVerifyOtp(event)">
-          <div class="otp-boxes-group">
-            <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-digit" maxlength="1" id="otp1" autocomplete="one-time-code">
-            <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-digit" maxlength="1" id="otp2">
-            <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-digit" maxlength="1" id="otp3">
-            <span class="otp-separator">-</span>
-            <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-digit" maxlength="1" id="otp4">
-            <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-digit" maxlength="1" id="otp5">
-            <input type="text" inputmode="numeric" pattern="[0-9]*" class="otp-digit" maxlength="1" id="otp6">
+        <!-- Keterangan Status Akun -->
+        <div class="account-status-desc">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Customer sudah memiliki password</span>
+        </div>
+
+        <form id="passwordForm" onsubmit="IRAAuth.handleLoginWithPassword(event)" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="passwordInput">Kata Sandi*</label>
+            <div class="password-input-wrapper">
+              <input 
+                type="password" 
+                id="passwordInput" 
+                class="form-input" 
+                placeholder="Masukkan kata sandi Anda" 
+                autocomplete="current-password"
+                required
+              >
+              <button type="button" class="btn-toggle-eye" id="btnTogglePassword" onclick="IRAAuth.togglePasswordVisibility()" aria-label="Lihat kata sandi" title="Lihat/Sembunyikan kata sandi">
+                <svg id="eyeIconShow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg id="eyeIconHide" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Tautan Lupa Kata Sandi (Rata Kanan) -->
+            <div class="forgot-password-row">
+              <a href="#" class="btn-forgot-password" onclick="IRAAuth.showForgotPasswordDialog(event)">Lupa kata sandi?</a>
+            </div>
+
+            <!-- Error message container for password -->
+            <div id="passwordError" class="field-error-msg" role="alert" aria-live="polite">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+              </svg>
+              <span id="passwordErrorText">Kata sandi minimal 6 karakter.</span>
+            </div>
           </div>
 
-          <div id="otpErrorMsg" class="otp-error-feedback" style="display: none;"></div>
-
-          <button type="submit" id="btnVerifyOtp" class="btn-lanjutkan ready" style="margin-top: 24px;">
-            <span id="btnVerifyText">Verifikasi &amp; Masuk</span>
+          <button type="submit" id="btnSubmitPassword" class="btn-primary-red">
+            <span id="btnLoginText">Masuk</span>
           </button>
 
-          <div class="otp-resend-box">
-            <span id="resendCountdownText">Kirim ulang kode dalam <strong id="resendTimer">60</strong> detik</span>
-            <button type="button" id="btnResendOtp" class="btn-resend" style="display: none;" onclick="IRAAuth.resendOtp()">
-              Kirim Ulang Kode OTP
-            </button>
-          </div>
+          <p class="register-text">
+            Belum memiliki akun? <a href="register.html">Daftar Pasang Baru</a>
+          </p>
         </form>
       </div>
     </div>
   </main>
+
+  <!-- Modal Dialog: Pemulihan Lupa Kata Sandi via WhatsApp -->
+  <div id="forgotPasswordModal" class="modal-backdrop-custom" onclick="if(event.target === this) IRAAuth.closeForgotPasswordDialog()">
+    <div class="modal-card-custom">
+      <div style="width:48px;height:48px;border-radius:14px;background:#f0fdf4;color:#15803d;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+          <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
+        </svg>
+      </div>
+      <h3>Pemulihan Kata Sandi</h3>
+      <p id="forgotModalDesc">
+        Tautan reset kata sandi atau bantuan pemulihan akun akan dipandu melalui nomor WhatsApp resmi Internet Rakyat.
+      </p>
+      <div class="modal-actions-custom">
+        <a id="btnForgotWaAction" href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20butuh%20bantuan%20reset%20kata%20sandi" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
+          <span>Hubungi CS WhatsApp Resmi</span>
+        </a>
+        <button type="button" class="btn-modal-cancel" onclick="IRAAuth.closeForgotPasswordDialog()">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= FOOTER ================= -->
   <footer>
@@ -807,76 +747,24 @@
 
       <div class="footer-col">
         <h4>Social Media</h4>
-        <div class="social-icons">
-          <!-- Instagram -->
-          <a href="#" class="social-link" aria-label="Instagram" title="Instagram">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-          </a>
-          <!-- YouTube -->
-          <a href="#" class="social-link" aria-label="YouTube" title="YouTube">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-          </a>
-          <!-- LinkedIn -->
-          <a href="#" class="social-link" aria-label="LinkedIn" title="LinkedIn">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.761-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-            </svg>
-          </a>
-          <!-- TikTok -->
-          <a href="#" class="social-link" aria-label="TikTok" title="TikTok">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <path d="M12.525.02c1.31 0 2.6.132 3.83.405v4.54a6.66 6.66 0 0 1-3.83-1.22v9.33a6.97 6.97 0 1 1-6.97-6.97c.54 0 1.06.064 1.56.185v4.44a2.68 2.68 0 1 0 1.12 2.345V.02h4.29z"/>
-            </svg>
-          </a>
-        </div>
-
-        <h4>Download Aplikasi IRA</h4>
-        <div class="store-badges">
-          <img src="assets/images/google_play.png" alt="Get it on Google Play">
-          <img src="assets/images/app_store.png" alt="Download on the App Store">
-        </div>
+        <p>Instagram: @internetrakyat</p>
+        <p>Facebook: Internet Rakyat</p>
       </div>
 
-      <div class="footer-col" style="display:flex;align-items:flex-end;justify-content:flex-end">
-        <div style="display:flex;align-items:center;gap:10px;opacity:0.9">
-          <svg viewBox="0 0 64 64" width="46" height="46">
-            <circle cx="32" cy="32" r="32" fill="#d90429"/>
-            <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-            <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-            <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-            <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-          </svg>
-          <div class="brand-text">
-            <span class="top">internet</span>
-            <span class="bottom">rakyat</span>
-          </div>
-        </div>
+      <div class="footer-col">
+        <h4>Layanan Pelanggan</h4>
+        <p>Call Center: 1500-IRA</p>
+        <p>WhatsApp: 0811-1928-8888</p>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div>
-        <div class="footer-bottom-links">
-          <a href="#">Terms &amp; Conditions</a>
-          <span>|</span>
-          <a href="#">Privacy Policy</a>
-          <span>|</span>
-          <a href="#">Refund Policy</a>
-        </div>
-        <p>Copyright &copy; 2026 PT. Telemedia Komunikasi Pratama</p>
-      </div>
-      <div>
-        <span style="font-size:12px;color:#94a3b8">UI/UX Redesign Prototype • Project Tugas Kuliah</span>
-      </div>
+      <p>Copyright &copy; 2026 PT. Telemedia Komunikasi Pratama. All rights reserved.</p>
+      <span style="color:#94a3b8">Area Pelanggan Internet Rakyat • Autentikasi Pelanggan Resmi</span>
     </div>
   </footer>
 
-    <!-- Modular Login & Authentication Script -->
+  <!-- Script Autentikasi Login (Nomor HP + Kata Sandi) -->
   <script src="assets/js/login.js"></script>
 </body>
 </html>
-

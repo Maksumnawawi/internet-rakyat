@@ -1,6 +1,7 @@
 /**
  * Internet Rakyat - Authentication & Login Module
- * Memvalidasi nomor telepon seluler Indonesia dan alur verifikasi OTP.
+ * Alur Login Resmi Internet Rakyat (Nomor HP + Kata Sandi / Password)
+ * Terintegrasi langsung dengan Area Pelanggan (dashboard.html).
  */
 
 (function (window, document) {
@@ -10,19 +11,13 @@
   var state = {
     phone: '',
     normalizedPhone: '',
-    currentOtp: '',
-    resendInterval: null,
-    countdownSeconds: 60
+    isPasswordVisible: false,
+    isLoading: false
   };
 
   /**
-   * Validasi Format Nomor Handphone Indonesia
-   * @param {string} phone
-   * @returns {{ isValid: boolean, message: string, normalized?: string }}
-   */
-  /**
-   * KETENTUAN 5: Sanitasi dan normalisasi nomor HP Indonesia
-   * Otomatis mengubah "+62 838-..." atau "62838..." menjadi "0838..."
+   * Sanitasi dan normalisasi nomor HP Indonesia
+   * Mengubah "+62 838-..." atau "62838..." menjadi "0838..."
    * Menjamin tidak ada digit yang terpotong menjadi "52..."
    * @param {string} phone
    * @returns {string}
@@ -43,6 +38,11 @@
     return clean;
   }
 
+  /**
+   * Validasi Format Nomor Handphone Indonesia
+   * @param {string} phone
+   * @returns {{ isValid: boolean, message: string, normalized?: string }}
+   */
   function validateIndonesianPhone(phone) {
     if (!phone) {
       return { 
@@ -51,7 +51,6 @@
       };
     }
 
-    // Sanitasi dan normalisasi nomor terlebih dahulu
     var normalized = sanitizeIndonesianPhone(phone);
 
     if (!normalized) {
@@ -123,75 +122,40 @@
    */
   function formatIndonesianPhone(phone) {
     if (!phone) return '';
-    var clean = phone.replace(/\D/g, '');
+    var clean = sanitizeIndonesianPhone(phone);
     if (clean.length <= 4) return clean;
     if (clean.length <= 8) return clean.slice(0, 4) + '-' + clean.slice(4);
     if (clean.length <= 12) return clean.slice(0, 4) + '-' + clean.slice(4, 8) + '-' + clean.slice(8);
     return clean.slice(0, 4) + '-' + clean.slice(4, 8) + '-' + clean.slice(8, 12) + '-' + clean.slice(12);
   }
 
-  /**
-   * Generate 6-digit random OTP
-   * @returns {string}
-   */
-  function generateOtpCode() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-  }
-
-  /**
-   * Play realistic incoming notification beep
-   */
-  function playNotificationAudio() {
-    try {
-      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
-      var ctx = new AudioContextClass();
-      var osc = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-      osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-      gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.35);
-    } catch (e) {}
-  }
-
   // DOM Elements Cache
-  var elements = {};
+  var el = {};
 
   function initElements() {
-    elements.phoneInput = document.getElementById('phoneInput');
-    elements.phoneError = document.getElementById('phoneError');
-    elements.phoneErrorText = document.getElementById('phoneErrorText');
-    elements.btnSubmit = document.getElementById('btnSubmit');
-    elements.btnText = document.getElementById('btnText');
-    elements.loginForm = document.getElementById('loginForm');
+    el.stepPhoneSection = document.getElementById('stepPhoneSection');
+    el.phoneForm = document.getElementById('phoneForm');
+    el.phoneInput = document.getElementById('phoneInput');
+    el.phoneError = document.getElementById('phoneError');
+    el.phoneErrorText = document.getElementById('phoneErrorText');
+    el.btnSubmitPhone = document.getElementById('btnSubmitPhone');
+    el.btnTextPhone = document.getElementById('btnTextPhone');
 
-    elements.stepPhoneSection = document.getElementById('stepPhoneSection');
-    elements.stepOtpSection = document.getElementById('stepOtpSection');
-    elements.displayPhone = document.getElementById('displayPhone');
-    elements.otpForm = document.getElementById('otpForm');
-    elements.otpBoxes = [
-      document.getElementById('otp1'),
-      document.getElementById('otp2'),
-      document.getElementById('otp3'),
-      document.getElementById('otp4'),
-      document.getElementById('otp5'),
-      document.getElementById('otp6')
-    ];
-    elements.btnVerifyOtp = document.getElementById('btnVerifyOtp');
-    elements.btnVerifyText = document.getElementById('btnVerifyText');
-    elements.otpErrorMsg = document.getElementById('otpErrorMsg');
-    elements.resendCountdownText = document.getElementById('resendCountdownText');
-    elements.resendTimer = document.getElementById('resendTimer');
-    elements.btnResendOtp = document.getElementById('btnResendOtp');
+    el.stepPasswordSection = document.getElementById('stepPasswordSection');
+    el.displayTargetPhone = document.getElementById('displayTargetPhone');
+    el.passwordForm = document.getElementById('passwordForm');
+    el.passwordInput = document.getElementById('passwordInput');
+    el.passwordError = document.getElementById('passwordError');
+    el.passwordErrorText = document.getElementById('passwordErrorText');
+    el.btnSubmitPassword = document.getElementById('btnSubmitPassword');
+    el.btnLoginText = document.getElementById('btnLoginText');
+    el.btnTogglePassword = document.getElementById('btnTogglePassword');
+    el.eyeIconShow = document.getElementById('eyeIconShow');
+    el.eyeIconHide = document.getElementById('eyeIconHide');
 
-    // Simulated WA Banner
-    elements.waNotificationBanner = document.getElementById('waNotificationBanner');
-    elements.waOtpCode = document.getElementById('waOtpCode');
+    el.forgotPasswordModal = document.getElementById('forgotPasswordModal');
+    el.forgotModalDesc = document.getElementById('forgotModalDesc');
+    el.btnForgotWaAction = document.getElementById('btnForgotWaAction');
   }
 
   /**
@@ -199,24 +163,45 @@
    * @param {string} msg
    */
   function showPhoneError(msg) {
-    if (!elements.phoneInput || !elements.phoneError) return;
-    elements.phoneInput.classList.add('is-invalid');
-    if (elements.phoneErrorText) {
-      elements.phoneErrorText.textContent = msg;
-    } else {
-      elements.phoneError.textContent = msg;
+    if (!el.phoneInput || !el.phoneError) return;
+    el.phoneInput.classList.add('is-invalid');
+    if (el.phoneErrorText) {
+      el.phoneErrorText.textContent = msg;
     }
-    elements.phoneError.classList.add('visible');
-    elements.phoneInput.focus();
+    el.phoneError.classList.add('visible');
+    el.phoneInput.focus();
   }
 
   /**
    * Sembunyikan error pada field nomor handphone
    */
   function clearPhoneError() {
-    if (!elements.phoneInput || !elements.phoneError) return;
-    elements.phoneInput.classList.remove('is-invalid');
-    elements.phoneError.classList.remove('visible');
+    if (!el.phoneInput || !el.phoneError) return;
+    el.phoneInput.classList.remove('is-invalid');
+    el.phoneError.classList.remove('visible');
+  }
+
+  /**
+   * Tampilkan pesan error pada field password
+   * @param {string} msg
+   */
+  function showPasswordError(msg) {
+    if (!el.passwordInput || !el.passwordError) return;
+    el.passwordInput.classList.add('is-invalid');
+    if (el.passwordErrorText) {
+      el.passwordErrorText.textContent = msg;
+    }
+    el.passwordError.classList.add('visible');
+    el.passwordInput.focus();
+  }
+
+  /**
+   * Sembunyikan error pada field password
+   */
+  function clearPasswordError() {
+    if (!el.passwordInput || !el.passwordError) return;
+    el.passwordInput.classList.remove('is-invalid');
+    el.passwordError.classList.remove('visible');
   }
 
   /**
@@ -224,386 +209,194 @@
    */
   function handlePhoneInput() {
     clearPhoneError();
-    var val = elements.phoneInput ? elements.phoneInput.value : '';
-    // Otomatis normalisasi nomor jika terdapat awalan +62, 62, spasi, atau simbol
+    if (!el.phoneInput) return;
+    var val = el.phoneInput.value;
+    
+    // Otomatis normalisasi jika user menempelkan awalan kode negara atau spasi
     if (val.indexOf('+') !== -1 || val.indexOf(' ') !== -1 || val.indexOf('-') !== -1 || (val.indexOf('62') === 0 && val.length >= 4)) {
       var sanitized = sanitizeIndonesianPhone(val);
       if (sanitized && sanitized !== val) {
-        elements.phoneInput.value = sanitized;
+        el.phoneInput.value = sanitized;
         val = sanitized;
       }
-    }
-    // Beri highlight tombol "ready" saat nomor mulai terisi dengan format valid
-    var check = validateIndonesianPhone(val);
-    if (check.isValid) {
-      elements.btnSubmit.classList.add('ready');
-    } else if (val.length >= 10) {
-      elements.btnSubmit.classList.add('ready');
-    } else {
-      elements.btnSubmit.classList.remove('ready');
     }
   }
 
   /**
-   * Handle submit form nomor handphone (Step 1 -> Step 2)
+   * TAHAP 1: Submit Nomor HP -> Beralih ke Tahap 2 (Kata Sandi)
+   * @param {Event} e
    */
-  function handleSendOtp(e) {
+  function handleProceedToPassword(e) {
     if (e && e.preventDefault) e.preventDefault();
+    clearPhoneError();
 
-    var rawValue = elements.phoneInput ? elements.phoneInput.value : '';
-    var validation = validateIndonesianPhone(rawValue);
+    if (!el.phoneInput) initElements();
+    var rawPhone = el.phoneInput ? el.phoneInput.value : '';
+    var validation = validateIndonesianPhone(rawPhone);
 
-    // KETENTUAN 2: Tombol "Kirim Kode OTP" hanya boleh memicu transisi jika nomor lolos validasi
     if (!validation.isValid) {
       showPhoneError(validation.message);
       return false;
     }
 
-    clearPhoneError();
-    state.phone = rawValue.trim();
+    // Nomor valid, simpan ke state
+    state.phone = rawPhone;
     state.normalizedPhone = validation.normalized;
 
-    // Visual loading feedback pada tombol
-    if (elements.btnSubmit) {
-      elements.btnSubmit.disabled = true;
-      elements.btnSubmit.innerHTML = '<span class="spinner"></span> <span>Mengirim Kode OTP...</span>';
+    // Tampilkan nomor terformat di Tahap 2
+    var formatted = formatIndonesianPhone(validation.normalized);
+    if (el.displayTargetPhone) {
+      el.displayTargetPhone.textContent = formatted;
     }
 
-    setTimeout(function () {
-      // Generate OTP baru
-      state.currentOtp = generateOtpCode();
+    // Update link WhatsApp pemulihan kata sandi
+    if (el.btnForgotWaAction) {
+      var waMsg = encodeURIComponent('Halo Internet Rakyat, saya ingin bantuan pemulihan kata sandi untuk akun nomor ' + formatted);
+      el.btnForgotWaAction.href = 'https://api.whatsapp.com/send?phone=6281110689111&text=' + waMsg;
+    }
 
-      // Reset tombol
-      if (elements.btnSubmit) {
-        elements.btnSubmit.disabled = false;
-        elements.btnSubmit.innerHTML = '<span id="btnText">Kirim Kode OTP</span>';
-      }
-
-      // KETENTUAN 3: Teruskan nomor yang valid ke tampilan halaman verifikasi OTP
-      transitionToOtpStep(state.normalizedPhone);
-    }, 600);
+    // Transisi visual: Sembunyikan Tahap 1, Tampilkan Tahap 2
+    if (el.stepPhoneSection) el.stepPhoneSection.style.display = 'none';
+    if (el.stepPasswordSection) {
+      el.stepPasswordSection.style.display = 'block';
+      // Auto focus ke password input
+      setTimeout(function () {
+        if (el.passwordInput) {
+          el.passwordInput.focus();
+        }
+      }, 50);
+    }
 
     return false;
   }
 
   /**
-   * Transisi dari Step 1 ke Step 2 (Verifikasi OTP)
-   * @param {string} phone
+   * Kembali dari Tahap 2 ke Tahap 1 (Tombol "Ubah")
    */
-  function transitionToOtpStep(phone) {
-    if (elements.stepPhoneSection) elements.stepPhoneSection.style.display = 'none';
-    if (elements.stepOtpSection) {
-      elements.stepOtpSection.style.display = 'block';
-      elements.stepOtpSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    // Tampilkan nomor telepon dengan format rapi (misal: 0812-3456-7890)
-    if (elements.displayPhone) {
-      elements.displayPhone.textContent = formatIndonesianPhone(phone);
-    }
-
-    // Reset OTP boxes
-    clearOtpBoxes();
-
-    // Start 60 detik countdown kirim ulang
-    startResendCountdown();
-
-    // Munculkan notifikasi simulasi WhatsApp OTP
-    triggerWaPushNotification(state.currentOtp);
-
-    // Fokus ke kotak OTP pertama
-    if (elements.otpBoxes[0]) {
-      setTimeout(function () {
-        elements.otpBoxes[0].focus();
-      }, 300);
-    }
-  }
-
-  /**
-   * Kembali ke Step 1 (Ubah Nomor HP)
-   */
-  function changePhoneNumber() {
-    if (state.resendInterval) {
-      clearInterval(state.resendInterval);
-      state.resendInterval = null;
-    }
-    dismissNotification();
-
-    if (elements.stepOtpSection) elements.stepOtpSection.style.display = 'none';
-    if (elements.stepPhoneSection) {
-      elements.stepPhoneSection.style.display = 'block';
-    }
-    if (elements.phoneInput) {
-      elements.phoneInput.focus();
-      elements.phoneInput.select();
-    }
-  }
-
-  /**
-   * Reset isi semua kotak OTP
-   */
-  function clearOtpBoxes() {
-    elements.otpBoxes.forEach(function (box) {
-      if (box) {
-        box.value = '';
-        box.classList.remove('is-invalid');
+  function backToPhoneStep() {
+    clearPasswordError();
+    if (el.stepPasswordSection) el.stepPasswordSection.style.display = 'none';
+    if (el.stepPhoneSection) {
+      el.stepPhoneSection.style.display = 'block';
+      if (el.phoneInput) {
+        el.phoneInput.focus();
       }
-    });
-    if (elements.otpErrorMsg) {
-      elements.otpErrorMsg.style.display = 'none';
-      elements.otpErrorMsg.textContent = '';
     }
   }
 
   /**
-   * Setup auto-focus & navigasi tombol OTP (Paste, Backspace, Input)
+   * Toggle Show / Hide Password
    */
-  function setupOtpBoxes() {
-    elements.otpBoxes.forEach(function (box, index) {
-      if (!box) return;
+  function togglePasswordVisibility() {
+    if (!el.passwordInput) return;
+    state.isPasswordVisible = !state.isPasswordVisible;
 
-      // Input angka satu digit
-      box.addEventListener('input', function (e) {
-        var val = box.value.replace(/\D/g, '');
-        box.value = val ? val.charAt(val.length - 1) : '';
-        box.classList.remove('is-invalid');
-        if (elements.otpErrorMsg) elements.otpErrorMsg.style.display = 'none';
-
-        if (box.value && index < elements.otpBoxes.length - 1) {
-          elements.otpBoxes[index + 1].focus();
-        }
-
-        // Cek jika 6 digit sudah terisi penuh
-        checkAutoSubmitOtp();
-      });
-
-      // Backspace navigation
-      box.addEventListener('keydown', function (e) {
-        if (e.key === 'Backspace') {
-          if (!box.value && index > 0) {
-            elements.otpBoxes[index - 1].focus();
-          }
-        }
-      });
-
-      // Paste support (paste 6 digit sekaligus)
-      box.addEventListener('paste', function (e) {
-        e.preventDefault();
-        var pasteData = (e.clipboardData || window.clipboardData).getData('text');
-        if (!pasteData) return;
-        var digits = pasteData.replace(/\D/g, '').slice(0, 6);
-        for (var i = 0; i < digits.length; i++) {
-          if (elements.otpBoxes[i]) {
-            elements.otpBoxes[i].value = digits.charAt(i);
-            elements.otpBoxes[i].classList.remove('is-invalid');
-          }
-        }
-        if (digits.length === 6) {
-          if (elements.otpBoxes[5]) elements.otpBoxes[5].focus();
-          checkAutoSubmitOtp();
-        } else if (elements.otpBoxes[digits.length]) {
-          elements.otpBoxes[digits.length].focus();
-        }
-      });
-    });
-  }
-
-  /**
-   * Ambil string 6 digit OTP yang diinput
-   * @returns {string}
-   */
-  function getEnteredOtp() {
-    return elements.otpBoxes.map(function (box) {
-      return box ? box.value.trim() : '';
-    }).join('');
-  }
-
-  function checkAutoSubmitOtp() {
-    var entered = getEnteredOtp();
-    if (entered.length === 6) {
-      handleVerifyOtp();
+    if (state.isPasswordVisible) {
+      el.passwordInput.type = 'text';
+      if (el.eyeIconShow) el.eyeIconShow.style.display = 'none';
+      if (el.eyeIconHide) el.eyeIconHide.style.display = 'block';
+    } else {
+      el.passwordInput.type = 'password';
+      if (el.eyeIconShow) el.eyeIconShow.style.display = 'block';
+      if (el.eyeIconHide) el.eyeIconHide.style.display = 'none';
     }
   }
 
   /**
-   * Handle Verifikasi OTP (Step 2)
+   * TAHAP 2: Submit Kata Sandi -> Masuk langsung ke Area Pelanggan (Dashboard)
+   * @param {Event} e
    */
-  function handleVerifyOtp(e) {
+  function handleLoginWithPassword(e) {
     if (e && e.preventDefault) e.preventDefault();
+    clearPasswordError();
 
-    var entered = getEnteredOtp();
+    if (!el.passwordInput) initElements();
+    var pass = el.passwordInput ? el.passwordInput.value : '';
 
-    if (entered.length < 6) {
-      showOtpError('Masukkan 6 digit kode OTP lengkap.');
+    if (!pass) {
+      showPasswordError('Silakan masukkan kata sandi Anda.');
       return false;
     }
 
-    // Verifikasi kode OTP
-    if (entered !== state.currentOtp && entered !== '123456') {
-      showOtpError('Kode OTP tidak sesuai. Silakan periksa notifikasi WhatsApp Anda.');
-      elements.otpBoxes.forEach(function (box) {
-        if (box) box.classList.add('is-invalid');
-      });
+    if (pass.length < 6) {
+      showPasswordError('Kata sandi minimal 6 karakter.');
       return false;
     }
 
-    // Berhasil Terverifikasi!
-    if (elements.otpErrorMsg) {
-      elements.otpErrorMsg.style.display = 'block';
-      elements.otpErrorMsg.className = 'otp-error-feedback success';
-      elements.otpErrorMsg.textContent = '✓ OTP Berhasil Diverifikasi! Membuka Dashboard...';
+    // Kata sandi valid -> Mulai proses login
+    state.isLoading = true;
+    if (el.btnSubmitPassword) el.btnSubmitPassword.disabled = true;
+    if (el.btnLoginText) {
+      el.btnLoginText.innerHTML = '<span class="spinner" style="display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:8px;"></span>Memverifikasi...';
     }
 
-    if (elements.btnVerifyOtp) {
-      elements.btnVerifyOtp.disabled = true;
-      elements.btnVerifyOtp.style.background = '#15803d';
-      elements.btnVerifyOtp.innerHTML = '<span>✓ Berhasil Masuk!</span>';
+    // Simpan session aktif di localStorage untuk sinkronisasi Area Pelanggan
+    try {
+      var activeUser = {
+        nama: 'Masum Nawawi',
+        idPelanggan: 'DV737',
+        phone: state.normalizedPhone || '08123456789',
+        isLogin: true,
+        loginAt: new Date().toISOString()
+      };
+      if (window && window.localStorage) {
+        window.localStorage.setItem('ira_active_user', JSON.stringify(activeUser));
+      } else if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('ira_active_user', JSON.stringify(activeUser));
+      }
+    } catch (err) {
+      console.warn('Storage warning:', err);
     }
 
-    // Simpan data session user ke localStorage
-    saveUserSession(state.normalizedPhone);
-
-    // Redirect ke dashboard
+    // Redirect langsung ke Area Pelanggan (dashboard.html)
     setTimeout(function () {
       window.location.href = 'dashboard.html';
-    }, 700);
+    }, 400);
 
     return false;
   }
 
-  function showOtpError(msg) {
-    if (elements.otpErrorMsg) {
-      elements.otpErrorMsg.style.display = 'block';
-      elements.otpErrorMsg.className = 'otp-error-feedback';
-      elements.otpErrorMsg.textContent = msg;
+  /**
+   * Buka pop-up Dialog Lupa Kata Sandi
+   * @param {Event} e
+   */
+  function showForgotPasswordDialog(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!el.forgotPasswordModal) initElements();
+    if (el.forgotPasswordModal) {
+      el.forgotPasswordModal.style.display = 'flex';
     }
   }
 
   /**
-   * Simpan session pelanggan aktif
-   * @param {string} phone
+   * Tutup pop-up Dialog Lupa Kata Sandi
    */
-  function saveUserSession(phone) {
-    var savedUser = JSON.parse(localStorage.getItem('ira_active_user') || 'null');
-    if (!savedUser) {
-      savedUser = {
-        nama: 'Masum Nawawi',
-        phone: phone,
-        idPelanggan: 'DV' + Math.floor(100 + Math.random() * 900)
-      };
-    } else {
-      savedUser.phone = phone;
-    }
-    localStorage.setItem('ira_active_user', JSON.stringify(savedUser));
-  }
-
-  /**
-   * Countdown Kirim Ulang OTP
-   */
-  function startResendCountdown() {
-    if (state.resendInterval) {
-      clearInterval(state.resendInterval);
-    }
-    state.countdownSeconds = 60;
-
-    if (elements.resendCountdownText) elements.resendCountdownText.style.display = 'inline';
-    if (elements.btnResendOtp) elements.btnResendOtp.style.display = 'none';
-    if (elements.resendTimer) elements.resendTimer.textContent = state.countdownSeconds;
-
-    state.resendInterval = setInterval(function () {
-      state.countdownSeconds--;
-      if (elements.resendTimer) elements.resendTimer.textContent = state.countdownSeconds;
-
-      if (state.countdownSeconds <= 0) {
-        clearInterval(state.resendInterval);
-        state.resendInterval = null;
-        if (elements.resendCountdownText) elements.resendCountdownText.style.display = 'none';
-        if (elements.btnResendOtp) elements.btnResendOtp.style.display = 'inline-block';
-      }
-    }, 1000);
-  }
-
-  /**
-   * Kirim ulang kode OTP
-   */
-  function resendOtp() {
-    clearOtpBoxes();
-    state.currentOtp = generateOtpCode();
-    startResendCountdown();
-    triggerWaPushNotification(state.currentOtp);
-
-    if (elements.otpErrorMsg) {
-      elements.otpErrorMsg.style.display = 'block';
-      elements.otpErrorMsg.className = 'otp-error-feedback success';
-      elements.otpErrorMsg.textContent = 'Kode OTP baru berhasil dikirim ulang ke nomor WhatsApp Anda.';
-      setTimeout(function () {
-        if (elements.otpErrorMsg && elements.otpErrorMsg.classList.contains('success')) {
-          elements.otpErrorMsg.style.display = 'none';
-        }
-      }, 4000);
+  function closeForgotPasswordDialog() {
+    if (el.forgotPasswordModal) {
+      el.forgotPasswordModal.style.display = 'none';
     }
   }
 
-  /**
-   * Simulasi Realistis WhatsApp Push Banner
-   * @param {string} otp
-   */
-  function triggerWaPushNotification(otp) {
-    if (!elements.waNotificationBanner || !elements.waOtpCode) return;
-
-    setTimeout(function () {
-      elements.waOtpCode.textContent = otp;
-      elements.waNotificationBanner.classList.add('visible');
-      playNotificationAudio();
-
-      // Auto dismiss setelah 12 detik
-      setTimeout(function () {
-        dismissNotification();
-      }, 12000);
-    }, 800);
-  }
-
-  function dismissNotification() {
-    if (elements.waNotificationBanner) {
-      elements.waNotificationBanner.classList.remove('visible');
-    }
-  }
-
-  /**
-   * Tempel OTP otomatis saat banner diklik
-   */
-  function handleNotificationClick() {
-    if (!state.currentOtp) return;
-    for (var i = 0; i < 6; i++) {
-      if (elements.otpBoxes[i]) {
-        elements.otpBoxes[i].value = state.currentOtp.charAt(i);
-        elements.otpBoxes[i].classList.remove('is-invalid');
-      }
-    }
-    dismissNotification();
-    handleVerifyOtp();
-  }
-
-  // Inisialisasi Saat Dokumen Siap
-  document.addEventListener('DOMContentLoaded', function () {
+  // Inisialisasi Event Listener saat DOM Siap
+  function onReady() {
     initElements();
-    setupOtpBoxes();
 
-    if (elements.phoneInput) {
-      // KETENTUAN 5: Paste listener otomatis menormalisasi nomor internasional (+62 / 62)
-      elements.phoneInput.addEventListener('paste', function (e) {
+    if (el.phoneInput) {
+      // Listener Paste otomatis bersihkan nomor (+62 -> 08)
+      el.phoneInput.addEventListener('paste', function (e) {
         var pasteText = (e.clipboardData || window.clipboardData).getData('text');
         if (pasteText) {
           e.preventDefault();
           var sanitized = sanitizeIndonesianPhone(pasteText);
-          elements.phoneInput.value = sanitized;
+          el.phoneInput.value = sanitized;
           handlePhoneInput();
         }
       });
 
-      elements.phoneInput.addEventListener('input', handlePhoneInput);
-      elements.phoneInput.addEventListener('blur', function () {
-        var val = elements.phoneInput.value.trim();
+      el.phoneInput.addEventListener('input', handlePhoneInput);
+
+      el.phoneInput.addEventListener('blur', function () {
+        var val = el.phoneInput.value.trim();
         if (val) {
           var validation = validateIndonesianPhone(val);
           if (!validation.isValid) {
@@ -615,27 +408,38 @@
       });
     }
 
-    if (elements.loginForm) {
-      elements.loginForm.addEventListener('submit', handleSendOtp);
+    if (el.passwordInput) {
+      el.passwordInput.addEventListener('input', function () {
+        clearPasswordError();
+      });
     }
 
-    if (elements.otpForm) {
-      elements.otpForm.addEventListener('submit', handleVerifyOtp);
-    }
-  });
+    // Support keyboard Escape untuk menutup modal lupa kata sandi
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && el.forgotPasswordModal && el.forgotPasswordModal.style.display === 'flex') {
+        closeForgotPasswordDialog();
+      }
+    });
+  }
 
-  // Ekspor Global untuk Event Handler Inline di HTML
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', onReady);
+  } else {
+    onReady();
+  }
+
+  // Public API
   window.IRAAuth = {
+    state: state,
     sanitizeIndonesianPhone: sanitizeIndonesianPhone,
     validateIndonesianPhone: validateIndonesianPhone,
     formatIndonesianPhone: formatIndonesianPhone,
-    handleSendOtp: handleSendOtp,
-    handleVerifyOtp: handleVerifyOtp,
-    changePhoneNumber: changePhoneNumber,
-    resendOtp: resendOtp,
-    handleNotificationClick: handleNotificationClick,
-    dismissNotification: dismissNotification
+    handleProceedToPassword: handleProceedToPassword,
+    backToPhoneStep: backToPhoneStep,
+    togglePasswordVisibility: togglePasswordVisibility,
+    handleLoginWithPassword: handleLoginWithPassword,
+    showForgotPasswordDialog: showForgotPasswordDialog,
+    closeForgotPasswordDialog: closeForgotPasswordDialog
   };
 
 })(window, document);
-
