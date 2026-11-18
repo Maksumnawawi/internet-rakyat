@@ -20,7 +20,6 @@
 <body>
 
   <!-- ==================== HEADER ==================== -->
-  <!-- ==================== HEADER ==================== -->
   <header>
     <a class="brand" href="index.html" aria-label="Internet Rakyat Beranda">
       <svg viewBox="0 0 64 64" width="40" height="40">
@@ -39,17 +38,15 @@
     <!-- Desktop Navigation Links (Hanya Tampil di Layar Besar) -->
     <nav class="desktop-nav" aria-label="Navigasi Utama Desktop">
       <a href="index.html">Beranda</a>
-      <a href="#apps">Bantuan</a>
-      <a href="#paket" onclick="if(document.getElementById('tab-paket')) document.getElementById('tab-paket').click()">Perpanjang Paket</a>
-      <div style="display:inline-flex;align-items:center;gap:10px">
-        <button class="btn-area" id="accountBtn" type="button">Area Pelanggan ▾</button>
-        <a href="login.html" class="btn-logout" title="Keluar ke halaman login">Keluar</a>
-      </div>
+      <a href="#wifiCard">Kelola WiFi</a>
+      <a href="#historySection">Riwayat &amp; Invoice</a>
+      <button class="btn-area" id="accountBtn" type="button">Area Pelanggan ▾</button>
+      <a href="login.html" class="btn-logout" title="Keluar ke halaman login">Keluar</a>
     </nav>
 
-    <!-- Hamburger Menu Toggle Button (Mobile) -->
-    <button class="menu-toggle" id="menuBtn" aria-label="Buka Menu Navigasi" type="button" onclick="openSidebar()">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+    <!-- Hamburger Menu Toggle Button (Selalu Tersedia & Responsif) -->
+    <button class="menu-toggle" id="menuBtn" aria-label="Buka Menu Navigasi" type="button" onclick="openSidebar()" title="Buka menu navigasi">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <line x1="3" y1="6" x2="21" y2="6"/>
         <line x1="3" y1="12" x2="21" y2="12"/>
         <line x1="3" y1="18" x2="21" y2="18"/>
@@ -68,14 +65,14 @@
   <!-- ==================== MAIN CONTENT ==================== -->
   <main class="wrap" id="top">
 
-    <!-- Profil & Notifikasi (Card Putih Mandiri Anti-Overlap) -->
+    <!-- 1. KARTU PROFIL PENGGUNA (DI ATAS) -->
     <div class="profile-card">
       <div class="profile-main">
         <div class="avatar" id="userAvatar">M</div>
         <div class="who">
           <h2 id="userNameDisplay">Masum Nawawi</h2>
           <div class="user-meta">
-            <span class="user-id" id="userIdDisplay">ID: DV765</span>
+            <span class="user-id" id="userIdDisplay">ID: DV737</span>
             <span class="user-badge-status">
               <span class="dot-online"></span> Pelanggan Aktif
             </span>
@@ -93,7 +90,7 @@
     <!-- Backdrop Blur Overlay untuk Modal Notifikasi -->
     <div id="notificationBackdrop" class="modal-backdrop" onclick="closeNotifications()"></div>
 
-    <!-- Modal Notifikasi Pelanggan (Backdrop & Close Button) -->
+    <!-- Modal Notifikasi Pelanggan -->
     <section class="notification-panel" id="notificationPanel" aria-labelledby="notificationTitle" hidden>
       <div class="modal-header">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -118,223 +115,290 @@
         <div class="notif-row">
           <div>
             <strong>Pembayaran Terverifikasi</strong>
-            <p>Pembayaran langganan Rp 100.000 via QRIS berhasil.</p>
+            <p>Pembayaran langganan Rp 250.000 via QRIS berhasil terkonfirmasi.</p>
             <small>01 Nov 2026, 09:15 WIB</small>
           </div>
         </div>
         <div class="notif-row">
           <div>
             <strong>Status Jaringan Prima</strong>
-            <p>Koneksi modem ONT Anda berjalan lancar (latency 3ms).</p>
-            <small>28 Okt 2026, 14:00 WIB</small>
+            <p>Koneksi modem ONT Anda berjalan lancar (latency 14ms).</p>
+            <small>18 Nov 2026, 07:00 WIB</small>
           </div>
         </div>
       </div>
     </section>
 
-          <!-- FITUR 2 (AFTER): QUICK WIFI MANAGER -->
-          <div class="card wifi-card" id="wifiCard">
-            <div class="card-head-flex">
-              <div>
-                <h3>Kelola WiFi Rumah</h3>
-                <p style="color:var(--muted);font-size:13px;margin-top:2px">Atur akses WiFi tanpa perlu login IP router 192.168.1.1</p>
-              </div>
-              <span class="badge-tag">Router AX-100</span>
+    <!-- 2. KARTU STATUS JARINGAN & PAKET AKTIF (ABOVE-THE-FOLD) -->
+    <div class="card net-pkg-card" id="networkStatusBar">
+      <!-- Sisi Atas: Status Jaringan & Diagnostik -->
+      <div class="net-status-section">
+        <div class="net-status-main">
+          <span class="pulse-dot" id="netPulseDot" aria-hidden="true"></span>
+          <div>
+            <div class="net-status-title">
+              <span id="netStatusTitle">Status Jaringan: Normal &amp; Terhubung</span>
+              <span class="badge-safe" id="netBadgeSafe">🟢 Online</span>
             </div>
-
-            <div class="wifi-box">
-              <div class="wifi-item">
-                <div>
-                  <label>Nama WiFi (SSID)</label>
-                  <div class="wifi-val" id="wifiSsidDisplay">InternetRakyat_5G</div>
-                </div>
-                <button class="btn-sm-action" id="btnEditSsid" type="button" title="Ubah Nama WiFi">Ubah Nama</button>
-              </div>
-
-              <div class="wifi-item" style="border-top:1px dashed #e2e8f0;padding-top:10px">
-                <div>
-                  <label>Kata Sandi WiFi</label>
-                  <div class="wifi-val masked" id="wifiPassDisplay">••••••••</div>
-                </div>
-                <div class="wifi-actions-row">
-                  <button class="btn-sm-action" id="btnTogglePass" type="button" title="Tampilkan kata sandi"><span id="passToggleText">Lihat</span></button>
-                  <button class="btn-sm-action" id="btnCopyPass" type="button" title="Salin ke clipboard">Salin</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="wifi-btns-grid">
-              <button class="btn-wifi-primary" id="btnChangePassModal" type="button">Ganti Password</button>
-              <button class="btn-wifi-secondary" id="btnRestartRouterModal" type="button">Restart Modem</button>
-            </div>
-          </div>
-
-          <!-- Promo Banner -->
-          <div class="promo">
-            <div>
-              <h4>Promo Seru<br>Bulan Ini!</h4>
-              <p>Nonton hiburan favorit tanpa buffering.</p>
-              <button class="btn-w" id="promoBtn" type="button">Lihat Promo</button>
-            </div>
-            <div class="emo" style="font-size:initial;display:flex;align-items:center;justify-content:center;opacity:0.85">
-              <svg viewBox="0 0 64 64" width="84" height="84" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="6" y="16" width="52" height="40" rx="4" fill="rgba(255,255,255,0.08)"/>
-                <polygon points="26,28 44,36 26,44" fill="#ffffff"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Customer Service -->
-          <div class="cs" id="apps">
-            <div class="ico" style="font-size:initial;display:flex;align-items:center">
-              <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#d90429" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 18v-6a9 9 0 1 1 18 0v6"/>
-                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-              </svg>
-            </div>
-            <div>
-              <h4>Pusat Bantuan &amp; Customer Care<br>Internet Rakyat 24/7</h4>
-              <div class="store">
-                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer">💬 WhatsApp CS</a>
-                <a href="tel:1500888">📞 Call Center 1500-IRA</a>
-              </div>
-            </div>
-            <div class="agent" style="font-size:initial;display:flex;align-items:center;opacity:0.85">
-              <svg viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#d90429" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="32" cy="22" r="12" fill="rgba(217,4,41,0.08)"/>
-                <path d="M14 52c0-10 8-16 18-16s18 6 18 16"/>
-                <path d="M42 22a10 10 0 0 0-20 0"/>
-                <path d="M32 34v5"/>
-                <circle cx="36" cy="39" r="2.5" fill="#d90429"/>
-              </svg>
-            </div>
+            <p class="net-status-desc" id="netStatusDesc">Modem ONT fiber aktif. Wilayah Anda bebas dari gangguan massal atau pemeliharaan.</p>
           </div>
         </div>
 
-        <!-- Kolom Kanan -->
-        <div class="right">
-          
-                <div>
-                  <small>Harga</small>
-                  <div><span class="old">Rp 100.000</span> <span class="free">Gratis</span></div>
-                </div>
-              </div>
-            </div>
-            <button class="buy" id="buyAgainBtn" type="button">BELI<br>LAGI</button>
+        <div class="net-metrics-row">
+          <div class="net-metric-item">
+            <span>Latensi / Ping</span>
+            <strong id="pingVal">14 ms</strong>
           </div>
-
-          <!-- Banner Pembayaran -->
-          <div class="pay-banner">
-            <div>
-              <h4>Bayar Internet<br>Ga Pake Telat!</h4>
-              <button id="paymentGuideBtn" type="button">Lihat panduan cara bayar</button>
-            </div>
-            <div class="banner-art">
-              <img src="assets/images/banner_edc.png" alt="Panduan Pembayaran Internet Rakyat">
-            </div>
+          <div class="net-metric-item">
+            <span>Kecepatan Unduh</span>
+            <strong id="speedVal">98.5 Mbps</strong>
           </div>
-
-          <!-- Riwayat Pembelian -->
-          <div class="hist-head">
-            <h3>Riwayat Pembelian Paket</h3>
-            <button class="filter-btn" id="filterBtn" type="button" aria-expanded="false" aria-controls="filterBox">⚙ Filter Tanggal</button>
-          </div>
-
-          <div class="filter-box" id="filterBox">
-            <div>
-              <label for="from">Dari tanggal</label>
-              <input type="date" id="from">
-            </div>
-            <div>
-              <label for="to">Sampai tanggal</label>
-              <input type="date" id="to">
-            </div>
-            <button class="btn-apply" id="apply" type="button">Terapkan</button>
-            <button class="btn-reset" id="reset" type="button">Reset</button>
-          </div>
-          <p id="filterMessage" class="filter-message" aria-live="polite"></p>
-
-          <div id="history">
-            <div class="hist-item" data-date="2026-10-01">
-              <svg class="logo" viewBox="0 0 64 64" width="44" height="44">
-                <circle cx="32" cy="32" r="32" fill="#d90429"/>
-                <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-              </svg>
-              <div class="info">
-                <div class="ok"><i>✓</i> Paket berhasil dibayar</div>
-                <h4>Paket IRA Up To 100 Mbps</h4>
-                <small>Dibayar pada 01 Oktober 2026, pukul 12:23:59 WIB</small>
-              </div>
-              <div class="right-col">
-                <div class="price"><span class="old">Rp 100.000</span> <span class="free">Gratis</span></div>
-                <button class="btn-inv" type="button">Lihat Invoice</button>
-              </div>
-            </div>
-
-            <div class="hist-item" data-date="2026-09-01">
-              <svg class="logo" viewBox="0 0 64 64" width="44" height="44">
-                <circle cx="32" cy="32" r="32" fill="#d90429"/>
-                <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-                <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
-              </svg>
-              <div class="info">
-                <div class="ok"><i>✓</i> Paket berhasil dibayar</div>
-                <h4>Paket IRA Up To 100 Mbps</h4>
-                <small>Dibayar pada 01 September 2026, pukul 12:23:59 WIB</small>
-              </div>
-              <div class="right-col">
-                <div class="price">Rp 100.000</div>
-                <button class="btn-inv" type="button">Lihat Invoice</button>
-              </div>
-            </div>
-
-            <div class="empty" id="empty">Tidak ada riwayat pada rentang tanggal ini.</div>
-          </div>
-
-          <nav class="pager" aria-label="Halaman riwayat pembelian">
-            <span aria-current="page">1</span>
-          </nav>
+          <button class="btn-check-net" id="btnCheckNet" type="button" aria-label="Tes ulang status koneksi internet">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            <span id="checkText">Cek Jaringan</span>
+          </button>
         </div>
       </div>
-    </section>
 
-    <!-- PANEL 2: DATA PRIBADI -->
-    <section class="panel" id="pribadi" role="tabpanel" aria-labelledby="tab-pribadi" tabindex="0">
-      <div class="card">
-        <h3>Data Pribadi</h3>
-        <div class="form">
-          <div class="field"><label>Nama Lengkap</label><div id="detailNama">Ikhda</div></div>
-          <div class="field"><label>ID Pelanggan</label><div id="detailId">DV765</div></div>
-          <div class="field"><label>Nomor WhatsApp</label><div id="detailPhone">08xx-xxxx-xxxx</div></div>
-          <div class="field"><label>Email</label><div id="detailEmail">ikhda@internetrakyat.id</div></div>
-          <div class="field" style="grid-column:1/-1"><label>Alamat Pemasangan</label><div>Jl. Contoh No. 1, Area Layanan Internet Rakyat</div></div>
+      <!-- Garis Pembatas Halus -->
+      <div class="net-pkg-divider"></div>
+
+      <!-- Sisi Bawah: Status Paket Aktif & Tombol Cepat Perpanjang -->
+      <div class="pkg-active-section">
+        <div class="pkg-active-info">
+          <div class="pkg-badge-icon" title="Paket Aktif">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <div style="flex:1;">
+            <div class="pkg-title-row">
+              <strong class="pkg-name" id="currentPkgName">Paket IRA Up To 100 Mbps</strong>
+              <span class="badge-expiry" id="currentPkgDaysBadge">Sisa 27 Hari</span>
+            </div>
+            <div class="pkg-expiry-progress">
+              <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="pkgProgressBar" style="width: 82%;"></div>
+              </div>
+              <div class="progress-labels">
+                <span id="pkgStatusSub">Paket aktif s/d <strong id="pkgExpiryDate">01 Des 2026</strong></span>
+                <span class="speed-sub">⚡ Kuota Unlimited Tanpa FUP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Cepat "Perpanjang" -->
+        <button class="btn-quick-extend" id="btnQuickExtend" type="button" onclick="openPurchaseModal('Paket IRA Up To 100 Mbps', 250000)">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/>
+          </svg>
+          <span>Perpanjang</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. KARTU KELOLA WIFI RUMAH -->
+    <div class="card wifi-card" id="wifiCard">
+      <div class="card-head-flex">
+        <div>
+          <h3>Kelola WiFi Rumah</h3>
+          <p style="color:var(--muted);font-size:13px;margin-top:2px">Atur akses WiFi tanpa perlu login IP router 192.168.1.1</p>
+        </div>
+        <span class="badge-tag">Router AX-100</span>
+      </div>
+
+      <div class="wifi-box">
+        <div class="wifi-item">
+          <div>
+            <label>Nama WiFi (SSID)</label>
+            <div class="wifi-val" id="wifiSsidDisplay">InternetRakyat_5G</div>
+          </div>
+          <button class="btn-sm-action" id="btnEditSsid" type="button" title="Ubah Nama WiFi">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <span>Ubah Nama</span>
+          </button>
+        </div>
+
+        <div class="wifi-item" style="border-top:1px dashed #e2e8f0;padding-top:12px">
+          <div>
+            <label>Kata Sandi WiFi</label>
+            <div class="wifi-val masked" id="wifiPassDisplay">••••••••</div>
+          </div>
+          <div class="wifi-actions-row">
+            <button class="btn-sm-action" id="btnTogglePass" type="button" title="Tampilkan kata sandi">
+              <span id="passToggleText">Lihat</span>
+            </button>
+            <button class="btn-sm-action" id="btnCopyPass" type="button" title="Salin ke clipboard">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>Salin</span>
+            </button>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- PANEL 3: INFORMASI PERANGKAT -->
-    <section class="panel" id="perangkat" role="tabpanel" aria-labelledby="tab-perangkat" tabindex="0">
-      <div class="card">
-        <div class="card-head-flex">
+      <div class="wifi-btns-grid">
+        <button class="btn-wifi-primary" id="btnChangePassModal" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Ganti Password</span>
+        </button>
+        <button class="btn-wifi-secondary" id="btnRestartRouterModal" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>
+          <span>Restart Modem</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 4. BANNER PROMO SERU BULAN INI (DIPINDAHKAN KE BAWAH KARTU KELOLA WIFI) -->
+    <div class="promo" style="margin-top:20px;margin-bottom:20px;">
+      <div>
+        <h4>Promo Seru<br>Bulan Ini!</h4>
+        <p>Nonton hiburan favorit tanpa buffering dengan add-on Vidio &amp; Catchplay+.</p>
+        <button class="btn-w" id="promoBtn" type="button">Lihat Promo</button>
+      </div>
+      <div class="emo" style="font-size:initial;display:flex;align-items:center;justify-content:center;opacity:0.85">
+        <svg viewBox="0 0 64 64" width="84" height="84" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="16" width="52" height="40" rx="4" fill="rgba(255,255,255,0.08)"/>
+          <polygon points="26,28 44,36 26,44" fill="#ffffff"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- PUSAT BANTUAN & CUSTOMER CARE 24/7 -->
+    <div class="cs" id="apps" style="margin-bottom:28px;">
+      <div class="ico" style="font-size:initial;display:flex;align-items:center">
+        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="#d90429" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 18v-6a9 9 0 1 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>
+      </div>
+      <div>
+        <h4>Pusat Bantuan &amp; Customer Care<br>Internet Rakyat 24/7</h4>
+        <div class="store">
+          <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20butuh%20bantuan" target="_blank" rel="noopener noreferrer">💬 WhatsApp CS Resmi</a>
+          <a href="tel:1500888">📞 Call Center 1500-IRA</a>
+        </div>
+      </div>
+      <div class="agent" style="font-size:initial;display:flex;align-items:center;opacity:0.85">
+        <svg viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#d90429" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="22" r="12" fill="rgba(217,4,41,0.08)"/>
+          <path d="M14 52c0-10 8-16 18-16s18 6 18 16"/>
+          <path d="M42 22a10 10 0 0 0-20 0"/>
+          <path d="M32 34v5"/>
+          <circle cx="36" cy="39" r="2.5" fill="#d90429"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 5. RIWAYAT PEMBELIAN & INVOICE -->
+    <div class="card" id="historySection" style="margin-bottom:28px;">
+      <div class="hist-head">
+        <div>
+          <h3>Riwayat Pembelian &amp; Invoice</h3>
+          <p style="color:var(--muted);font-size:13px;margin-top:2px">Daftar transaksi pembayaran langganan Internet Rakyat Anda</p>
+        </div>
+        <button class="filter-btn" id="filterBtn" type="button" aria-expanded="false" aria-controls="filterBox">⚙ Filter Tanggal</button>
+      </div>
+
+      <div class="filter-box" id="filterBox">
+        <div>
+          <label for="from">Dari tanggal</label>
+          <input type="date" id="from">
+        </div>
+        <div>
+          <label for="to">Sampai tanggal</label>
+          <input type="date" id="to">
+        </div>
+        <button class="btn-apply" id="apply" type="button">Terapkan</button>
+        <button class="btn-reset" id="reset" type="button">Reset</button>
+      </div>
+      <p id="filterMessage" class="filter-message" aria-live="polite"></p>
+
+      <div id="history">
+        <div class="hist-item" data-date="2026-10-01">
+          <svg class="logo" viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="32" r="32" fill="#d90429"/>
+            <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+          </svg>
+          <div class="info">
+            <div class="ok"><i>✓</i> Pembayaran Berhasil (Lunas)</div>
+            <h4>Paket IRA Up To 100 Mbps</h4>
+            <small>Dibayar pada 01 Oktober 2026, pukul 12:23 WIB via QRIS</small>
+          </div>
+          <div class="right-col">
+            <div class="price">Rp 250.000</div>
+            <button class="btn-inv" type="button" onclick="openInvoiceModal('INV-IRA-20261001-0982', '01 Oktober 2026', 'Paket IRA Up To 100 Mbps', 'Rp 250.000', 'QRIS')">Lihat Invoice</button>
+          </div>
+        </div>
+
+        <div class="hist-item" data-date="2026-09-01">
+          <svg class="logo" viewBox="0 0 64 64" width="44" height="44">
+            <circle cx="32" cy="32" r="32" fill="#d90429"/>
+            <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+          </svg>
+          <div class="info">
+            <div class="ok"><i>✓</i> Pembayaran Berhasil (Lunas)</div>
+            <h4>Paket IRA Up To 100 Mbps</h4>
+            <small>Dibayar pada 01 September 2026, pukul 09:14 WIB via VA BCA</small>
+          </div>
+          <div class="right-col">
+            <div class="price">Rp 250.000</div>
+            <button class="btn-inv" type="button" onclick="openInvoiceModal('INV-IRA-20260901-0541', '01 September 2026', 'Paket IRA Up To 100 Mbps', 'Rp 250.000', 'VA BCA')">Lihat Invoice</button>
+          </div>
+        </div>
+
+        <div class="empty" id="empty" style="display:none">Tidak ada riwayat pada rentang tanggal ini.</div>
+      </div>
+
+      <!-- Quick Action Beli Paket Lagi -->
+      <div style="margin-top:20px;padding:16px 20px;background:#f8fafc;border-radius:14px;border:1.5px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+        <div>
+          <strong style="color:#0f172a;font-size:15px;">Ingin Upgrade Kecepatan atau Tambah Paket?</strong>
+          <p style="color:#64748b;font-size:13px;margin-top:2px;">Tersedia paket hemat 50 Mbps hingga super cepat 200 Mbps.</p>
+        </div>
+        <button class="buy" id="buyAgainBtn" type="button" onclick="openPurchaseModal('Paket IRA Up To 100 Mbps', 250000)" style="margin:0;">BELI LAGI</button>
+      </div>
+
+      <!-- Banner Panduan Pembayaran -->
+      <div class="pay-banner" style="margin-top:20px;">
+        <div>
+          <h4>Bayar Internet<br>Ga Pake Telat!</h4>
+          <button id="paymentGuideBtn" type="button">Lihat panduan cara bayar</button>
+        </div>
+        <div class="banner-art">
+          <img src="assets/images/banner_edc.png" alt="Panduan Pembayaran Internet Rakyat">
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. INFORMASI STATUS PERANGKAT -->
+    <div class="card" id="perangkatSection" style="margin-bottom:34px;">
+      <div class="card-head-flex">
+        <div>
           <h3>Informasi &amp; Status Perangkat</h3>
-          <button class="btn-sm-action" id="btnPerangkatRestart" type="button">Restart Router</button>
+          <p style="color:var(--muted);font-size:13px;margin-top:2px">Status perangkat keras yang terpasang di rumah Anda</p>
         </div>
-        <div class="devices">
-          <div class="dev"><i class="dot" id="devRouterDot"></i><div><b>Router IRA AX-100</b><br><small style="color:var(--muted)">SN: IRA-AX-000123 • IP: 192.168.1.1</small></div><span id="devRouterStatus">Online</span></div>
-          <div class="dev"><i class="dot" id="devOntDot"></i><div><b>ONT Fiber</b><br><small style="color:var(--muted)">SN: IRA-ONT-004567 • Daya Optik: -19.4 dBm (Bagus)</small></div><span id="devOntStatus">Online</span></div>
-          <div class="dev"><i class="dot off"></i><div><b>Extender WiFi</b><br><small style="color:var(--muted)">SN: IRA-EXT-000789</small></div><span>Offline</span></div>
-        </div>
+        <button class="btn-sm-action" id="btnPerangkatRestart" type="button">Restart Router</button>
       </div>
-    </section>
+      <div class="devices">
+        <div class="dev"><i class="dot" id="devRouterDot"></i><div><b>Router IRA AX-100</b><br><small style="color:var(--muted)">SN: IRA-AX-000123 • IP: 192.168.1.1</small></div><span id="devRouterStatus">Online</span></div>
+        <div class="dev"><i class="dot" id="devOntDot"></i><div><b>ONT Fiber Optic</b><br><small style="color:var(--muted)">SN: IRA-ONT-004567 • Daya Optik: -19.4 dBm (Bagus)</small></div><span id="devOntStatus">Online</span></div>
+        <div class="dev"><i class="dot off"></i><div><b>Extender WiFi IRA</b><br><small style="color:var(--muted)">SN: IRA-EXT-000789</small></div><span>Offline</span></div>
+      </div>
+    </div>
 
   </main>
 
-  <!-- ==================== MODALS & DIALOGS ==================== -->
+  <!-- ==================== MODALS & DIALOGS (INTERAKTIF & BEKERJA PENUH) ==================== -->
+
+  <!-- Modal: Info / Dialog Umum -->
   <dialog id="infoDialog" aria-labelledby="dialogTitle">
     <div class="dialog-content">
       <h2 id="dialogTitle"></h2>
@@ -343,14 +407,14 @@
     </div>
   </dialog>
 
-  <!-- Modal: Ubah SSID -->
+  <!-- Modal 1: Ubah Nama WiFi (SSID) -->
   <dialog id="ssidDialog" aria-labelledby="ssidDialogTitle">
     <form class="dialog-content" id="ssidForm" method="dialog">
       <h2 id="ssidDialogTitle">Ubah Nama WiFi (SSID)</h2>
-      <p style="margin-bottom:14px;color:var(--muted);font-size:14px">Nama ini akan terlihat oleh semua perangkat yang mencari sinyal WiFi Anda.</p>
+      <p style="margin-bottom:14px;color:var(--muted);font-size:14px">Nama ini akan terlihat oleh semua perangkat yang mendeteksi sinyal WiFi di rumah Anda.</p>
       <div class="dialog-field">
         <label for="ssidInput">Nama WiFi Baru</label>
-        <input type="text" id="ssidInput" required minlength="3" maxlength="32" value="InternetRakyat_5G">
+        <input type="text" id="ssidInput" required minlength="3" maxlength="32" value="InternetRakyat_5G" placeholder="Contoh: InternetRakyat_5G">
       </div>
       <div class="dialog-actions-row">
         <button type="button" class="btn-cancel" id="btnCancelSsid">Batal</button>
@@ -359,7 +423,7 @@
     </form>
   </dialog>
 
-  <!-- Modal: Ganti Password WiFi -->
+  <!-- Modal 2: Ganti Password WiFi -->
   <dialog id="passDialog" aria-labelledby="passDialogTitle">
     <form class="dialog-content" id="passForm" method="dialog">
       <h2 id="passDialogTitle">Ganti Kata Sandi WiFi</h2>
@@ -380,14 +444,14 @@
     </form>
   </dialog>
 
-  <!-- Modal: Konfirmasi Restart Modem -->
+  <!-- Modal 3: Konfirmasi Restart Modem -->
   <dialog id="restartDialog" aria-labelledby="restartDialogTitle">
     <div class="dialog-content">
       <h2 id="restartDialogTitle">Konfirmasi Restart Modem</h2>
       <p style="margin-bottom:16px;color:#374151;font-size:15px;line-height:1.6">
         Apakah Anda yakin ingin memulai ulang (reboot) modem ONT &amp; router?
         <br><br>
-        <strong style="color:var(--red-dark)">⚠️ Catatan:</strong> Koneksi internet Anda akan terputus sementara selama kurang lebih 10–15 detik hingga modem kembali stabil.
+        <strong style="color:var(--red-dark)">⚠️ Catatan:</strong> Koneksi internet Anda akan terputus sementara selama kurang lebih 3 detik hingga perangkat kembali terhubung.
       </p>
       <div class="dialog-actions-row">
         <button type="button" class="btn-cancel" id="btnCancelRestart">Batal</button>
@@ -396,11 +460,273 @@
     </div>
   </dialog>
 
+  <!-- Modal 4: Animasi Restart Modem (3 Detik) -->
+  <dialog id="restartingModal" aria-labelledby="restartingTitle">
+    <div class="dialog-content restart-anim-box">
+      <div class="restart-spinner" id="restartSpinner"></div>
+      <h3 id="restartingTitle" style="font-size:18px;font-weight:800;color:#0f172a;margin-bottom:6px;">Merestart Modem ONT &amp; Router...</h3>
+      <p id="restartingStatusText" style="font-size:13.5px;color:#64748b;">Mematikan transmisi radio &amp; reboot sistem...</p>
+      <div class="restart-progress-track">
+        <div class="restart-progress-bar" id="restartProgressBar"></div>
+      </div>
+      <span id="restartingTimerText" style="font-size:12px;font-weight:700;color:#d90429;">3 detik</span>
+    </div>
+  </dialog>
+
+  <!-- Modal 5: Alur Pembelian & Perpanjang Paket ("BELI LAGI" Flow) -->
+  <dialog id="purchaseModal" aria-labelledby="purchaseModalTitle" style="max-width:540px;">
+    <div class="dialog-content">
+      <!-- Step 1: Pilihan Paket -->
+      <div id="purchaseStep1">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <h2 id="purchaseModalTitle" style="font-size:20px;font-weight:800;color:#0f172a;">Pilih Paket Internet Rakyat</h2>
+          <button type="button" class="btn-modal-close" onclick="closePurchaseModal()" aria-label="Tutup">✕</button>
+        </div>
+        <p style="font-size:13.5px;color:#64748b;margin-bottom:16px;">Pilih kecepatan yang sesuai dengan kebutuhan internet keluarga Anda.</p>
+
+        <div class="pkg-options-grid">
+          <div class="pkg-option-card" onclick="selectPkgOption(this, 'Paket IRA Up To 50 Mbps', 165000)">
+            <div class="pkg-option-title">IRA Hemat 50 Mbps</div>
+            <div class="pkg-option-price">Rp 165.000<span style="font-size:12px;font-weight:600;color:#64748b;">/bln</span></div>
+            <div class="pkg-option-speed">Cocok untuk 1–3 perangkat</div>
+          </div>
+
+          <div class="pkg-option-card selected" onclick="selectPkgOption(this, 'Paket IRA Up To 100 Mbps', 250000)">
+            <span class="badge-popular">Populer</span>
+            <div class="pkg-option-title">IRA Mantap 100 Mbps</div>
+            <div class="pkg-option-price">Rp 250.000<span style="font-size:12px;font-weight:600;color:#64748b;">/bln</span></div>
+            <div class="pkg-option-speed">Streaming 4K &amp; WFH lancar</div>
+          </div>
+
+          <div class="pkg-option-card" onclick="selectPkgOption(this, 'Paket IRA Up To 200 Mbps', 385000)">
+            <div class="pkg-option-title">IRA Gamer 200 Mbps</div>
+            <div class="pkg-option-price">Rp 385.000<span style="font-size:12px;font-weight:600;color:#64748b;">/bln</span></div>
+            <div class="pkg-option-speed">Ultra latency rendah &amp; Gaming</div>
+          </div>
+        </div>
+
+        <div class="dialog-actions-row">
+          <button type="button" class="btn-cancel" onclick="closePurchaseModal()">Batal</button>
+          <button type="button" class="btn-submit" onclick="goToPaymentStep()">Lanjut ke Pembayaran ›</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Konfirmasi Pembayaran -->
+      <div id="purchaseStep2" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <h2 style="font-size:20px;font-weight:800;color:#0f172a;">Konfirmasi Pembayaran</h2>
+          <button type="button" class="btn-modal-close" onclick="closePurchaseModal()" aria-label="Tutup">✕</button>
+        </div>
+
+        <!-- Rincian Biaya -->
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;font-size:13.5px;color:#475569;margin-bottom:6px;">
+            <span id="summaryPkgName">Paket IRA Up To 100 Mbps</span>
+            <strong id="summaryPkgPrice">Rp 250.000</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12.5px;color:#64748b;margin-bottom:6px;">
+            <span>PPN 11%</span>
+            <span id="summaryPkgTax">Termasuk (Rp 0)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:12.5px;color:#15803d;margin-bottom:10px;">
+            <span>Biaya Admin</span>
+            <span>Gratis</span>
+          </div>
+          <div style="border-top:1.5px dashed #cbd5e1;padding-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <strong style="color:#0f172a;font-size:15px;">Total Pembayaran</strong>
+            <strong style="color:#d90429;font-size:18px;" id="summaryTotal">Rp 250.000</strong>
+          </div>
+        </div>
+
+        <!-- Pilihan Metode Pembayaran -->
+        <label style="font-size:13px;font-weight:700;color:#1e293b;display:block;margin-bottom:8px;">Metode Pembayaran</label>
+        <div class="payment-tabs">
+          <button type="button" class="payment-tab-btn active" id="tabQris" onclick="switchPayMethod('qris')">QRIS Instan</button>
+          <button type="button" class="payment-tab-btn" id="tabVa" onclick="switchPayMethod('va')">Virtual Account</button>
+        </div>
+
+        <!-- QRIS Box -->
+        <div class="qris-box" id="payQrisBox">
+          <svg viewBox="0 0 160 160" width="130" height="130">
+            <rect width="160" height="160" fill="#ffffff"/>
+            <!-- Simbol QR Otentik -->
+            <rect x="10" y="10" width="40" height="40" fill="#0f172a"/>
+            <rect x="16" y="16" width="28" height="28" fill="#ffffff"/>
+            <rect x="22" y="22" width="16" height="16" fill="#0f172a"/>
+            <rect x="110" y="10" width="40" height="40" fill="#0f172a"/>
+            <rect x="116" y="16" width="28" height="28" fill="#ffffff"/>
+            <rect x="122" y="22" width="16" height="16" fill="#0f172a"/>
+            <rect x="10" y="110" width="40" height="40" fill="#0f172a"/>
+            <rect x="16" y="116" width="28" height="28" fill="#ffffff"/>
+            <rect x="22" y="122" width="16" height="16" fill="#0f172a"/>
+            <!-- Modul Data Acak -->
+            <rect x="60" y="15" width="10" height="10" fill="#0f172a"/><rect x="80" y="15" width="15" height="10" fill="#0f172a"/>
+            <rect x="60" y="35" width="20" height="10" fill="#0f172a"/><rect x="90" y="35" width="10" height="15" fill="#0f172a"/>
+            <rect x="15" y="60" width="15" height="15" fill="#0f172a"/><rect x="40" y="60" width="10" height="10" fill="#0f172a"/>
+            <rect x="60" y="60" width="40" height="40" fill="#d90429"/><circle cx="80" cy="80" r="14" fill="#ffffff"/><path d="M74 77a8 8 0 0 1 12 0M77 82a5 5 0 0 1 6 0" stroke="#d90429" stroke-width="2.5" fill="none"/>
+            <rect x="110" y="60" width="15" height="15" fill="#0f172a"/><rect x="135" y="60" width="15" height="10" fill="#0f172a"/>
+            <rect x="60" y="110" width="15" height="15" fill="#0f172a"/><rect x="85" y="110" width="20" height="10" fill="#0f172a"/>
+            <rect x="110" y="110" width="10" height="15" fill="#0f172a"/><rect x="130" y="110" width="20" height="20" fill="#0f172a"/>
+            <rect x="60" y="135" width="25" height="15" fill="#0f172a"/><rect x="95" y="130" width="15" height="20" fill="#0f172a"/>
+          </svg>
+          <p style="font-size:12.5px;color:#64748b;margin-top:8px;">Scan dengan aplikasi m-Banking atau E-Wallet apa saja</p>
+        </div>
+
+        <!-- VA Box -->
+        <div class="va-box" id="payVaBox" style="display:none;">
+          <div>
+            <span style="font-size:12px;color:#64748b;display:block;">Nomor Virtual Account (BCA / Mandiri / BRI)</span>
+            <div class="va-num" id="vaNumDisplay">8077 0812 3456 7890</div>
+          </div>
+          <button type="button" class="btn-sm-action" onclick="copyVaNumber()">Salin VA</button>
+        </div>
+
+        <div class="dialog-actions-row">
+          <button type="button" class="btn-cancel" onclick="backToStep1()">‹ Kembali</button>
+          <button type="button" class="btn-submit" id="btnPayConfirm" onclick="processPayment()">Bayar Sekarang (Simulasi)</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Layar Sukses Transaksi -->
+      <div id="purchaseStep3" style="display:none;text-align:center;padding:14px 6px;">
+        <div style="width:68px;height:68px;border-radius:50%;background:#f0fdf4;border:2px solid #86efac;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#16a34a;">
+          <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2 style="font-size:22px;font-weight:900;color:#0f172a;margin-bottom:6px;">Pembayaran Berhasil!</h2>
+        <p style="font-size:14px;color:#475569;margin-bottom:18px;">Paket internet Anda berhasil diperpanjang. Masa aktif bertambah <strong>+30 Hari</strong>.</p>
+
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 18px;text-align:left;font-size:13px;color:#334155;margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span style="color:#64748b;">No. Transaksi</span>
+            <strong id="successTrxId">INV-IRA-20261118-0912</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span style="color:#64748b;">Nama Layanan</span>
+            <strong id="successPkgName">Paket IRA Up To 100 Mbps</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+            <span style="color:#64748b;">Total Bayar</span>
+            <strong style="color:#15803d;" id="successTotal">Rp 250.000</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:#64748b;">Status</span>
+            <strong style="color:#15803d;">✓ LUNAS (Aktif)</strong>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;justify-content:center;">
+          <button type="button" class="btn-cancel" onclick="closePurchaseModal()">Kembali ke Dashboard</button>
+          <button type="button" class="btn-submit" onclick="showLatestInvoice()">Lihat Invoice Resmi</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Modal 6: Kuitansi Resmi Internet Rakyat (Invoice Formal) -->
+  <dialog id="invoiceModal" aria-labelledby="invModalTitle" style="max-width:600px;">
+    <div class="dialog-content">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:8px;">
+        <button type="button" class="btn-modal-close" onclick="closeInvoiceModal()" aria-label="Tutup">✕</button>
+      </div>
+
+      <div class="invoice-paper" id="invoicePaper">
+        <!-- Header Invoice -->
+        <div class="invoice-header">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <svg viewBox="0 0 64 64" width="44" height="44">
+              <circle cx="32" cy="32" r="32" fill="#d90429"/>
+              <path d="M15 25a24 24 0 0 1 34 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <path d="M21 32a16 16 0 0 1 22 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <path d="M27 39a8 8 0 0 1 10 0" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+              <circle cx="32" cy="47" r="3.5" fill="#ffffff"/>
+            </svg>
+            <div>
+              <div style="font-size:18px;font-weight:900;color:#d90429;line-height:1;">internet <span style="color:#0f172a;">RAKYAT</span></div>
+              <small style="font-size:11px;color:#64748b;font-weight:600;">PT. Telemedia Komunikasi Pratama</small>
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <span style="font-size:12px;font-weight:700;color:#64748b;display:block;">FAKTUR PEMBAYARAN</span>
+            <strong style="font-size:14px;color:#0f172a;" id="invNoDisplay">INV-IRA-20261001-0982</strong>
+          </div>
+        </div>
+
+        <!-- Meta Tagihan & Pelanggan -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:12.5px;color:#475569;margin-bottom:16px;">
+          <div>
+            <span style="display:block;color:#94a3b8;font-size:11px;">DITERBITKAN UNTUK:</span>
+            <strong style="font-size:14px;color:#0f172a;display:block;margin-top:2px;">Masum Nawawi</strong>
+            <span>ID Pelanggan: <strong id="invCustId">DV737</strong></span><br>
+            <span>Alamat: Jl. Tiang Bendera V No. 20, Jakarta Barat</span>
+          </div>
+          <div style="text-align:right;">
+            <span style="display:block;color:#94a3b8;font-size:11px;">TANGGAL TRANSAKSI:</span>
+            <strong style="font-size:13.5px;color:#0f172a;display:block;margin-top:2px;" id="invDateDisplay">01 Oktober 2026</strong>
+            <span>Metode: <strong id="invMethodDisplay">QRIS Instan</strong></span><br>
+            <span>Status: <strong style="color:#15803d;">Berhasil</strong></span>
+          </div>
+        </div>
+
+        <!-- Tabel Rincian -->
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Deskripsi Layanan</th>
+              <th style="text-align:center;">Periode</th>
+              <th style="text-align:right;">Jumlah</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong id="invTablePkgName">Paket IRA Up To 100 Mbps</strong><br>
+                <small style="color:#64748b;">Langganan Internet Fiber Rumah Unlimited Tanpa FUP</small>
+              </td>
+              <td style="text-align:center;">1 Bulan (30 Hari)</td>
+              <td style="text-align:right;" id="invTableSubtotal">Rp 225.225</td>
+            </tr>
+            <tr>
+              <td>PPN 11%</td>
+              <td style="text-align:center;">-</td>
+              <td style="text-align:right;" id="invTableTax">Rp 24.775</td>
+            </tr>
+            <tr>
+              <td>Biaya Instalasi &amp; Router AX-100</td>
+              <td style="text-align:center;">1x</td>
+              <td style="text-align:right;color:#15803d;font-weight:700;">GRATIS</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Stempel Lunas & Total -->
+        <div class="invoice-stamp-container">
+          <div class="stamp-paid">LUNAS / PAID</div>
+          <div style="text-align:right;">
+            <span style="font-size:12px;color:#64748b;display:block;">TOTAL PEMBAYARAN:</span>
+            <strong style="font-size:22px;color:#d90429;" id="invTableTotal">Rp 250.000</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aksi Modal Invoice -->
+      <div class="dialog-actions-row" style="margin-top:16px;">
+        <button type="button" class="btn-cancel" onclick="closeInvoiceModal()">Tutup</button>
+        <button type="button" class="btn-submit" onclick="printInvoice()">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          Cetak / Unduh PDF
+        </button>
+      </div>
+    </div>
+  </dialog>
+
   <!-- Toast Notification Container -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <!-- Main Application Script -->
-  <script src="assets/js/app.js"></script>
 
   <!-- ==================== SIDEBAR DRAWER MELAYANG (DIRECT BODY CHILD) ==================== -->
   <!-- Backdrop / Dim Layer (Fixed Inset-0, Z-40 / Z-99998) -->
@@ -417,58 +743,70 @@
       <button type="button" class="drawer-close-btn" id="navDrawerCloseBtn" onclick="closeSidebar()" aria-label="Tutup menu">✕</button>
     </div>
 
-    <!-- Mini Profil Pengguna di Drawer -->
+    <!-- Mini Profil Pengguna di Drawer (ID: DV737) -->
     <div class="drawer-user-info">
       <div class="drawer-avatar" id="drawerAvatar">M</div>
       <div class="drawer-user-meta">
         <strong class="drawer-user-name" id="drawerUserName">Masum Nawawi</strong>
-        <span class="drawer-user-id" id="drawerUserId">ID: DV765</span>
+        <span class="drawer-user-id" id="drawerUserId">ID: DV737</span>
       </div>
     </div>
 
-    <!-- Navigasi Vertikal Rapi -->
+    <!-- Navigasi Vertikal Rapi Sesuai Ketentuan -->
     <div class="drawer-links">
+      <!-- 1. Beranda Utama -->
       <a href="index.html" class="drawer-link" onclick="closeSidebar()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
           <polyline points="9 22 9 12 15 12 15 22"/>
         </svg>
-        <span>Beranda</span>
+        <span>Beranda Utama</span>
       </a>
 
-      <a href="#paket" class="drawer-link" onclick="closeSidebar(); if(document.getElementById('tab-paket')) document.getElementById('tab-paket').click()">
+      <!-- 2. Dashboard Pelanggan -->
+      <a href="#top" class="drawer-link" onclick="closeSidebar(); window.scrollTo({top:0, behavior:'smooth'});">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <rect x="3" y="3" width="7" height="7"/>
+          <rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/>
         </svg>
-        <span>Paket &amp; Riwayat</span>
+        <span>Dashboard Pelanggan</span>
       </a>
 
-      <a href="#pribadi" class="drawer-link" onclick="closeSidebar(); if(document.getElementById('tab-pribadi')) document.getElementById('tab-pribadi').click()">
+      <!-- 3. Kelola WiFi Rumah -->
+      <a href="#wifiCard" class="drawer-link" onclick="closeSidebar(); document.getElementById('wifiCard').scrollIntoView({behavior:'smooth'});">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
+          <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+          <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+          <line x1="12" y1="20" x2="12.01" y2="20"/>
         </svg>
-        <span>Profil Pengguna</span>
+        <span>Kelola WiFi Rumah</span>
       </a>
 
-      <a href="#apps" class="drawer-link" onclick="closeSidebar()">
+      <!-- 4. Riwayat & Invoice -->
+      <a href="#historySection" class="drawer-link" onclick="closeSidebar(); document.getElementById('historySection').scrollIntoView({behavior:'smooth'});">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-          <line x1="12" y1="17" x2="12.01" y2="17"/>
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
         </svg>
-        <span>Bantuan &amp; Panduan</span>
+        <span>Riwayat &amp; Invoice</span>
       </a>
 
+      <!-- Pusat Bantuan WhatsApp CS -->
       <a href="https://api.whatsapp.com/send?phone=6281119288888&text=Halo%20Internet%20Rakyat,%20saya%20butuh%20bantuan" target="_blank" rel="noopener noreferrer" class="drawer-link" onclick="closeSidebar()">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="#25d366">
           <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2z"/>
         </svg>
-        <span>Chat WhatsApp CS</span>
+        <span>Pusat Bantuan CS</span>
       </a>
     </div>
 
-    <!-- Tombol Keluar dari Akun (Rapi di Bawah Drawer) -->
+    <!-- Tombol Merah Keluar / Logout di Bagian Bawah -->
     <div class="drawer-footer">
       <a href="login.html" class="drawer-btn-logout">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -476,10 +814,12 @@
           <polyline points="16 17 21 12 16 7"/>
           <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
-        <span>Keluar dari Akun</span>
+        <span>Keluar / Logout</span>
       </a>
     </div>
   </aside>
 
+  <!-- Main Application Script -->
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
